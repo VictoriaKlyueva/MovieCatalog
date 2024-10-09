@@ -9,24 +9,51 @@
         android:src="@drawable/background_welcome"
         android:scaleType="centerCrop"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@drawable/shadow_top"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/shadow_bottom"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добро пожаловать в MovieCatalog"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="24dp">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Войти в аккаунт"
+            android:textColor="@color/white"
             android:layout_above="@id/registerButton"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_primary_default"
+            android:textAllCaps="false"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Зарегистрироваться"
+            android:textColor="@color/white"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_secondary"
+            android:textAllCaps="false"/>
     </RelativeLayout>
 </FrameLayout>
