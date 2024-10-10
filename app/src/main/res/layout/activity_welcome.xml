@@ -29,20 +29,19 @@
             android:background="@drawable/shadow_bottom"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_moviecatalog"
-        android:fontFamily="@font/manrope_bold"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_moviecatalog"
+            android:fontFamily="@font/manrope_bold"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            android:layout_marginTop="32dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
