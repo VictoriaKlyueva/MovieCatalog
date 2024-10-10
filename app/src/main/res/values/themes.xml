@@ -10,4 +10,8 @@
     </style>
 
     <style name="Theme.MovieCatalog" parent="Base.Theme.MovieCatalog" />
+
+    <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/manrope_bold</item>
+    </style>
 </resources>

@@ -44,4 +44,7 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="welcome_moviecatalog">Добро пожаловать в MovieCatalog</string>
+    <string name="log_in_to_account">Войти в аккаунт</string>
+    <string name="sign_up">Зарегистрироваться</string>
 </resources>
