@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="32dp"
+    android:background="@color/dark">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:autofillHints="username"
+        android:hint="@string/login"
+        android:fontFamily="@font/manrope_regular"
+        android:textColorHint="@color/gray_faded"
+        android:textColor="@color/gray_faded"
+        android:textSize="14sp"
+        android:inputType="text"
+
+        android:background="@drawable/rounded_edit_text"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:autofillHints="password"
+        android:hint="@string/password"
+        android:fontFamily="@font/manrope_regular"
+        android:textColorHint="@color/gray_faded"
+        android:textColor="@color/gray_faded"
+        android:textSize="14sp"
+        android:inputType="textPassword"
+
+        android:background="@drawable/rounded_edit_text"
+        android:padding="12dp"
+        android:layout_marginBottom="32dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/enter"
+        android:textColor="@color/gray_faded"
+        android:background="@drawable/button_secondary"
+        android:textAllCaps="false" />
+</LinearLayout>
