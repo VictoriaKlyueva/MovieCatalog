@@ -1,8 +1,7 @@
 package com.example.moviecatalog
 
-import com.example.moviecatalog.R
+import android.content.Intent
 import android.os.Bundle
-import android.view.View;
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
@@ -26,13 +25,16 @@ class WelcomeActivity : AppCompatActivity() {
         val registerButton = findViewById<Button>(R.id.registerButton)
 
         loginButton.setOnClickListener {
-            // Логика перехода к экрану входа (или просто печатаем сообщение)
-            // startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+            startActivity(
+                Intent(
+                    this,
+                    SignInActivity::class.java
+                )
+            )
         }
 
         registerButton.setOnClickListener {
-            // Логика регистрации
-            // Здесь вы можете добавить свою логику регистрации
+
         }
     }
 }
