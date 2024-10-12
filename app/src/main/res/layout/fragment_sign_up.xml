@@ -117,8 +117,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:orientation="horizontal"
-        android:background="@drawable/rounded_corners">
+        android:orientation="horizontal">
 
         <ToggleButton
             android:id="@+id/buttonMale"
