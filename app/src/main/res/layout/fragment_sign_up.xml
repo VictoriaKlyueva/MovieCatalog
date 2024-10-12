@@ -21,7 +21,10 @@
 
         android:background="@drawable/rounded_edit_text"
         android:padding="12dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_clear"
+        android:drawablePadding="8dp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextEmail"
@@ -38,7 +41,10 @@
 
         android:background="@drawable/rounded_edit_text"
         android:padding="12dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_clear"
+        android:drawablePadding="8dp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextName"
@@ -56,7 +62,10 @@
 
         android:background="@drawable/rounded_edit_text"
         android:padding="12dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_clear"
+        android:drawablePadding="8dp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextPassword"
@@ -76,7 +85,7 @@
         android:layout_marginBottom="8dp" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/editTextСonfirmPassword"
+        android:id="@+id/editTextConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
