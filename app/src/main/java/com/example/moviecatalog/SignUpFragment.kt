@@ -129,16 +129,12 @@ class SignUpFragment : Fragment() {
         buttonMale.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 buttonFemale.isChecked = false
-                buttonFemale.setBackgroundResource(R.drawable.toggle_inactive)
-                buttonMale.setBackgroundResource(R.drawable.toggle_active)
             }
         }
 
         buttonFemale.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 buttonMale.isChecked = false
-                buttonMale.setBackgroundResource(R.drawable.toggle_inactive)
-                buttonFemale.setBackgroundResource(R.drawable.toggle_active)
             }
         }
     }
