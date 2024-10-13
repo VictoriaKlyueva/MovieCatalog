@@ -96,6 +96,18 @@ class SignUpFragment : Fragment() {
 
         editTextDateOfBirth = view.findViewById(R.id.editTextDateOfBirth)
         editTextDateOfBirth.setOnClickListener { showDatePickerDialog() }
+        editTextDateOfBirth.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val dateText = s.toString().trim()
+                if (dateText.isEmpty() || !isValidDate(dateText)) {
+                    editTextDateOfBirth.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_calendar, 0)
+                }
+            }
+        })
 
         buttonMale = view.findViewById(R.id.buttonMale)
         buttonFemale = view.findViewById(R.id.buttonFemale)
@@ -104,9 +116,44 @@ class SignUpFragment : Fragment() {
         return view
     }
 
+    private fun isValidDate(date: String): Boolean {
+        // Является ли год високосным
+        fun isLeapYear(year: Int): Boolean {
+            return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+        }
+
+        val (dayStr, monthStr, yearStr) = date.split(" ").map { it.trim() }
+
+        return try {
+            val day = dayStr.toInt()
+            val year = yearStr.toInt()
+
+            if (year < 1900 || year > 2020) return false
+
+            if (day < 1 || day > 31) return false
+
+            val monthIndex = months.indexOf(monthStr.toLowerCase())
+            if (monthIndex == -1) return false // Неверный месяц
+
+            val daysInMonth = when (monthIndex) {
+                // Январь, март, май, июль, август, сентябрь и декабрь
+                0, 2, 4, 6, 7, 9, 11 -> 31
+                // Апрель, июнь, сентябрь, ноябрь
+                3, 5, 8, 10 -> 30
+                // Февраль
+                1 -> if (isLeapYear(year)) 29 else 28
+                else -> return false
+            }
+
+            return day <= daysInMonth
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     private val months = arrayOf(
-        "января", "февраля", "марта", "апреля", "мая",
-        "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"
+        "января", "февраля", "марта", "апреля", "мая", "июня", "июля",
+        "августа", "сентября", "октября", "ноября", "декабря"
     )
 
     private fun showDatePickerDialog() {
