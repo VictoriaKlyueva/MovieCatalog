@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ToggleButton
@@ -29,6 +30,44 @@ class SignUpFragment : Fragment() {
 
     private lateinit var buttonMale: ToggleButton
     private lateinit var buttonFemale: ToggleButton
+
+    private lateinit var buttonSignUp: Button
+
+    private fun isValidData(): Boolean {
+        val isNull = (editTextLogin.text.toString().isEmpty() ||
+                editTextEmail.text.toString().isEmpty() ||
+                editTextName.text.toString().isEmpty() ||
+                editTextPassword.text.toString().isEmpty() ||
+                editTextConfirmPassword.text.toString().isEmpty() ||
+                editTextDateOfBirth.text.toString().isEmpty() ||
+                (!buttonMale.isChecked && !buttonFemale.isChecked)
+                )
+
+        val isValidEmail = isValidEmail(editTextEmail.text.toString())
+        val isStrongPassword = isStrongPassword(editTextPassword.text.toString())
+        val isValidPasswords =
+            editTextPassword.text.toString() == editTextConfirmPassword.text.toString()
+        val isValidDate = isValidDate(editTextDateOfBirth.text.toString())
+
+        return !isNull && isValidEmail && isStrongPassword && isValidPasswords && isValidDate
+    }
+
+    private fun isStrongPassword(password: String): Boolean {
+        if (password.length < 8)
+            return false
+
+        val hasUpperCase = password.any { it.isUpperCase() }
+        val hasLowerCase = password.any { it.isLowerCase() }
+        val hasDigit = password.any { it.isDigit() }
+        val hasSpecialChar = password.any { !it.isLetterOrDigit() }
+
+        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        val emailRegex = "^[\\w-.]+@[\\w-]+\\.[a-z]{2,6}$".toRegex()
+        return emailRegex.matches(email)
+    }
 
     private fun getTextWatcher(editText: EditText, icon: Int, isPassword: Boolean = false): TextWatcher {
         return object : TextWatcher {
@@ -54,6 +93,7 @@ class SignUpFragment : Fragment() {
                         0
                     )
                 }
+                updateButtonState()
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -83,8 +123,7 @@ class SignUpFragment : Fragment() {
             if (event.action == MotionEvent.ACTION_UP) {
                 if (editText.compoundDrawables[2] != null) {
                     if (event.rawX >= (editText.right - editText.compoundDrawables[2].bounds.width())) {
-                        val isPasswordVisible = editText.transformationMethod is HideReturnsTransformationMethod
-                        if (isPasswordVisible) {
+                        if (editText.transformationMethod is HideReturnsTransformationMethod) {
                             // Скрыть пароль
                             editText.transformationMethod = PasswordTransformationMethod.getInstance()
                             editText.setCompoundDrawablesWithIntrinsicBounds(
@@ -93,8 +132,6 @@ class SignUpFragment : Fragment() {
                                 R.drawable.ic_show_password,
                                 0
                             )
-
-                            println("я хочу чипсы")
                         } else {
                             // Показать пароль
                             editText.transformationMethod = HideReturnsTransformationMethod.getInstance()
@@ -104,8 +141,6 @@ class SignUpFragment : Fragment() {
                                 R.drawable.ic_hide_password,
                                 0
                             )
-
-                            println("я хочу доширак")
                         }
                         editText.setSelection(editText.text.length)
                         return@setOnTouchListener true
@@ -180,7 +215,9 @@ class SignUpFragment : Fragment() {
         editTextDateOfBirth.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                updateButtonState()
+            }
 
             override fun afterTextChanged(s: Editable?) {
                 val dateText = s.toString().trim()
@@ -207,7 +244,23 @@ class SignUpFragment : Fragment() {
         buttonFemale = view.findViewById(R.id.buttonFemale)
         setupToggleButtons()
 
+        buttonSignUp = view.findViewById(R.id.buttonSignUp)
+
         return view
+    }
+
+    private fun updateButtonState() {
+        println("Вызвана updateButtonState")
+        println(isValidData())
+        if (isValidData()) {
+            buttonSignUp.isEnabled = true
+            buttonSignUp.setTextColor(resources.getColor(R.color.white))
+            buttonSignUp.setBackgroundResource(R.drawable.button_primary_default)
+        } else {
+            buttonSignUp.isEnabled = false
+            buttonSignUp.setTextColor(resources.getColor(R.color.gray_faded))
+            buttonSignUp.setBackgroundResource(R.drawable.button_secondary)
+        }
     }
 
     private fun isValidDate(date: String): Boolean {
@@ -216,9 +269,9 @@ class SignUpFragment : Fragment() {
             return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
         }
 
-        val (dayStr, monthStr, yearStr) = date.split(" ").map { it.trim() }
-
         return try {
+            val (dayStr, monthStr, yearStr) = date.split(" ").map { it.trim() }
+
             val day = dayStr.toInt()
             val year = yearStr.toInt()
 
