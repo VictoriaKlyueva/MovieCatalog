@@ -14,4 +14,12 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="enter">Войти</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="register">Регистрация</string>
+    <string name="email">Электронная почта</string>
+    <string name="Name">Имя</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="date_of_birth">Дата рождения</string>
+    <string name="male">Мужчина</string>
+    <string name="female">Женщина</string>
 </resources>

@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 
 
-class WelcomeActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,25 +20,15 @@ class WelcomeActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        setContentView(R.layout.activity_welcome)
+        setContentView(R.layout.activity_sign_up)
 
-        val loginButton = findViewById<Button>(R.id.loginButton)
-        val registerButton = findViewById<Button>(R.id.registerButton)
+        val backButton = findViewById<ImageButton>(R.id.back_button)
 
-        loginButton.setOnClickListener {
+        backButton.setOnClickListener {
             startActivity(
                 Intent(
                     this,
-                    SignInActivity::class.java
-                )
-            )
-        }
-
-        registerButton.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    SignUpActivity::class.java
+                    WelcomeActivity::class.java
                 )
             )
         }
