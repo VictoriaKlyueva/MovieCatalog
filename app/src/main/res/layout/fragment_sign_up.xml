@@ -1,0 +1,174 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="32dp"
+    android:background="@color/dark">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextLogin"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+
+        android:autofillHints="username"
+        android:hint="@string/login"
+        android:fontFamily="@font/manrope_regular"
+        android:textColorHint="@color/gray_faded"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:inputType="text"
+
+        android:background="@drawable/rounded_edit_text"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_clear"
+        android:drawablePadding="8dp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+
+        android:autofillHints="emailAddress"
+        android:hint="@string/email"
+        android:fontFamily="@font/manrope_regular"
+        android:textColorHint="@color/gray_faded"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:inputType="text"
+
+        android:background="@drawable/rounded_edit_text"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_clear"
+        android:drawablePadding="8dp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+
+        android:autofillHints="name"
+        android:hint="@string/Name"
+
+        android:fontFamily="@font/manrope_regular"
+        android:textColorHint="@color/gray_faded"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:inputType="text"
+
+        android:background="@drawable/rounded_edit_text"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_clear"
+        android:drawablePadding="8dp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+
+        android:autofillHints="password"
+        android:hint="@string/password"
+        android:fontFamily="@font/manrope_regular"
+        android:textColorHint="@color/gray_faded"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:inputType="textPassword"
+
+        android:background="@drawable/rounded_edit_text"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_show_password"
+        android:drawablePadding="8dp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+
+        android:autofillHints="password"
+        android:hint="@string/confirm_password"
+        android:fontFamily="@font/manrope_regular"
+        android:textColorHint="@color/gray_faded"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:inputType="textPassword"
+
+        android:background="@drawable/rounded_edit_text"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_show_password"
+        android:drawablePadding="8dp"  />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextDateOfBirth"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+
+        android:hint="@string/date_of_birth"
+        android:fontFamily="@font/manrope_regular"
+        android:textColorHint="@color/gray_faded"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+
+        android:background="@drawable/rounded_edit_text"
+        android:drawableEnd="@drawable/ic_calendar"
+
+        android:focusable="true"
+        android:clickable="true"
+
+        android:padding="12dp"
+        android:layout_marginBottom="8dp" />
+
+    <RadioGroup
+        android:id="@+id/toggleGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/buttonMale"
+            android:layout_height="48dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:background="@drawable/toggle_active"
+            android:textOn="@string/male"
+            android:textOff="@string/male"
+            android:textAllCaps="false"
+            android:checked="true" />
+
+        <ToggleButton
+            android:id="@+id/buttonFemale"
+            android:layout_height="48dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:background="@drawable/toggle_inactive"
+            android:textOn="@string/female"
+            android:textOff="@string/female"
+            android:textAllCaps="false"
+            android:checked="false"/>
+    </RadioGroup>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/sign_up"
+        android:textColor="@color/gray_faded"
+        android:background="@drawable/button_secondary"
+        android:textAllCaps="false" />
+</LinearLayout>
