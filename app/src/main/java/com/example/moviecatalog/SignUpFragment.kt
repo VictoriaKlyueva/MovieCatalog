@@ -3,6 +3,8 @@ package com.example.moviecatalog
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -27,7 +29,46 @@ class SignUpFragment : Fragment() {
     private lateinit var buttonFemale: ToggleButton
 
 
+    private fun getTextWatcher(editText: EditText): TextWatcher {
+        return object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.isNullOrEmpty()) {
+                    editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+                } else {
+                    editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_clear, 0)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        }
+    }
+
     @SuppressLint("ClickableViewAccessibility")
+    fun setClearTextOnIconTouch(editText: EditText) {
+        editText.setOnTouchListener { v: View?, event: MotionEvent ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (editText.compoundDrawables[2] != null) {
+                    // Проверяем, что нажатие произошло на области иконки
+                    if (event.rawX >= (editText.right - editText.compoundDrawables[2].bounds.width())) {
+                        // Очищаем текст в EditText
+                        editText.setText("")
+                        return@setOnTouchListener true
+                    }
+                }
+            }
+            false
+        }
+    }
+
+
+    private fun hideIcon(editText: EditText) {
+        editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,43 +77,19 @@ class SignUpFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
         editTextLogin = view.findViewById(R.id.editTextLogin)
-        editTextLogin.setOnTouchListener { v: View?, event: MotionEvent ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                if (editTextLogin.compoundDrawables[2] != null) {
-                    if (event.rawX >= (editTextLogin.right - editTextLogin.compoundDrawables[2].bounds.width())) {
-                        editTextLogin.setText("")
-                        return@setOnTouchListener true
-                    }
-                }
-            }
-            false
-        }
+        hideIcon(editTextLogin)
+        editTextLogin.addTextChangedListener(getTextWatcher(editTextLogin))
+        setClearTextOnIconTouch(editTextLogin)
 
         editTextEmail = view.findViewById(R.id.editTextEmail)
-        editTextEmail.setOnTouchListener { v: View?, event: MotionEvent ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                if (editTextEmail.compoundDrawables[2] != null) {
-                    if (event.rawX >= (editTextEmail.right - editTextEmail.compoundDrawables[2].bounds.width())) {
-                        editTextEmail.setText("")
-                        return@setOnTouchListener true
-                    }
-                }
-            }
-            false
-        }
+        hideIcon(editTextEmail)
+        editTextEmail.addTextChangedListener(getTextWatcher(editTextEmail))
+        setClearTextOnIconTouch(editTextEmail)
 
         editTextName = view.findViewById(R.id.editTextName)
-        editTextName.setOnTouchListener { v: View?, event: MotionEvent ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                if (editTextName.compoundDrawables[2] != null) {
-                    if (event.rawX >= (editTextName.right - editTextName.compoundDrawables[2].bounds.width())) {
-                        editTextName.setText("")
-                        return@setOnTouchListener true
-                    }
-                }
-            }
-            false
-        }
+        hideIcon(editTextName)
+        editTextName.addTextChangedListener(getTextWatcher(editTextName))
+        setClearTextOnIconTouch(editTextName)
 
         editTextPassword = view.findViewById(R.id.editTextPassword)
         editTextConfirmPassword = view.findViewById(R.id.editTextConfirmPassword)

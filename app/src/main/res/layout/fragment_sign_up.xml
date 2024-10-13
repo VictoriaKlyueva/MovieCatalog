@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
 
         android:autofillHints="username"
         android:hint="@string/login"
@@ -29,7 +29,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
 
         android:autofillHints="emailAddress"
         android:hint="@string/email"
@@ -49,7 +49,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
 
         android:autofillHints="name"
         android:hint="@string/Name"
@@ -70,7 +70,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
 
         android:autofillHints="password"
         android:hint="@string/password"
@@ -87,7 +87,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextConfirmPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
 
         android:autofillHints="password"
         android:hint="@string/confirm_password"
@@ -104,7 +104,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextDateOfBirth"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
 
         android:hint="@string/date_of_birth"
         android:fontFamily="@font/manrope_regular"
@@ -130,7 +130,7 @@
 
         <ToggleButton
             android:id="@+id/buttonMale"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textSize="14sp"
@@ -143,7 +143,7 @@
 
         <ToggleButton
             android:id="@+id/buttonFemale"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textSize="14sp"
@@ -159,7 +159,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:fontFamily="@font/manrope_bold"
         android:text="@string/sign_up"
         android:textColor="@color/gray_faded"
