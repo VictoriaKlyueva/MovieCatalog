@@ -96,6 +96,7 @@ class SignUpFragment : Fragment() {
 
         editTextDateOfBirth = view.findViewById(R.id.editTextDateOfBirth)
         editTextDateOfBirth.setOnClickListener { showDatePickerDialog() }
+        // Изменение значка
         editTextDateOfBirth.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -103,8 +104,21 @@ class SignUpFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 val dateText = s.toString().trim()
+
                 if (dateText.isEmpty() || !isValidDate(dateText)) {
-                    editTextDateOfBirth.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_calendar, 0)
+                    editTextDateOfBirth.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.ic_calendar,
+                        0
+                    )
+                } else {
+                    editTextDateOfBirth.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.ic_calendar_active,
+                        0
+                    )
                 }
             }
         })
@@ -165,7 +179,7 @@ class SignUpFragment : Fragment() {
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
-                val date = "$selectedDay ${months[selectedMonth + 1]} $selectedYear"
+                val date = "$selectedDay ${months[selectedMonth]} $selectedYear"
                 editTextDateOfBirth.setText(date)
             }, year, month, day
         )
