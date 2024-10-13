@@ -9,39 +9,45 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
 
         android:autofillHints="username"
         android:hint="@string/login"
         android:fontFamily="@font/manrope_regular"
         android:textColorHint="@color/gray_faded"
-        android:textColor="@color/gray_faded"
+        android:textColor="@color/white"
         android:textSize="14sp"
         android:inputType="text"
 
         android:background="@drawable/rounded_edit_text"
         android:padding="12dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_clear"
+        android:drawablePadding="8dp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
 
         android:autofillHints="password"
         android:hint="@string/password"
         android:fontFamily="@font/manrope_regular"
         android:textColorHint="@color/gray_faded"
-        android:textColor="@color/gray_faded"
+        android:textColor="@color/white"
         android:textSize="14sp"
         android:inputType="textPassword"
 
         android:background="@drawable/rounded_edit_text"
         android:padding="12dp"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="32dp"
+
+        android:drawableEnd="@drawable/ic_show_password"
+        android:drawablePadding="8dp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonLogin"
+        android:id="@+id/buttonSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/manrope_bold"
