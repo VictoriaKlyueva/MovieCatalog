@@ -82,7 +82,10 @@
 
         android:background="@drawable/rounded_edit_text"
         android:padding="12dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_show_password"
+        android:drawablePadding="8dp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextConfirmPassword"
@@ -99,7 +102,10 @@
 
         android:background="@drawable/rounded_edit_text"
         android:padding="12dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_show_password"
+        android:drawablePadding="8dp"  />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextDateOfBirth"

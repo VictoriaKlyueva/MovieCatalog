@@ -5,6 +5,8 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -28,17 +30,29 @@ class SignUpFragment : Fragment() {
     private lateinit var buttonMale: ToggleButton
     private lateinit var buttonFemale: ToggleButton
 
-
-    private fun getTextWatcher(editText: EditText): TextWatcher {
+    private fun getTextWatcher(editText: EditText, icon: Int, isPassword: Boolean = false): TextWatcher {
         return object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.isNullOrEmpty()) {
-                    editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+                    if (isPassword && editText.transformationMethod is HideReturnsTransformationMethod) {
+                        editText.transformationMethod = PasswordTransformationMethod.getInstance()
+                    }
+                    editText.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        0,
+                        0
+                    )
                 } else {
-                    editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_clear, 0)
+                    editText.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        icon,
+                        0
+                    )
                 }
             }
 
@@ -52,9 +66,8 @@ class SignUpFragment : Fragment() {
         editText.setOnTouchListener { v: View?, event: MotionEvent ->
             if (event.action == MotionEvent.ACTION_UP) {
                 if (editText.compoundDrawables[2] != null) {
-                    // Проверяем, что нажатие произошло на области иконки
-                    if (event.rawX >= (editText.right - editText.compoundDrawables[2].bounds.width())) {
-                        // Очищаем текст в EditText
+                    if (event.rawX >=
+                        (editText.right - editText.compoundDrawables[2].bounds.width())) {
                         editText.setText("")
                         return@setOnTouchListener true
                     }
@@ -64,11 +77,50 @@ class SignUpFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setHidePasswordOnIconTouch(editText: EditText) {
+        editText.setOnTouchListener { v, event: MotionEvent ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (editText.compoundDrawables[2] != null) {
+                    if (event.rawX >= (editText.right - editText.compoundDrawables[2].bounds.width())) {
+                        val isPasswordVisible = editText.transformationMethod is HideReturnsTransformationMethod
+                        if (isPasswordVisible) {
+                            // Скрыть пароль
+                            editText.transformationMethod = PasswordTransformationMethod.getInstance()
+                            editText.setCompoundDrawablesWithIntrinsicBounds(
+                                0,
+                                0,
+                                R.drawable.ic_show_password,
+                                0
+                            )
+
+                            println("я хочу чипсы")
+                        } else {
+                            // Показать пароль
+                            editText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                            editText.setCompoundDrawablesWithIntrinsicBounds(
+                                0,
+                                0,
+                                R.drawable.ic_hide_password,
+                                0
+                            )
+
+                            println("я хочу доширак")
+                        }
+                        editText.setSelection(editText.text.length)
+                        return@setOnTouchListener true
+                    }
+                }
+            }
+            false
+        }
+    }
 
     private fun hideIcon(editText: EditText) {
         editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -78,25 +130,53 @@ class SignUpFragment : Fragment() {
 
         editTextLogin = view.findViewById(R.id.editTextLogin)
         hideIcon(editTextLogin)
-        editTextLogin.addTextChangedListener(getTextWatcher(editTextLogin))
+        editTextLogin.addTextChangedListener(getTextWatcher(editTextLogin, R.drawable.ic_clear))
         setClearTextOnIconTouch(editTextLogin)
 
         editTextEmail = view.findViewById(R.id.editTextEmail)
         hideIcon(editTextEmail)
-        editTextEmail.addTextChangedListener(getTextWatcher(editTextEmail))
+        editTextEmail.addTextChangedListener(getTextWatcher(editTextEmail, R.drawable.ic_clear))
         setClearTextOnIconTouch(editTextEmail)
 
         editTextName = view.findViewById(R.id.editTextName)
         hideIcon(editTextName)
-        editTextName.addTextChangedListener(getTextWatcher(editTextName))
+        editTextName.addTextChangedListener(getTextWatcher(editTextName, R.drawable.ic_clear))
         setClearTextOnIconTouch(editTextName)
 
         editTextPassword = view.findViewById(R.id.editTextPassword)
+        hideIcon(editTextPassword)
+
+        val passwordIcon =
+            if (editTextPassword.transformationMethod == PasswordTransformationMethod.getInstance())
+                R.drawable.ic_show_password
+            else
+                R.drawable.ic_hide_password
+
+        editTextPassword.addTextChangedListener(getTextWatcher(
+            editTextPassword,
+            passwordIcon,
+            true
+        ))
+        setHidePasswordOnIconTouch(editTextPassword)
+
         editTextConfirmPassword = view.findViewById(R.id.editTextConfirmPassword)
+        hideIcon(editTextConfirmPassword)
+
+        val confirmPasswordIcon =
+            if (editTextConfirmPassword.transformationMethod == PasswordTransformationMethod.getInstance())
+                R.drawable.ic_show_password
+            else
+                R.drawable.ic_hide_password
+
+        editTextConfirmPassword.addTextChangedListener(getTextWatcher(
+            editTextConfirmPassword,
+            confirmPasswordIcon,
+            true
+        ))
+        setHidePasswordOnIconTouch(editTextConfirmPassword)
 
         editTextDateOfBirth = view.findViewById(R.id.editTextDateOfBirth)
         editTextDateOfBirth.setOnClickListener { showDatePickerDialog() }
-        // Изменение значка
         editTextDateOfBirth.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
