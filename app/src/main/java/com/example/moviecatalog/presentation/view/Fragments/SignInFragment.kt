@@ -1,4 +1,4 @@
-package com.example.moviecatalog
+package com.example.moviecatalog.presentation.view.Fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.example.moviecatalog.R
 
 
 class SignInFragment : Fragment() {

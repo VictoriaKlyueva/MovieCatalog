@@ -1,4 +1,4 @@
-package com.example.moviecatalog
+package com.example.moviecatalog.presentation.view.Fragments
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -16,6 +16,7 @@ import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
+import com.example.moviecatalog.R
 import java.util.Calendar
 
 
