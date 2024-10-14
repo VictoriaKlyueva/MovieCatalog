@@ -16,6 +16,7 @@ import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
+import com.example.moviecatalog.presentation.utils.DateHelper
 import com.example.moviecatalog.presentation.utils.ValidationUtils
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
 import com.example.moviecatalog.utils.EditTextHelper
@@ -155,8 +156,11 @@ class SignUpFragment : Fragment() {
         })
         EditTextHelper.setHidePasswordOnIconTouch(editTextConfirmPassword)
 
+        val dateHelper = DateHelper()
         editTextDateOfBirth = view.findViewById(R.id.editTextDateOfBirth)
-        editTextDateOfBirth.setOnClickListener { showDatePickerDialog() }
+        editTextDateOfBirth.setOnClickListener {
+            dateHelper.showDatePickerDialog(requireContext(), editTextDateOfBirth)
+        }
         editTextDateOfBirth.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -176,21 +180,7 @@ class SignUpFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 val dateText = s.toString().trim()
 
-                if (dateText.isEmpty() || !ValidationUtils.isDateValid(dateText)) {
-                    editTextDateOfBirth.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.ic_calendar,
-                        0
-                    )
-                } else {
-                    editTextDateOfBirth.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.ic_calendar_active,
-                        0
-                    )
-                }
+                dateHelper.updateDateDrawable(editTextDateOfBirth, dateText)
             }
         })
 
@@ -217,27 +207,6 @@ class SignUpFragment : Fragment() {
         })
 
         return view
-    }
-
-    private val months = arrayOf(
-        "января", "февраля", "марта", "апреля", "мая", "июня", "июля",
-        "августа", "сентября", "октября", "ноября", "декабря"
-    )
-
-    private fun showDatePickerDialog() {
-        val calendar: Calendar = Calendar.getInstance()
-        val year: Int = calendar.get(Calendar.YEAR)
-        val month: Int = calendar.get(Calendar.MONTH)
-        val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
-                val date = "$selectedDay ${months[selectedMonth]} $selectedYear"
-                editTextDateOfBirth.setText(date)
-            }, year, month, day
-        )
-        datePickerDialog.show()
     }
 
     private fun setupToggleButtons() {
