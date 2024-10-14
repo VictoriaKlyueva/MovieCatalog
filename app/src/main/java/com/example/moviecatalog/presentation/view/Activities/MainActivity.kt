@@ -1,9 +1,9 @@
-package com.example.moviecatalog
+package com.example.moviecatalog.presentation.view.Activities
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.moviecatalog.databinding.ActivityMainBinding
+import com.example.moviecatalog.WelcomeActivity
 
 
 class MainActivity : AppCompatActivity() {

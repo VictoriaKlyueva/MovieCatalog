@@ -6,7 +6,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.moviecatalog.presentation.view.SignInActivity
+import com.example.moviecatalog.presentation.view.Activities.SignInActivity
 
 
 class WelcomeActivity : AppCompatActivity() {

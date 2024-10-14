@@ -18,7 +18,7 @@
             android:label="@string/title_activity_sign_up"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
-            android:name=".presentation.view.SignInActivity"
+            android:name=".presentation.view.Activities.SignInActivity"
             android:exported="false"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/Theme.MovieCatalog" />
@@ -28,7 +28,7 @@
             android:label="@string/title_activity_welcome"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.view.Activities.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
