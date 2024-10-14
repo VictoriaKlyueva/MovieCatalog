@@ -1,7 +1,6 @@
 package com.example.moviecatalog.presentation.view.Fragments
 
 import androidx.lifecycle.ViewModelProvider
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,16 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
-import com.example.moviecatalog.presentation.utils.ValidationUtils
+import com.example.moviecatalog.presentation.utils.DateHelper
+import com.example.moviecatalog.presentation.utils.GenderToggleHandler
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
 import com.example.moviecatalog.utils.EditTextHelper
-import java.util.Calendar
 
 
 class SignUpFragment : Fragment() {
@@ -30,11 +28,12 @@ class SignUpFragment : Fragment() {
     private lateinit var editTextPassword: EditText
     private lateinit var editTextConfirmPassword: EditText
     private lateinit var editTextDateOfBirth: EditText
-
     private lateinit var buttonMale: ToggleButton
     private lateinit var buttonFemale: ToggleButton
-
     private lateinit var buttonSignUp: Button
+
+    private lateinit var dateHelper: DateHelper
+    private lateinit var genderToggleHandler: GenderToggleHandler
 
     private lateinit var viewModel: SignUpViewModel
 
@@ -46,158 +45,92 @@ class SignUpFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
         viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
 
+        initEditText(view)
+        setupDateOfBirthPicker(view)
+        setupGenderToggle(view)
+        setupSignUpButton(view)
+
+        return view
+    }
+
+    private fun initEditText(view: View) {
         editTextLogin = view.findViewById(R.id.editTextLogin)
-        EditTextHelper.hideIcon(editTextLogin)
-        editTextLogin.addTextChangedListener(EditTextHelper.createTextWatcher(
-            editTextLogin,
-            R.drawable.ic_clear
-        ) { input ->
-            viewModel.onSignUpDataChanged(
-                input,
-                editTextEmail.text.toString(),
-                editTextName.text.toString(),
-                editTextPassword.text.toString(),
-                editTextConfirmPassword.text.toString(),
-                editTextDateOfBirth.text.toString(),
-                buttonMale.isChecked,
-                buttonFemale.isChecked
-            )
-        })
-        EditTextHelper.setClearTextOnIconTouch(editTextLogin)
-
         editTextEmail = view.findViewById(R.id.editTextEmail)
-        EditTextHelper.hideIcon(editTextEmail)
-        editTextEmail.addTextChangedListener(EditTextHelper.createTextWatcher(
-            editTextEmail,
-            R.drawable.ic_clear
-        ) { input ->
-            viewModel.onSignUpDataChanged(
-                editTextLogin.text.toString(),
-                input,
-                editTextName.text.toString(),
-                editTextPassword.text.toString(),
-                editTextConfirmPassword.text.toString(),
-                editTextDateOfBirth.text.toString(),
-                buttonMale.isChecked,
-                buttonFemale.isChecked
-            )
-        })
-        EditTextHelper.setClearTextOnIconTouch(editTextEmail)
-
         editTextName = view.findViewById(R.id.editTextName)
-        EditTextHelper.hideIcon(editTextName)
-        editTextName.addTextChangedListener(EditTextHelper.createTextWatcher(
-            editTextName,
-            R.drawable.ic_clear
-        ) { input ->
-            viewModel.onSignUpDataChanged(
-                editTextLogin.text.toString(),
-                editTextEmail.text.toString(),
-                input,
-                editTextPassword.text.toString(),
-                editTextConfirmPassword.text.toString(),
-                editTextDateOfBirth.text.toString(),
-                buttonMale.isChecked,
-                buttonFemale.isChecked
-            )
-        })
-        EditTextHelper.setClearTextOnIconTouch(editTextName)
-
         editTextPassword = view.findViewById(R.id.editTextPassword)
-        EditTextHelper.hideIcon(editTextPassword)
-
-        val passwordIcon =
-            if (editTextPassword.transformationMethod == PasswordTransformationMethod.getInstance())
-                R.drawable.ic_show_password
-            else
-                R.drawable.ic_hide_password
-
-        editTextPassword.addTextChangedListener(EditTextHelper.createTextWatcher(
-            editTextPassword,
-            passwordIcon
-        ) { input ->
-            viewModel.onSignUpDataChanged(
-                editTextLogin.text.toString(),
-                editTextEmail.text.toString(),
-                editTextName.text.toString(),
-                input,
-                editTextConfirmPassword.text.toString(),
-                editTextDateOfBirth.text.toString(),
-                buttonMale.isChecked,
-                buttonFemale.isChecked
-            )
-        })
-        EditTextHelper.setHidePasswordOnIconTouch(editTextPassword)
-
         editTextConfirmPassword = view.findViewById(R.id.editTextConfirmPassword)
-        EditTextHelper.hideIcon(editTextConfirmPassword)
-
-        val confirmPasswordIcon =
-            if (editTextConfirmPassword.transformationMethod == PasswordTransformationMethod.getInstance())
-                R.drawable.ic_show_password
-            else
-                R.drawable.ic_hide_password
-
-        editTextConfirmPassword.addTextChangedListener(EditTextHelper.createTextWatcher(
-            editTextConfirmPassword,
-            confirmPasswordIcon
-        ) { input ->
-            viewModel.onSignUpDataChanged(
-                editTextLogin.text.toString(),
-                editTextEmail.text.toString(),
-                editTextName.text.toString(),
-                editTextPassword.text.toString(),
-                input,
-                editTextDateOfBirth.text.toString(),
-                buttonMale.isChecked,
-                buttonFemale.isChecked
-            )
-        })
-        EditTextHelper.setHidePasswordOnIconTouch(editTextConfirmPassword)
-
         editTextDateOfBirth = view.findViewById(R.id.editTextDateOfBirth)
-        editTextDateOfBirth.setOnClickListener { showDatePickerDialog() }
+
+        val editTexts = listOf(
+            editTextLogin,
+            editTextEmail,
+            editTextName,
+            editTextPassword,
+            editTextConfirmPassword,
+            editTextDateOfBirth
+        )
+
+        for (editText in editTexts) {
+            EditTextHelper.hideIcon(editText)
+            editText.addTextChangedListener(
+                getTextWatcher(editText) { input ->
+                    updateViewModelData()
+                }
+            )
+            EditTextHelper.setClearTextOnIconTouch(editText)
+        }
+
+        EditTextHelper.setHidePasswordOnIconTouch(editTextPassword)
+        EditTextHelper.setHidePasswordOnIconTouch(editTextConfirmPassword)
+    }
+
+    private fun getTextWatcher(
+        editText: EditText,
+        onInputChanged: (String) -> Unit
+    ): TextWatcher {
+        return EditTextHelper.createTextWatcher(editText, R.drawable.ic_clear, onInputChanged)
+    }
+
+    private fun updateViewModelData() {
+        viewModel.onSignUpDataChanged(
+            editTextLogin.text.toString(),
+            editTextEmail.text.toString(),
+            editTextName.text.toString(),
+            editTextPassword.text.toString(),
+            editTextConfirmPassword.text.toString(),
+            editTextDateOfBirth.text.toString(),
+            buttonMale.isChecked,
+            buttonFemale.isChecked
+        )
+    }
+
+    private fun setupDateOfBirthPicker(view: View) {
+        editTextDateOfBirth = view.findViewById(R.id.editTextDateOfBirth)
+        dateHelper = DateHelper(requireContext(), editTextDateOfBirth)
+        editTextDateOfBirth.setOnClickListener { dateHelper.showDatePickerDialog() }
+
         editTextDateOfBirth.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.onSignUpDataChanged(
-                    editTextLogin.text.toString(),
-                    editTextEmail.text.toString(),
-                    editTextName.text.toString(),
-                    editTextPassword.text.toString(),
-                    editTextConfirmPassword.text.toString(),
-                    editTextDateOfBirth.text.toString(),
-                    buttonMale.isChecked,
-                    buttonFemale.isChecked
-                )
+                updateViewModelData()
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val dateText = s.toString().trim()
-
-                if (dateText.isEmpty() || !ValidationUtils.isDateValid(dateText)) {
-                    editTextDateOfBirth.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.ic_calendar,
-                        0
-                    )
-                } else {
-                    editTextDateOfBirth.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.ic_calendar_active,
-                        0
-                    )
-                }
+                dateHelper.updateDateIcon(editTextDateOfBirth, s.toString())
             }
         })
+    }
 
+    private fun setupGenderToggle(view: View) {
         buttonMale = view.findViewById(R.id.buttonMale)
         buttonFemale = view.findViewById(R.id.buttonFemale)
-        setupToggleButtons()
+        genderToggleHandler = GenderToggleHandler(buttonMale, buttonFemale) { selectedGender ->
+            viewModel.onGenderSelected(selectedGender)
+        }
+    }
 
+    private fun setupSignUpButton(view: View) {
         buttonSignUp = view.findViewById(R.id.buttonSignUp)
 
         viewModel.isButtonEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
@@ -206,7 +139,8 @@ class SignUpFragment : Fragment() {
             buttonSignUp.setTextColor(
                 if (isEnabled)
                     resources.getColor(R.color.white)
-                else resources.getColor(R.color.gray_faded)
+                else
+                    resources.getColor(R.color.gray_faded)
             )
             buttonSignUp.setBackgroundResource(
                 if (isEnabled)
@@ -215,42 +149,5 @@ class SignUpFragment : Fragment() {
                     R.drawable.button_secondary
             )
         })
-
-        return view
-    }
-
-    private val months = arrayOf(
-        "января", "февраля", "марта", "апреля", "мая", "июня", "июля",
-        "августа", "сентября", "октября", "ноября", "декабря"
-    )
-
-    private fun showDatePickerDialog() {
-        val calendar: Calendar = Calendar.getInstance()
-        val year: Int = calendar.get(Calendar.YEAR)
-        val month: Int = calendar.get(Calendar.MONTH)
-        val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
-                val date = "$selectedDay ${months[selectedMonth]} $selectedYear"
-                editTextDateOfBirth.setText(date)
-            }, year, month, day
-        )
-        datePickerDialog.show()
-    }
-
-    private fun setupToggleButtons() {
-        buttonMale.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                buttonFemale.isChecked = false
-            }
-        }
-
-        buttonFemale.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                buttonMale.isChecked = false
-            }
-        }
     }
 }

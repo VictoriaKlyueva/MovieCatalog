@@ -10,8 +10,12 @@ class SignUpViewModel : ViewModel() {
     private val _navigateToWelcome = MutableLiveData<Boolean>()
     val navigateToWelcome: LiveData<Boolean> get() = _navigateToWelcome
 
-    private val _isButtonEnabled = MutableLiveData<Boolean>()
+    private val _isButtonEnabled = MutableLiveData<Boolean>().apply { value = false }
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
+
+    fun onGenderSelected(gender: String) {
+        // Обработка выбранного пола
+    }
 
     fun onSignUpDataChanged(
         login: String,
@@ -43,3 +47,5 @@ class SignUpViewModel : ViewModel() {
         _navigateToWelcome.value = false
     }
 }
+
+

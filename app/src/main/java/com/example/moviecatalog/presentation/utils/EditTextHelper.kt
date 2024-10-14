@@ -17,7 +17,11 @@ object EditTextHelper {
     private val _isButtonEnabled = MutableLiveData<Boolean>()
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
 
-    fun createTextWatcher(editText: EditText, @DrawableRes clearIcon: Int, onTextChanged: (String) -> Unit): TextWatcher {
+    fun createTextWatcher(
+        editText: EditText,
+        @DrawableRes clearIcon: Int,
+        onTextChanged: (String) -> Unit
+    ): TextWatcher {
         return object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
