@@ -1,5 +1,6 @@
 package com.example.moviecatalog.utils
 
+import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
@@ -35,6 +36,7 @@ object EditTextHelper {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     fun setClearTextOnIconTouch(editText: EditText) {
         editText.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
@@ -49,6 +51,7 @@ object EditTextHelper {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     fun setHidePasswordOnIconTouch(editText: EditText) {
         editText.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
