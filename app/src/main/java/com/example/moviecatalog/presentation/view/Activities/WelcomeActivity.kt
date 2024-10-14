@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
-import com.example.moviecatalog.SignUpActivity
 import com.example.moviecatalog.presentation.viewmodels.WelcomeViewModel
 
 class WelcomeActivity : AppCompatActivity() {
@@ -16,6 +15,8 @@ class WelcomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_welcome)
 
         val loginButton = findViewById<Button>(R.id.loginButton)
         val registerButton = findViewById<Button>(R.id.registerButton)
