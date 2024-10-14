@@ -1,7 +1,6 @@
 package com.example.moviecatalog.presentation.view.Fragments
 
 import androidx.lifecycle.ViewModelProvider
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,17 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
 import com.example.moviecatalog.presentation.utils.DateHelper
-import com.example.moviecatalog.presentation.utils.ValidationUtils
+import com.example.moviecatalog.presentation.utils.GenderToggleHandler
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
 import com.example.moviecatalog.utils.EditTextHelper
-import java.util.Calendar
 
 
 class SignUpFragment : Fragment() {
@@ -36,6 +33,7 @@ class SignUpFragment : Fragment() {
     private lateinit var buttonFemale: ToggleButton
 
     private lateinit var buttonSignUp: Button
+    private lateinit var genderToggleHandler: GenderToggleHandler
 
     private lateinit var viewModel: SignUpViewModel
 
@@ -186,7 +184,7 @@ class SignUpFragment : Fragment() {
 
         buttonMale = view.findViewById(R.id.buttonMale)
         buttonFemale = view.findViewById(R.id.buttonFemale)
-        setupToggleButtons()
+        genderToggleHandler = GenderToggleHandler(buttonMale, buttonFemale)
 
         buttonSignUp = view.findViewById(R.id.buttonSignUp)
 
@@ -207,19 +205,5 @@ class SignUpFragment : Fragment() {
         })
 
         return view
-    }
-
-    private fun setupToggleButtons() {
-        buttonMale.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                buttonFemale.isChecked = false
-            }
-        }
-
-        buttonFemale.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                buttonMale.isChecked = false
-            }
-        }
     }
 }
