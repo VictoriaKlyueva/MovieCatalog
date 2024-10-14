@@ -13,17 +13,21 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 
 
 class SignInFragment : Fragment() {
 
     private lateinit var editTextLogin: EditText
     private lateinit var editTextPassword: EditText
-
     private lateinit var buttonSignIn: Button
 
-    private fun getTextWatcher(editText: EditText, icon: Int, isPassword: Boolean = false): TextWatcher {
+    private lateinit var viewModel: SignInViewModel
+
+    private fun createTextWatcher(editText: EditText, icon: Int, isPassword: Boolean = false): TextWatcher {
         return object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -47,18 +51,13 @@ class SignInFragment : Fragment() {
                         0
                     )
                 }
-                updateButtonState()
+
+                viewModel.onLoginDataChanged(editTextLogin.text.toString(), editTextPassword.text.toString())
             }
 
             override fun afterTextChanged(s: Editable?) {
             }
         }
-    }
-
-    private fun isValidData(): Boolean {
-        return !(editTextLogin.text.toString().isEmpty() ||
-                editTextPassword.text.toString().isEmpty()
-                ) && isStrongPassword(editTextPassword.text.toString())
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -111,18 +110,6 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun isStrongPassword(password: String): Boolean {
-        if (password.length < 8)
-            return false
-
-        val hasUpperCase = password.any { it.isUpperCase() }
-        val hasLowerCase = password.any { it.isLowerCase() }
-        val hasDigit = password.any { it.isDigit() }
-        val hasSpecialChar = password.any { !it.isLetterOrDigit() }
-
-        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar
-    }
-
     private fun hideIcon(editText: EditText) {
         editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
     }
@@ -133,10 +120,11 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_sign_in, container, false)
+        viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
 
         editTextLogin = view.findViewById(R.id.editTextLogin)
         hideIcon(editTextLogin)
-        editTextLogin.addTextChangedListener(getTextWatcher(editTextLogin, R.drawable.ic_clear))
+        editTextLogin.addTextChangedListener(createTextWatcher(editTextLogin, R.drawable.ic_clear))
         setClearTextOnIconTouch(editTextLogin)
 
         editTextPassword = view.findViewById(R.id.editTextPassword)
@@ -148,7 +136,7 @@ class SignInFragment : Fragment() {
             else
                 R.drawable.ic_hide_password
 
-        editTextPassword.addTextChangedListener(getTextWatcher(
+        editTextPassword.addTextChangedListener(createTextWatcher(
             editTextPassword,
             passwordIcon,
             true
@@ -157,20 +145,12 @@ class SignInFragment : Fragment() {
 
         buttonSignIn = view.findViewById(R.id.buttonSignIn)
 
-        return view
-    }
+        viewModel.isButtonEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
+            buttonSignIn.isEnabled = isEnabled
+            buttonSignIn.setTextColor(if (isEnabled) resources.getColor(R.color.white) else resources.getColor(R.color.gray_faded))
+            buttonSignIn.setBackgroundResource(if (isEnabled) R.drawable.button_primary_default else R.drawable.button_secondary)
+        })
 
-    private fun updateButtonState() {
-        println("Вызвана updateButtonState")
-        println(isValidData())
-        if (isValidData()) {
-            buttonSignIn.isEnabled = true
-            buttonSignIn.setTextColor(resources.getColor(R.color.white))
-            buttonSignIn.setBackgroundResource(R.drawable.button_primary_default)
-        } else {
-            buttonSignIn.isEnabled = false
-            buttonSignIn.setTextColor(resources.getColor(R.color.gray_faded))
-            buttonSignIn.setBackgroundResource(R.drawable.button_secondary)
-        }
+        return view
     }
 }
