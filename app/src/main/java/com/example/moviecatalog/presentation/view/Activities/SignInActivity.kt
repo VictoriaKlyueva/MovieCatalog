@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
-import com.example.moviecatalog.WelcomeActivity
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 
 class SignInActivity : AppCompatActivity() {
