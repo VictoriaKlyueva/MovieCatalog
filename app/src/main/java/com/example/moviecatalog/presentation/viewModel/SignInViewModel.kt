@@ -13,7 +13,7 @@ class SignInViewModel : ViewModel() {
     private val _isButtonEnabled = MutableLiveData<Boolean>()
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
 
-    fun onLoginDataChanged(login: String, password: String) {
+    fun onSignInDataChanged(login: String, password: String) {
         _isButtonEnabled.value = login.isNotEmpty() &&
                 password.isNotEmpty() &&
                 ValidationUtils.isSignInDataValid(login, password)

@@ -30,7 +30,7 @@ class SignInFragment : Fragment() {
             editTextLogin,
             R.drawable.ic_clear
         ) { input ->
-            viewModel.onLoginDataChanged(input, editTextPassword.text.toString())
+            viewModel.onSignInDataChanged(input, editTextPassword.text.toString())
         })
         EditTextHelper.setClearTextOnIconTouch(editTextLogin)
     }
@@ -46,7 +46,7 @@ class SignInFragment : Fragment() {
 
         editTextPassword.addTextChangedListener(
             EditTextHelper.createTextWatcher(editTextPassword, passwordIcon) { input ->
-            viewModel.onLoginDataChanged(editTextLogin.text.toString(), input)
+            viewModel.onSignInDataChanged(editTextLogin.text.toString(), input)
         })
         EditTextHelper.setHidePasswordOnIconTouch(editTextPassword)
     }

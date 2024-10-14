@@ -1,14 +1,12 @@
 package com.example.moviecatalog.presentation.view.Fragments
 
-import android.annotation.SuppressLint
+import androidx.lifecycle.ViewModelProvider
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -16,7 +14,11 @@ import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
+import com.example.moviecatalog.presentation.utils.ValidationUtils
+import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
+import com.example.moviecatalog.utils.EditTextHelper
 import java.util.Calendar
 
 
@@ -34,153 +36,75 @@ class SignUpFragment : Fragment() {
 
     private lateinit var buttonSignUp: Button
 
-    private fun isValidData(): Boolean {
-        val isNull = (editTextLogin.text.toString().isEmpty() ||
-                editTextEmail.text.toString().isEmpty() ||
-                editTextName.text.toString().isEmpty() ||
-                editTextPassword.text.toString().isEmpty() ||
-                editTextConfirmPassword.text.toString().isEmpty() ||
-                editTextDateOfBirth.text.toString().isEmpty() ||
-                (!buttonMale.isChecked && !buttonFemale.isChecked)
-                )
+    private lateinit var viewModel: SignUpViewModel
 
-        val isValidEmail = isValidEmail(editTextEmail.text.toString())
-        val isStrongPassword = isStrongPassword(editTextPassword.text.toString())
-        val isValidPasswords =
-            editTextPassword.text.toString() == editTextConfirmPassword.text.toString()
-        val isValidDate = isValidDate(editTextDateOfBirth.text.toString())
-
-        return !isNull && isValidEmail && isStrongPassword && isValidPasswords && isValidDate
-    }
-
-    private fun isStrongPassword(password: String): Boolean {
-        if (password.length < 8)
-            return false
-
-        val hasUpperCase = password.any { it.isUpperCase() }
-        val hasLowerCase = password.any { it.isLowerCase() }
-        val hasDigit = password.any { it.isDigit() }
-        val hasSpecialChar = password.any { !it.isLetterOrDigit() }
-
-        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar
-    }
-
-    private fun isValidEmail(email: String): Boolean {
-        val emailRegex = "^[\\w-.]+@[\\w-]+\\.[a-z]{2,6}$".toRegex()
-        return emailRegex.matches(email)
-    }
-
-    private fun getTextWatcher(editText: EditText, icon: Int, isPassword: Boolean = false): TextWatcher {
-        return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.isNullOrEmpty()) {
-                    if (isPassword && editText.transformationMethod is HideReturnsTransformationMethod) {
-                        editText.transformationMethod = PasswordTransformationMethod.getInstance()
-                    }
-                    editText.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        0,
-                        0
-                    )
-                } else {
-                    editText.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        icon,
-                        0
-                    )
-                }
-                updateButtonState()
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-        }
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    fun setClearTextOnIconTouch(editText: EditText) {
-        editText.setOnTouchListener { v: View?, event: MotionEvent ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                if (editText.compoundDrawables[2] != null) {
-                    if (event.rawX >=
-                        (editText.right - editText.compoundDrawables[2].bounds.width())) {
-                        editText.setText("")
-                        return@setOnTouchListener true
-                    }
-                }
-            }
-            false
-        }
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun setHidePasswordOnIconTouch(editText: EditText) {
-        editText.setOnTouchListener { v, event: MotionEvent ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                if (editText.compoundDrawables[2] != null) {
-                    if (event.rawX >= (editText.right - editText.compoundDrawables[2].bounds.width())) {
-                        if (editText.transformationMethod is HideReturnsTransformationMethod) {
-                            // Скрыть пароль
-                            editText.transformationMethod = PasswordTransformationMethod.getInstance()
-                            editText.setCompoundDrawablesWithIntrinsicBounds(
-                                0,
-                                0,
-                                R.drawable.ic_show_password,
-                                0
-                            )
-                        } else {
-                            // Показать пароль
-                            editText.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                            editText.setCompoundDrawablesWithIntrinsicBounds(
-                                0,
-                                0,
-                                R.drawable.ic_hide_password,
-                                0
-                            )
-                        }
-                        editText.setSelection(editText.text.length)
-                        return@setOnTouchListener true
-                    }
-                }
-            }
-            false
-        }
-    }
-
-    private fun hideIcon(editText: EditText) {
-        editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
+        viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
 
         editTextLogin = view.findViewById(R.id.editTextLogin)
-        hideIcon(editTextLogin)
-        editTextLogin.addTextChangedListener(getTextWatcher(editTextLogin, R.drawable.ic_clear))
-        setClearTextOnIconTouch(editTextLogin)
+        EditTextHelper.hideIcon(editTextLogin)
+        editTextLogin.addTextChangedListener(EditTextHelper.createTextWatcher(
+            editTextLogin,
+            R.drawable.ic_clear
+        ) { input ->
+            viewModel.onSignUpDataChanged(
+                input,
+                editTextEmail.text.toString(),
+                editTextName.text.toString(),
+                editTextPassword.text.toString(),
+                editTextConfirmPassword.text.toString(),
+                editTextDateOfBirth.text.toString(),
+                buttonMale.isChecked,
+                buttonFemale.isChecked
+            )
+        })
+        EditTextHelper.setClearTextOnIconTouch(editTextLogin)
 
         editTextEmail = view.findViewById(R.id.editTextEmail)
-        hideIcon(editTextEmail)
-        editTextEmail.addTextChangedListener(getTextWatcher(editTextEmail, R.drawable.ic_clear))
-        setClearTextOnIconTouch(editTextEmail)
+        EditTextHelper.hideIcon(editTextEmail)
+        editTextEmail.addTextChangedListener(EditTextHelper.createTextWatcher(
+            editTextEmail,
+            R.drawable.ic_clear
+        ) { input ->
+            viewModel.onSignUpDataChanged(
+                editTextLogin.text.toString(),
+                input,
+                editTextName.text.toString(),
+                editTextPassword.text.toString(),
+                editTextConfirmPassword.text.toString(),
+                editTextDateOfBirth.text.toString(),
+                buttonMale.isChecked,
+                buttonFemale.isChecked
+            )
+        })
+        EditTextHelper.setClearTextOnIconTouch(editTextEmail)
 
         editTextName = view.findViewById(R.id.editTextName)
-        hideIcon(editTextName)
-        editTextName.addTextChangedListener(getTextWatcher(editTextName, R.drawable.ic_clear))
-        setClearTextOnIconTouch(editTextName)
+        EditTextHelper.hideIcon(editTextName)
+        editTextName.addTextChangedListener(EditTextHelper.createTextWatcher(
+            editTextName,
+            R.drawable.ic_clear
+        ) { input ->
+            viewModel.onSignUpDataChanged(
+                editTextLogin.text.toString(),
+                editTextEmail.text.toString(),
+                input,
+                editTextPassword.text.toString(),
+                editTextConfirmPassword.text.toString(),
+                editTextDateOfBirth.text.toString(),
+                buttonMale.isChecked,
+                buttonFemale.isChecked
+            )
+        })
+        EditTextHelper.setClearTextOnIconTouch(editTextName)
 
         editTextPassword = view.findViewById(R.id.editTextPassword)
-        hideIcon(editTextPassword)
+        EditTextHelper.hideIcon(editTextPassword)
 
         val passwordIcon =
             if (editTextPassword.transformationMethod == PasswordTransformationMethod.getInstance())
@@ -188,15 +112,25 @@ class SignUpFragment : Fragment() {
             else
                 R.drawable.ic_hide_password
 
-        editTextPassword.addTextChangedListener(getTextWatcher(
+        editTextPassword.addTextChangedListener(EditTextHelper.createTextWatcher(
             editTextPassword,
-            passwordIcon,
-            true
-        ))
-        setHidePasswordOnIconTouch(editTextPassword)
+            passwordIcon
+        ) { input ->
+            viewModel.onSignUpDataChanged(
+                editTextLogin.text.toString(),
+                editTextEmail.text.toString(),
+                editTextName.text.toString(),
+                input,
+                editTextConfirmPassword.text.toString(),
+                editTextDateOfBirth.text.toString(),
+                buttonMale.isChecked,
+                buttonFemale.isChecked
+            )
+        })
+        EditTextHelper.setHidePasswordOnIconTouch(editTextPassword)
 
         editTextConfirmPassword = view.findViewById(R.id.editTextConfirmPassword)
-        hideIcon(editTextConfirmPassword)
+        EditTextHelper.hideIcon(editTextConfirmPassword)
 
         val confirmPasswordIcon =
             if (editTextConfirmPassword.transformationMethod == PasswordTransformationMethod.getInstance())
@@ -204,12 +138,22 @@ class SignUpFragment : Fragment() {
             else
                 R.drawable.ic_hide_password
 
-        editTextConfirmPassword.addTextChangedListener(getTextWatcher(
+        editTextConfirmPassword.addTextChangedListener(EditTextHelper.createTextWatcher(
             editTextConfirmPassword,
-            confirmPasswordIcon,
-            true
-        ))
-        setHidePasswordOnIconTouch(editTextConfirmPassword)
+            confirmPasswordIcon
+        ) { input ->
+            viewModel.onSignUpDataChanged(
+                editTextLogin.text.toString(),
+                editTextEmail.text.toString(),
+                editTextName.text.toString(),
+                editTextPassword.text.toString(),
+                input,
+                editTextDateOfBirth.text.toString(),
+                buttonMale.isChecked,
+                buttonFemale.isChecked
+            )
+        })
+        EditTextHelper.setHidePasswordOnIconTouch(editTextConfirmPassword)
 
         editTextDateOfBirth = view.findViewById(R.id.editTextDateOfBirth)
         editTextDateOfBirth.setOnClickListener { showDatePickerDialog() }
@@ -217,13 +161,22 @@ class SignUpFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                updateButtonState()
+                viewModel.onSignUpDataChanged(
+                    editTextLogin.text.toString(),
+                    editTextEmail.text.toString(),
+                    editTextName.text.toString(),
+                    editTextPassword.text.toString(),
+                    editTextConfirmPassword.text.toString(),
+                    editTextDateOfBirth.text.toString(),
+                    buttonMale.isChecked,
+                    buttonFemale.isChecked
+                )
             }
 
             override fun afterTextChanged(s: Editable?) {
                 val dateText = s.toString().trim()
 
-                if (dateText.isEmpty() || !isValidDate(dateText)) {
+                if (dateText.isEmpty() || !ValidationUtils.isDateValid(dateText)) {
                     editTextDateOfBirth.setCompoundDrawablesWithIntrinsicBounds(
                         0,
                         0,
@@ -247,56 +200,23 @@ class SignUpFragment : Fragment() {
 
         buttonSignUp = view.findViewById(R.id.buttonSignUp)
 
+        viewModel.isButtonEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
+            EditTextHelper.updateButtonStatus(isEnabled)
+            buttonSignUp.isEnabled = isEnabled
+            buttonSignUp.setTextColor(
+                if (isEnabled)
+                    resources.getColor(R.color.white)
+                else resources.getColor(R.color.gray_faded)
+            )
+            buttonSignUp.setBackgroundResource(
+                if (isEnabled)
+                    R.drawable.button_primary_default
+                else
+                    R.drawable.button_secondary
+            )
+        })
+
         return view
-    }
-
-    private fun updateButtonState() {
-        println("Вызвана updateButtonState")
-        println(isValidData())
-        if (isValidData()) {
-            buttonSignUp.isEnabled = true
-            buttonSignUp.setTextColor(resources.getColor(R.color.white))
-            buttonSignUp.setBackgroundResource(R.drawable.button_primary_default)
-        } else {
-            buttonSignUp.isEnabled = false
-            buttonSignUp.setTextColor(resources.getColor(R.color.gray_faded))
-            buttonSignUp.setBackgroundResource(R.drawable.button_secondary)
-        }
-    }
-
-    private fun isValidDate(date: String): Boolean {
-        // Является ли год високосным
-        fun isLeapYear(year: Int): Boolean {
-            return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
-        }
-
-        return try {
-            val (dayStr, monthStr, yearStr) = date.split(" ").map { it.trim() }
-
-            val day = dayStr.toInt()
-            val year = yearStr.toInt()
-
-            if (year < 1900 || year > 2020) return false
-
-            if (day < 1 || day > 31) return false
-
-            val monthIndex = months.indexOf(monthStr.toLowerCase())
-            if (monthIndex == -1) return false // Неверный месяц
-
-            val daysInMonth = when (monthIndex) {
-                // Январь, март, май, июль, август, сентябрь и декабрь
-                0, 2, 4, 6, 7, 9, 11 -> 31
-                // Апрель, июнь, сентябрь, ноябрь
-                3, 5, 8, 10 -> 30
-                // Февраль
-                1 -> if (isLeapYear(year)) 29 else 28
-                else -> return false
-            }
-
-            return day <= daysInMonth
-        } catch (e: Exception) {
-            false
-        }
     }
 
     private val months = arrayOf(
