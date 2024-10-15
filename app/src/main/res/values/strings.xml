@@ -22,4 +22,9 @@
     <string name="date_of_birth">Дата рождения</string>
     <string name="male">Мужчина</string>
     <string name="female">Женщина</string>
+    <string name="profile">Профиль</string>
+    <string name="favorites">Избранное</string>
+    <string name="movies">Фильмы</string>
+    <string name="feed">Лента</string>
+    <string name="title_activity_feed">FeedActivity</string>
 </resources>

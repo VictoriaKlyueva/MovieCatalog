@@ -14,9 +14,7 @@ class SignInViewModel : ViewModel() {
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
 
     fun onSignInDataChanged(login: String, password: String) {
-        _isButtonEnabled.value = login.isNotEmpty() &&
-                password.isNotEmpty() &&
-                ValidationUtils.isSignInDataValid(login, password)
+        _isButtonEnabled.value = ValidationUtils.isSignInDataValid(login, password)
     }
 
     fun onBackButtonClicked() {

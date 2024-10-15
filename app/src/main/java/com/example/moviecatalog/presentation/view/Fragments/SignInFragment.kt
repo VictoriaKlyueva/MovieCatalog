@@ -1,5 +1,6 @@
 package com.example.moviecatalog.presentation.view.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.presentation.view.Activities.FeedActivity
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 import com.example.moviecatalog.utils.EditTextHelper
 
@@ -79,6 +81,13 @@ class SignInFragment : Fragment() {
                     R.drawable.button_secondary
             )
         })
+
+        buttonSignIn.setOnClickListener {
+            if (buttonSignIn.isEnabled) {
+                val intent = Intent(requireActivity(), FeedActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
         return view
     }
