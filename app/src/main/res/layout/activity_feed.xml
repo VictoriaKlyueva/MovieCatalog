@@ -19,6 +19,7 @@
         android:layout_marginRight="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/bottom_nav_background"
+        app:itemTextColor="@color/gray_faded"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled" />
 
