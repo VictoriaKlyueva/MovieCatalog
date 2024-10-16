@@ -6,17 +6,20 @@ import android.widget.ImageButton
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.presentation.viewModel.MainViewModel
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 
 class SignInActivity : AppCompatActivity() {
 
-    private val viewModel: SignInViewModel by viewModels()
+    private lateinit var viewModel: SignInViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_sign_in)
+
+        viewModel = ViewModelProvider(this)[SignInViewModel::class.java]
 
         val backButton = findViewById<ImageButton>(R.id.back_button)
 
