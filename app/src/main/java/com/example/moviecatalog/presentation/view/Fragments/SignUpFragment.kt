@@ -43,7 +43,7 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up, container, false)
-        viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
+        viewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
 
         editTextLogin = view.findViewById(R.id.editTextLogin)
         EditTextHelper.hideIcon(editTextLogin)
@@ -194,7 +194,8 @@ class SignUpFragment : Fragment() {
             buttonSignUp.setTextColor(
                 if (isEnabled)
                     resources.getColor(R.color.white)
-                else resources.getColor(R.color.gray_faded)
+                else
+                    resources.getColor(R.color.gray_faded)
             )
             buttonSignUp.setBackgroundResource(
                 if (isEnabled)

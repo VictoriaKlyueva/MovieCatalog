@@ -39,7 +39,8 @@ class SignInFragment : Fragment() {
         editTextPassword = view.findViewById(R.id.editTextPassword)
         EditTextHelper.hideIcon(editTextPassword)
 
-        val passwordIcon = if (editTextPassword.transformationMethod == PasswordTransformationMethod.getInstance())
+        val passwordIcon =
+            if (editTextPassword.transformationMethod == PasswordTransformationMethod.getInstance())
             R.drawable.ic_show_password
         else
             R.drawable.ic_hide_password
@@ -57,7 +58,7 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_sign_in, container, false)
-        viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
+        viewModel = ViewModelProvider(this)[SignInViewModel::class.java]
 
         editTextLoginProcessing(view)
         editTextPasswordProcessing(view)
