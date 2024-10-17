@@ -8,9 +8,6 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
