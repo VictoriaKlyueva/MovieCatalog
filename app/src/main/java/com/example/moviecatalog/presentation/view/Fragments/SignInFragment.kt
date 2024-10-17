@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.LoginCredentials
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 import com.example.moviecatalog.utils.EditTextHelper
 
@@ -80,6 +81,14 @@ class SignInFragment : Fragment() {
                     R.drawable.button_secondary
             )
         })
+
+        buttonSignIn.setOnClickListener {
+            val user = LoginCredentials(
+                username = editTextLogin.text.toString(),
+                password = editTextPassword.text.toString()
+            )
+            viewModel.onSignInButtonClicked(user)
+        }
 
         return view
     }
