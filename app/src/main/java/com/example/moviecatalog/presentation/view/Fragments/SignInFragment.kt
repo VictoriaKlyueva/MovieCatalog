@@ -1,5 +1,6 @@
 package com.example.moviecatalog.presentation.view.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.LoginCredentials
 import com.example.moviecatalog.databinding.FragmentSignInBinding
+import com.example.moviecatalog.presentation.view.Activities.FeedActivity
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 import com.example.moviecatalog.utils.EditTextHelper
 
