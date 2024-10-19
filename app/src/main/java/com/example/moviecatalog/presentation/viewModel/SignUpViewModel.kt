@@ -3,6 +3,12 @@ package com.example.moviecatalog.presentation.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecatalog.data.model.LoginCredentials
+import com.example.moviecatalog.data.model.User
+import com.example.moviecatalog.data.repository.LoginCredentialsRepository
+import com.example.moviecatalog.data.repository.RegisterUserRepository
+import com.example.moviecatalog.domain.usecase.LoginCredentialsUseCase
+import com.example.moviecatalog.domain.usecase.RegisterUserUseCase
 import com.example.moviecatalog.presentation.utils.ValidationUtils
 
 class SignUpViewModel : ViewModel() {
@@ -12,6 +18,9 @@ class SignUpViewModel : ViewModel() {
 
     private val _isButtonEnabled = MutableLiveData<Boolean>().apply { value = false }
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
+
+    private val userRepository = RegisterUserRepository()
+    private val registerUserUseCase = RegisterUserUseCase(userRepository)
 
     fun onSignUpDataChanged(
         login: String,
@@ -33,6 +42,16 @@ class SignUpViewModel : ViewModel() {
             isMale,
             isFemale
         )
+    }
+
+    fun onSignInButtonClicked(user: User) {
+        registerUserUseCase.execute(user) { success ->
+            if (success) {
+                println("Успешная регистрация")
+            } else {
+                println("Ошибка(")
+            }
+        }
     }
 
     fun onBackButtonClicked() {

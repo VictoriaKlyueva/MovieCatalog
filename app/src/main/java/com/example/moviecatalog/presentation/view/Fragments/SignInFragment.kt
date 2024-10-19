@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.LoginCredentials
 import com.example.moviecatalog.databinding.FragmentSignInBinding
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 import com.example.moviecatalog.utils.EditTextHelper
@@ -32,6 +33,14 @@ class SignInFragment : Fragment() {
         setupEditTextListeners()
         setupSignInButton()
 
+        buttonSignIn.setOnClickListener {
+            val user = LoginCredentials(
+                username = editTextLogin.text.toString(),
+                password = editTextPassword.text.toString()
+            )
+            viewModel.onSignInButtonClicked(user)
+        }
+        
         return binding.root
     }
 
@@ -76,7 +85,7 @@ class SignInFragment : Fragment() {
             )
         })
     }
-
+    
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
