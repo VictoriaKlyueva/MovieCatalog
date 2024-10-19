@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.LoginCredentials
+import com.example.moviecatalog.data.model.User
 import com.example.moviecatalog.databinding.FragmentSignUpBinding
 import com.example.moviecatalog.presentation.utils.DateHelper
 import com.example.moviecatalog.presentation.utils.GenderToggleHandler
@@ -111,7 +113,23 @@ class SignUpFragment : Fragment() {
             updateSignUpButton(isEnabled)
         })
 
+        setupButtonSignUp()
+
         return binding.root
+    }
+
+    private fun setupButtonSignUp() {
+        binding.buttonSignUp.setOnClickListener {
+            val user = User(
+                userName = binding.editTextLogin.text.toString(),
+                name = binding.editTextName.text.toString(),
+                password = binding.editTextPassword.text.toString(),
+                email = binding.editTextEmail.text.toString(),
+                birthDate = binding.editTextDateOfBirth.text.toString(),
+                gender = if (binding.buttonMale.isChecked) 0 else 1
+            )
+            viewModel.onSignInButtonClicked(user)
+        }
     }
 
     private fun updateViewModelData(
