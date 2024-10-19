@@ -34,19 +34,8 @@ class SignInFragment : Fragment() {
 
         setupEditTextListeners()
         setupSignInButton()
-        setupButtonSignIn()
         
         return binding.root
-    }
-
-    private fun setupButtonSignIn() {
-        binding.buttonSignIn.setOnClickListener {
-            val user = LoginCredentials(
-                username = binding.editTextLogin.text.toString(),
-                password = binding.editTextPassword.text.toString()
-            )
-            viewModel.onSignInButtonClicked(user)
-        }
     }
 
     private fun setupEditTextListeners() {
@@ -89,6 +78,14 @@ class SignInFragment : Fragment() {
                     R.drawable.button_secondary
             )
         })
+
+        binding.buttonSignIn.setOnClickListener {
+            val user = LoginCredentials(
+                username = binding.editTextLogin.text.toString(),
+                password = binding.editTextPassword.text.toString()
+            )
+            viewModel.onSignInButtonClicked(user)
+        }
     }
     
     override fun onDestroyView() {
