@@ -85,6 +85,11 @@ class SignInFragment : Fragment() {
                 password = binding.editTextPassword.text.toString()
             )
             viewModel.onSignInButtonClicked(user)
+
+            if (binding.buttonSignIn.isEnabled) {
+                val intent = Intent(requireActivity(), FeedActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
     
