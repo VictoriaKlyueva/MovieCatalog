@@ -1,24 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.MovieCatalog" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="app:itemBackground">@color/colorPrimary</item>
-        <item name="app:itemIconTint=">@color/white</item>
-        <item name="app:itemTextColor=">@color/white</item>
-    </style>
+    <style name="Theme.MovieCatalog" parent="Base.Theme.MovieCatalog" />
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="SplashTheme" parent="Theme.AppCompat">
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
-
-    <style name="Theme.MovieCatalog" parent="Base.Theme.MovieCatalog" />
 
     <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/manrope_bold</item>
     </style>
 
-    <style name="BottomNavTheme" parent="Widget.Design.BottomNavigationView">
-
+    <style name="CustomBottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="background">@drawable/bottom_nav_background</item>
+        <item name="itemTextColor">@color/gray_faded</item>
+        <item name="labelVisibilityMode">labeled</item>
     </style>
 </resources>
