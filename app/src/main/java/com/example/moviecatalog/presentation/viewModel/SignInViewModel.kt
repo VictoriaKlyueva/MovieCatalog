@@ -1,6 +1,5 @@
 package com.example.moviecatalog.presentation.viewModel
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,17 +16,17 @@ class SignInViewModel : ViewModel() {
     private val _isButtonEnabled = MutableLiveData<Boolean>()
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
 
-    private val userRepository = LoginCredentialsRepository()
-    private val registerUserUseCase = LoginCredentialsUseCase(userRepository)
+    private val loginRepository = LoginCredentialsRepository()
+    private val loginCredentialsUseCase = LoginCredentialsUseCase(loginRepository)
 
     fun onSignInDataChanged(login: String, password: String) {
         _isButtonEnabled.value = ValidationUtils.isSignInDataValid(login, password)
     }
 
     fun onSignInButtonClicked(user: LoginCredentials) {
-        registerUserUseCase.execute(user) { success ->
+        loginCredentialsUseCase.execute(user) { success ->
             if (success) {
-                println("Успешная регистрация")
+                println("Успешный вход в аккаунт")
             } else {
                 println("Ошибка(")
             }
