@@ -1,18 +1,24 @@
 package com.example.moviecatalog.presentation.view.Activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.example.moviecatalog.presentation.viewmodel.SplashViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.moviecatalog.R
+import com.example.moviecatalog.presentation.viewModel.SplashViewModel
 
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
 
-    private val viewModel: SplashViewModel by viewModels()
+    private lateinit var viewModel: SplashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
+
+        viewModel = ViewModelProvider(this)[SplashViewModel::class.java]
 
         viewModel.navigateToMain.observe(this, Observer { navigate ->
             if (navigate == true) {

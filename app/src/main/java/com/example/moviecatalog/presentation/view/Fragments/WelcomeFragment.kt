@@ -5,36 +5,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.databinding.FragmentWelcomeBinding // Импортируйте сгенерированный класс binding
 import com.example.moviecatalog.presentation.view.Activities.SignInActivity
 import com.example.moviecatalog.presentation.view.Activities.SignUpActivity
 import com.example.moviecatalog.presentation.viewmodels.WelcomeViewModel
 
 class WelcomeFragment : Fragment() {
 
-    private lateinit var loginButton: Button
-    private lateinit var registerButton: Button
-    private val welcomeViewModel: WelcomeViewModel by activityViewModels() // Используем activityViewModels для совместного использования ViewModel
+    private var _binding: FragmentWelcomeBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var welcomeViewModel: WelcomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_welcome, container, false)
+    ): View {
+        _binding = FragmentWelcomeBinding.inflate(inflater, container, false)
 
-        loginButton = view.findViewById(R.id.loginButton)
-        registerButton = view.findViewById(R.id.registerButton)
+        welcomeViewModel = ViewModelProvider(this)[WelcomeViewModel::class.java]
 
-        loginButton.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             welcomeViewModel.onLoginButtonClicked()
         }
 
-        registerButton.setOnClickListener {
+        binding.registerButton.setOnClickListener {
             welcomeViewModel.onRegisterButtonClicked()
         }
 
@@ -52,6 +52,11 @@ class WelcomeFragment : Fragment() {
             }
         })
 
-        return view
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

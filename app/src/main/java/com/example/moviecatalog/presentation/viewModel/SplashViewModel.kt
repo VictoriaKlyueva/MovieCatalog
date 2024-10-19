@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.viewmodel
+package com.example.moviecatalog.presentation.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
