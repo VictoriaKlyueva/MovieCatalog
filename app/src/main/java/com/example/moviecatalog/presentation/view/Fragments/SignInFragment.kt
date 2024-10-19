@@ -32,16 +32,19 @@ class SignInFragment : Fragment() {
 
         setupEditTextListeners()
         setupSignInButton()
+        setupButtonSignIn()
+        
+        return binding.root
+    }
 
-        buttonSignIn.setOnClickListener {
+    private fun setupButtonSignIn() {
+        binding.buttonSignIn.setOnClickListener {
             val user = LoginCredentials(
-                username = editTextLogin.text.toString(),
-                password = editTextPassword.text.toString()
+                username = binding.editTextLogin.text.toString(),
+                password = binding.editTextPassword.text.toString()
             )
             viewModel.onSignInButtonClicked(user)
         }
-        
-        return binding.root
     }
 
     private fun setupEditTextListeners() {
