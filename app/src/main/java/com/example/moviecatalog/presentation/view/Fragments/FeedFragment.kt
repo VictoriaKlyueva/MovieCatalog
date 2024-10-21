@@ -28,7 +28,7 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         viewModel.movies.observe(viewLifecycleOwner) { movies ->
             movies?.let {
                 if (it.isNotEmpty()) {
-                    displayMovie(it[0])
+                    displayMovie(viewModel.getRandomMovie(it))
                 }
             }
         }
@@ -37,6 +37,7 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
 
         return binding.root
     }
+
 
     private fun displayMovie(movie: MovieElementModel) {
         binding.movieName.text = movie.name
