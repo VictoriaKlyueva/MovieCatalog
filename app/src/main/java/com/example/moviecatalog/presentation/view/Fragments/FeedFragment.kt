@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
 import com.example.moviecatalog.databinding.FragmentFeedBinding
-import com.example.moviecatalog.databinding.FragmentSignInBinding
 import com.example.moviecatalog.presentation.viewModel.FeedViewModel
-import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 
 
 class FeedFragment : Fragment(R.layout.fragment_feed) {
@@ -23,10 +21,9 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FeedViewModel::class.java]
-        println("хей хей ночной народ")
 
         return binding.root
     }
