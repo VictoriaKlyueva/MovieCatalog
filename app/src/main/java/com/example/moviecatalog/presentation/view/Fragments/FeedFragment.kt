@@ -44,11 +44,29 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         binding.movieCountry.text = movie.country
         binding.movieSeparator.text = " • "
         binding.movieYear.text = movie.year.toString()
-        println(movie.genres.size)
-        binding.genreOne.text = movie.genres[0].name
-        binding.genreTwo.text = movie.genres[1].name
-        binding.genreThree.text = movie.genres[2].name
+
+        binding.genreOne.visibility = View.GONE
+        binding.genreTwo.visibility = View.GONE
+        binding.genreThree.visibility = View.GONE
+
+        for (i in movie.genres.indices) {
+            when (i) {
+                0 -> {
+                    binding.genreOne.text = movie.genres[i].name
+                    binding.genreOne.visibility = View.VISIBLE
+                }
+                1 -> {
+                    binding.genreTwo.text = movie.genres[i].name
+                    binding.genreTwo.visibility = View.VISIBLE
+                }
+                2 -> {
+                    binding.genreThree.text = movie.genres[i].name
+                    binding.genreThree.visibility = View.VISIBLE
+                }
+            }
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
