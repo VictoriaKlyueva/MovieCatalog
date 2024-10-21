@@ -27,7 +27,7 @@
         android:fontFamily="@font/manrope_bold"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginBottom="8dp"/>
 
@@ -67,11 +67,50 @@
             android:layout_marginBottom="4dp"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/movie_genres"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@android:color/white"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
 
+        <TextView
+            android:id="@+id/genre_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/button_secondary"
+            android:fontFamily="@font/manrope_medium"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/genre_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/button_primary_default"
+            android:fontFamily="@font/manrope_medium"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_marginStart="4dp"/>
+
+        <TextView
+            android:id="@+id/genre_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/button_secondary"
+            android:fontFamily="@font/manrope_medium"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_marginStart="4dp"/>
+    </LinearLayout>
 </LinearLayout>

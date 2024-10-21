@@ -43,10 +43,10 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         binding.movieCountry.text = movie.country
         binding.movieSeparator.text = " • "
         binding.movieYear.text = movie.year.toString()
-        // Здесь вы можете установить картинку постера, если у вас есть URL или ресурс
-        // Например:
-        // binding.moviePoster.setImageBitmap(loadBitmap(movie.posterUrl))
-        // или использовать библиотеку вроде Glide или Picasso
+        println(movie.genres.size)
+        binding.genreOne.text = movie.genres[0].name
+        binding.genreTwo.text = movie.genres[1].name
+        binding.genreThree.text = movie.genres[2].name
     }
 
     override fun onDestroyView() {
