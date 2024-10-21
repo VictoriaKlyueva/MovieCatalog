@@ -41,6 +41,7 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
     private fun displayMovie(movie: MovieElementModel) {
         binding.movieName.text = movie.name
         binding.movieCountry.text = movie.country
+        binding.movieSeparator.text = " • "
         binding.movieYear.text = movie.year.toString()
         // Здесь вы можете установить картинку постера, если у вас есть URL или ресурс
         // Например:
