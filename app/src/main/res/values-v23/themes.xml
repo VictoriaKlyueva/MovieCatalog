@@ -2,9 +2,6 @@
 
     <style name="Theme.MovieCatalog" parent="Base.Theme.MovieCatalog">
         <!-- Transparent system bars for edge-to-edge. -->
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
@@ -13,5 +10,11 @@
 
     <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/manrope_bold</item>
+    </style>
+
+    <style name="CustomBottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="background">@drawable/bottom_nav_background</item>
+        <item name="itemTextColor">@color/gray_faded</item>
+        <item name="labelVisibilityMode">labeled</item>
     </style>
 </resources>
