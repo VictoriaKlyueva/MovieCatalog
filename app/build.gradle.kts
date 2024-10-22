@@ -52,7 +52,7 @@ android {
 
 dependencies {
     implementation(libs.retrofit)
-    implementation(libs.converter.gson)
+    implementation(libs.retrofit.converter.gson)
     implementation(libs.com.google.android.material.material.v140)
     implementation(libs.androidx.navigation.fragment.ktx.v235)
     implementation(libs.androidx.navigation.ui.ktx.v235)
