@@ -14,7 +14,9 @@ class FeedViewModel : ViewModel() {
     private val _movies = MutableLiveData<List<MovieElementModel>>()
     val movies: LiveData<List<MovieElementModel>> get() = _movies
 
-    fun onDataUploading(page: Int = 1) {
+    fun onDataUploading() {
+        val page = (1..5).random()
+        println(page)
         movieResponseUseCase.execute(page) { movies, error ->
             if (error == null) {
                 _movies.postValue(movies!!)
