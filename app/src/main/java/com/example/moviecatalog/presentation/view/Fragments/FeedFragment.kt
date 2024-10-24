@@ -35,7 +35,7 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
             }
         }
 
-        viewModel.onDataUploading()
+        viewModel.fetchMovies()
 
         return binding.root
     }

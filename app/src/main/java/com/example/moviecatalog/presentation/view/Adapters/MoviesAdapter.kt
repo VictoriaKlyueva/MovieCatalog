@@ -7,34 +7,45 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 
-class MoviesAdapter(private val movies: List<MovieElementModel>, private val onClick: (MovieElementModel) -> Unit) :
-    RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
-
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.movie_title)
-        val image: ImageView = itemView.findViewById(R.id.movie_image)
-    }
+class MoviesAdapter(
+    private var movies: List<MovieElementModel>
+) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_movie, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.item_movie,
+            parent,
+            false
+        )
         return MovieViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movies[position]
-        holder.title.text = movie.name
-        Glide.with(holder.itemView.context)
-            .load(movie.poster)
-            .transform(RoundedCorners(48))
-            .into(holder.image)
-
-        holder.itemView.setOnClickListener { onClick(movie) }
+        holder.bind(movie)
     }
 
-    override fun getItemCount() = movies.size
+    override fun getItemCount(): Int = movies.size
+
+    fun updateMovies(newMovies: List<MovieElementModel>) {
+        movies = newMovies
+        notifyDataSetChanged()
+    }
+
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val imageView = itemView.findViewById<ImageView>(R.id.viewPagerImage)
+        private val textViewTitle = itemView.findViewById<TextView>(R.id.viewPagerTitle)
+
+        fun bind(movie: MovieElementModel) {
+            textViewTitle.text = movie.name
+            Glide.with(itemView.context)
+                .load(movie.poster)
+                .into(imageView)
+        }
+    }
 }
+
+
