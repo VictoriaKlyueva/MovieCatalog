@@ -1,6 +1,7 @@
 package com.example.moviecatalog.presentation.view.Fragments
 
 import android.os.Bundle
+import android.renderscript.ScriptGroup.Binding
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.GenreModel
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentFeedBinding
 import com.example.moviecatalog.presentation.viewModel.FeedViewModel
@@ -19,6 +21,12 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
 
     private lateinit var viewModel: FeedViewModel
 
+    private fun hideGenres() {
+        binding.genreOne.visibility = View.GONE
+        binding.genreTwo.visibility = View.GONE
+        binding.genreThree.visibility = View.GONE
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,6 +34,8 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FeedViewModel::class.java]
+
+        hideGenres()
 
         viewModel.movies.observe(viewLifecycleOwner) { movies ->
             movies?.let {
@@ -47,9 +57,7 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         binding.movieSeparator.text = " • "
         binding.movieYear.text = movie.year.toString()
 
-        binding.genreOne.visibility = View.GONE
-        binding.genreTwo.visibility = View.GONE
-        binding.genreThree.visibility = View.GONE
+        hideGenres()
 
         for (i in movie.genres.indices) {
             when (i) {
