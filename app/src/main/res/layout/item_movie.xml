@@ -92,11 +92,10 @@
         android:fontFamily="@font/manrope_bold"
         android:text="@string/to_watch"
         android:paddingHorizontal="24dp"
+        android:paddingVertical="8dp"
         android:background="@drawable/button_primary_default"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_random_movie"
-        android:padding="24dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
