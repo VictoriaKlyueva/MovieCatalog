@@ -6,35 +6,41 @@
     android:background="@color/dark"
     tools:context=".presentation.view.Fragments.MoviesFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="464dp" />
+            android:layout_height="wrap_content">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="464dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/button_random_movie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:visibility="gone" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_watch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:fontFamily="@font/manrope_bold"
-            android:text="@string/to_watch"
-            android:paddingHorizontal="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="48dp"
+            android:drawableLeft="@drawable/ic_cube"
+            android:layout_marginTop="24dp"
             android:background="@drawable/button_primary_default"
-            android:textAllCaps="false" />
-    </RelativeLayout>
-
+            android:fontFamily="@font/manrope_bold"
+            android:textSize="20sp"
+            android:text="@string/to_watch_random_movie"
+            android:textAllCaps="false"
+            android:paddingHorizontal="16dp" />
+    </LinearLayout>
 </ScrollView>
