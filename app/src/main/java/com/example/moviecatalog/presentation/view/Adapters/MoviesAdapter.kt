@@ -3,25 +3,20 @@ package com.example.moviecatalog.presentation.view.Adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.databinding.ItemMovieBinding
 
 class MoviesAdapter(
     private var movies: List<MovieElementModel>
 ) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_movie,
-            parent,
-            false
-        )
-        return MovieViewHolder(view)
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -36,36 +31,39 @@ class MoviesAdapter(
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageView = itemView.findViewById<ImageView>(R.id.viewPagerImage)
-        private val textViewTitle = itemView.findViewById<TextView>(R.id.viewPagerTitle)
-        private val genreOne = itemView.findViewById<TextView>(R.id.genre_one)
-        private val genreTwo = itemView.findViewById<TextView>(R.id.genre_two)
-        private val genreThree = itemView.findViewById<TextView>(R.id.genre_three)
+    inner class MovieViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: MovieElementModel) {
-            textViewTitle.text = movie.name
+            binding.viewPagerTitle.text = movie.name
 
-            Glide.with(itemView.context)
+            Glide.with(binding.root.context)
                 .load(movie.poster)
                 .transform(RoundedCorners(48))
-                .into(imageView)
+                .into(binding.viewPagerImage)
 
+            hideGenres()
             for (i in movie.genres.indices) {
                 when (i) {
                     0 -> {
-                        genreOne.text = movie.genres[i].name
+                        binding.genreOne.text = movie.genres[i].name
+                        binding.genreOne.visibility = View.VISIBLE
                     }
                     1 -> {
-                        genreTwo.text = movie.genres[i].name
+                        binding.genreTwo.text = movie.genres[i].name
+                        binding.genreTwo.visibility = View.VISIBLE
                     }
                     2 -> {
-                        genreThree.text = movie.genres[i].name
+                        binding.genreThree.text = movie.genres[i].name
+                        binding.genreThree.visibility = View.VISIBLE
                     }
                 }
             }
         }
+
+        private fun hideGenres() {
+            binding.genreOne.visibility = View.GONE
+            binding.genreTwo.visibility = View.GONE
+            binding.genreThree.visibility = View.GONE
+        }
     }
 }
-
-

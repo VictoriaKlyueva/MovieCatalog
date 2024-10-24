@@ -14,13 +14,12 @@
 
     <TextView
         android:id="@+id/viewPagerTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:textSize="36sp"
-        android:textColor="@color/white"
-        android:text="йоу"
         android:fontFamily="@font/manrope_bold"
+        android:textColor="@color/white"
+        android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/genres"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -30,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:orientation="vertical"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -38,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -79,8 +78,7 @@
             android:fontFamily="@font/manrope_medium"
             android:textSize="14sp"
             android:textColor="@android:color/white"
-            android:gravity="center"
-            android:layout_marginStart="4dp"/>
+            android:gravity="center"/>
 
     </LinearLayout>
 
