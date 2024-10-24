@@ -39,13 +39,31 @@ class MoviesAdapter(
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView = itemView.findViewById<ImageView>(R.id.viewPagerImage)
         private val textViewTitle = itemView.findViewById<TextView>(R.id.viewPagerTitle)
+        private val genreOne = itemView.findViewById<TextView>(R.id.genre_one)
+        private val genreTwo = itemView.findViewById<TextView>(R.id.genre_two)
+        private val genreThree = itemView.findViewById<TextView>(R.id.genre_three)
 
         fun bind(movie: MovieElementModel) {
             textViewTitle.text = movie.name
+
             Glide.with(itemView.context)
                 .load(movie.poster)
                 .transform(RoundedCorners(48))
                 .into(imageView)
+
+            for (i in movie.genres.indices) {
+                when (i) {
+                    0 -> {
+                        genreOne.text = movie.genres[i].name
+                    }
+                    1 -> {
+                        genreTwo.text = movie.genres[i].name
+                    }
+                    2 -> {
+                        genreThree.text = movie.genres[i].name
+                    }
+                }
+            }
         }
     }
 }
