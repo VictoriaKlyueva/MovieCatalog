@@ -40,12 +40,15 @@ class MoviesFragment : Fragment() {
         moviesAdapter = MoviesAdapter(emptyList())
         binding.viewPager.adapter = moviesAdapter
 
-        // Автоматическая прокрутка
         val handler = Handler(Looper.getMainLooper())
         val runnable = object : Runnable {
             override fun run() {
                 val currentItem = binding.viewPager.currentItem
-                val nextItem = if (currentItem == moviesAdapter.itemCount - 1) 0 else currentItem + 1
+                val nextItem = if (currentItem == moviesAdapter.itemCount - 1)
+                    0
+                else
+                    currentItem + 1
+
                 binding.viewPager.setCurrentItem(nextItem, true)
                 handler.postDelayed(this, 5000)
             }
