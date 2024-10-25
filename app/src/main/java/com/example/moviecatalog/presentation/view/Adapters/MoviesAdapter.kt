@@ -9,10 +9,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.ItemMovieBinding
 
-class MoviesPagerAdapter(
+class MoviesAdapter(
     private var movies: List<MovieElementModel>,
     private val onWatchButtonClick: (MovieElementModel) -> Unit
-) : RecyclerView.Adapter<MyFavoritesMoviesPagerAdapter.MovieViewHolder>() {
+) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
