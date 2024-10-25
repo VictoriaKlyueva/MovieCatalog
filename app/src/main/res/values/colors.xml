@@ -4,5 +4,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_faded">#333333</color>
+    <color name="gray">#CCCCCC</color>
     <color name="gray_faded">#999999</color>
+    <color name="gradient_start">#DF2800</color>
+    <color name="gradient_end">#FF6633</color>
 </resources>

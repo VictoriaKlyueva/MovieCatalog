@@ -45,5 +45,11 @@
             android:text="@string/to_watch_random_movie"
             android:textAllCaps="false"
             android:paddingHorizontal="16dp" />
+
+        <fragment
+            android:id="@+id/myFavoritesFragment"
+            android:name="com.example.moviecatalog.presentation.view.Fragments.MyFavoritesFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

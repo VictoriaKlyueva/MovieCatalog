@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.view.Fragments.MyFavoritesFragment">
+
+    <com.example.moviecatalog.presentation.view.Views.GradientTextView
+        android:id="@+id/myFavoritesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_favorites"
+        android:fontFamily="@font/manrope_bold"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/allTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/manrope_bold"
+        android:text="@string/all"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/myFavoritesTextView"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
