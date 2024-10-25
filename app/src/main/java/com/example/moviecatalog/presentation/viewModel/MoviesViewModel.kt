@@ -35,10 +35,21 @@
         }
 
         fun fetchFavoriteMovies() {
+            /*
             favoritesMoviesUseCase.execute { movies, error ->
                 if (error == null) {
                     _favoritesMovies.postValue(movies ?: emptyList())
                 } else {
+                    _favoritesMovies.postValue(emptyList())
+                }
+            }
+            */
+            val page = (1..5).random()
+            movieResponseUseCase.execute(page) { movies, error ->
+                if (error == null) {
+                    _favoritesMovies.postValue(movies?.take(5) ?: emptyList())
+                } else {
+                    println("Ошибка получения данных: $error")
                     _favoritesMovies.postValue(emptyList())
                 }
             }

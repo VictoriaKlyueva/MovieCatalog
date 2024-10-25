@@ -1,13 +1,12 @@
 package com.example.moviecatalog.presentation.view.Fragments
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMyFavoritesBinding
 import com.example.moviecatalog.presentation.view.Adapters.MyFavoriteMoviesPagerAdapter
@@ -21,22 +20,6 @@ class MyFavoriteMoviesFragment : Fragment() {
 
     private var favoritesMovies: List<MovieElementModel> = emptyList()
     private lateinit var moviesAdapter: MyFavoriteMoviesPagerAdapter
-    private val handler = Handler(Looper.getMainLooper())
-
-    private val runnable = object : Runnable {
-        override fun run() {
-            if (::moviesAdapter.isInitialized && moviesAdapter.itemCount > 0) {
-                val currentItem = binding.viewPagerFavorites.currentItem
-                val nextItem = if (currentItem == moviesAdapter.itemCount - 1)
-                    0
-                else
-                    currentItem + 1
-
-                binding.viewPagerFavorites.setCurrentItem(nextItem, true)
-                handler.postDelayed(this, 5000)
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,14 +35,15 @@ class MyFavoriteMoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
-        observeMovies()
         moviesViewModel.fetchFavoriteMovies()
+        observeMovies()
     }
 
     private fun setupRecyclerView() {
         moviesAdapter = MyFavoriteMoviesPagerAdapter(emptyList())
-        binding.viewPagerFavorites.adapter = moviesAdapter
-        handler.postDelayed(runnable, 3000)
+        binding.recyclerViewFavorites.adapter = moviesAdapter
+        binding.recyclerViewFavorites.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun observeMovies() {
@@ -67,16 +51,16 @@ class MyFavoriteMoviesFragment : Fragment() {
             favoritesMovies = movies
             moviesAdapter.updateMovies(movies)
             if (movies.isNotEmpty()) {
-                binding.viewPagerFavorites.setCurrentItem(0, false)
+                binding.recyclerViewFavorites.scrollToPosition(0)
             } else {
-                println("нет фильмов")
+                println("No movies available")
             }
         }
     }
 
     override fun onDestroyView() {
-        handler.removeCallbacks(runnable)
         _binding = null
         super.onDestroyView()
     }
 }
+

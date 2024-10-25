@@ -50,6 +50,7 @@
             android:id="@+id/myFavoritesFragment"
             android:name="com.example.moviecatalog.presentation.view.Fragments.MyFavoriteMoviesFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"/>
     </LinearLayout>
 </ScrollView>
