@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.MyFavoriteMovieBinding
 
@@ -18,6 +19,7 @@ class MyFavoriteMoviesPagerAdapter(
         fun bind(movie: MovieElementModel) {
             Glide.with(binding.root.context)
                 .load(movie.poster)
+                .transform(RoundedCorners(48))
                 .into(binding.myFavoriteMovieImageView)
         }
     }
