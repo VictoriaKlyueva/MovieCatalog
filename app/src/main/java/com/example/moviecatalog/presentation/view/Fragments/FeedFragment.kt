@@ -82,7 +82,6 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
             .into(binding.moviePoster)
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
