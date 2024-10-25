@@ -7,7 +7,7 @@ import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.data.repository.MovieResponseRepository
 import com.example.moviecatalog.domain.usecase.MovieResponseUseCase
 
-class FeedViewModel : ViewModel() {
+class MoviesViewModel : ViewModel() {
     private val movieResponseRepository = MovieResponseRepository()
     private val movieResponseUseCase = MovieResponseUseCase(movieResponseRepository)
 
@@ -18,9 +18,10 @@ class FeedViewModel : ViewModel() {
         val page = (1..5).random()
         movieResponseUseCase.execute(page) { movies, error ->
             if (error == null) {
-                _movies.postValue(movies!!)
+                _movies.postValue(movies?.slice(0 .. 4) ?: emptyList())
             } else {
                 println("Ошибка получения данных: $error")
+                _movies.postValue(emptyList())
             }
         }
     }
@@ -30,4 +31,3 @@ class FeedViewModel : ViewModel() {
         return movies[randomIndex]
     }
 }
-

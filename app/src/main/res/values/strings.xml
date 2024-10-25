@@ -27,4 +27,6 @@
     <string name="movies">Фильмы</string>
     <string name="feed">Лента</string>
     <string name="title_activity_feed">FeedActivity</string>
+    <string name="to_watch">Смотреть</string>
+    <string name="to_watch_random_movie">Случайный фильм</string>
 </resources>

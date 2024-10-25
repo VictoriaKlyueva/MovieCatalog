@@ -22,11 +22,13 @@ composeBom = "2024.04.01"
 retrofit = "2.9.0"
 navigationUiKtxVersion = "2.3.5"
 squareupRetrofit = "2.6.2"
+viewpager2 = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-fragment-ktx-v235 = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
 androidx-navigation-ui-ktx-v235 = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUiKtxVersion" }
+androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
 com-google-android-material-material-v140 = { module = "com.google.android.material:material", version.ref = "comGoogleAndroidMaterialMaterial" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glideVersion" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }

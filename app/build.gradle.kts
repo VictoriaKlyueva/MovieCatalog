@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.viewpager2)
     implementation(libs.github.glide)
     annotationProcessor(libs.compiler)
     implementation(libs.converter.gson)
