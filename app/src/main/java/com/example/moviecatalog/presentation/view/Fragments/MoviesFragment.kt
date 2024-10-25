@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMoviesBinding
 import com.example.moviecatalog.presentation.view.Adapters.MoviesAdapter
-import com.example.moviecatalog.presentation.view.Adapters.MyFavoritesMoviesPagerAdapter
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
 class MoviesFragment : Fragment() {
@@ -20,7 +19,7 @@ class MoviesFragment : Fragment() {
     private val binding get() = _binding!!
     private val moviesViewModel: MoviesViewModel by viewModels()
     private lateinit var moviesAdapter: MoviesAdapter
-    private var movieList: List<MovieElementModel> = emptyList() // Список фильмов
+    private var movieList: List<MovieElementModel> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

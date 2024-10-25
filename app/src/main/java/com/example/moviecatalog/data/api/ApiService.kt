@@ -2,6 +2,7 @@ package com.example.moviecatalog.data.api
 
 import com.example.moviecatalog.data.model.LoginCredentials
 import com.example.moviecatalog.data.model.MovieResponse
+import com.example.moviecatalog.data.model.MoviesListModel
 import com.example.moviecatalog.data.model.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -18,4 +19,7 @@ interface ApiService {
 
     @GET("api/movies/{page}")
     fun getMovies(@Path("page") page: Int): Call<MovieResponse>
+
+    @GET("api/favorites")
+    fun getFavorites(): Call<MoviesListModel>
 }

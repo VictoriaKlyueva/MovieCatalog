@@ -1,5 +1,6 @@
 package com.example.moviecatalog.presentation.view.Adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,8 @@ class MoviesAdapter(
 ) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMovieBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
     }
 
@@ -26,12 +28,14 @@ class MoviesAdapter(
 
     override fun getItemCount(): Int = movies.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateMovies(newMovies: List<MovieElementModel>) {
         movies = newMovies
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieViewHolder(private val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: MovieElementModel) {
             binding.viewPagerTitle.text = movie.name

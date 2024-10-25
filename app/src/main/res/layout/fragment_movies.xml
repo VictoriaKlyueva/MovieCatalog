@@ -48,7 +48,7 @@
 
         <fragment
             android:id="@+id/myFavoritesFragment"
-            android:name="com.example.moviecatalog.presentation.view.Fragments.MyFavoritesFragment"
+            android:name="com.example.moviecatalog.presentation.view.Fragments.MyFavoriteMoviesFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
