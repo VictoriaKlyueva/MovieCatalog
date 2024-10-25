@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMoviesBinding
-import com.example.moviecatalog.presentation.view.Adapters.MoviesPagerAdapter
+import com.example.moviecatalog.presentation.view.Adapters.MyFavoritesMoviesPagerAdapter
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
 class MoviesFragment : Fragment() {
@@ -18,7 +18,7 @@ class MoviesFragment : Fragment() {
     private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
     private val moviesViewModel: MoviesViewModel by viewModels()
-    private lateinit var moviesAdapter: MoviesPagerAdapter
+    private lateinit var moviesAdapter: MyFavoritesMoviesPagerAdapter
     private var movieList: List<MovieElementModel> = emptyList() // Список фильмов
 
     override fun onCreateView(
@@ -43,7 +43,7 @@ class MoviesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesPagerAdapter(emptyList()) { movie ->
+        moviesAdapter = MyFavoritesMoviesPagerAdapter(emptyList()) { movie ->
             onWatchButtonClicked(movie)
         }
         binding.viewPager.adapter = moviesAdapter

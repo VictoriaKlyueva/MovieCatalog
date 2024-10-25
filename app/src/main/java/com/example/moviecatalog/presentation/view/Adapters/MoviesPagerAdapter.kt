@@ -12,7 +12,7 @@ import com.example.moviecatalog.databinding.ItemMovieBinding
 class MoviesPagerAdapter(
     private var movies: List<MovieElementModel>,
     private val onWatchButtonClick: (MovieElementModel) -> Unit
-) : RecyclerView.Adapter<MoviesPagerAdapter.MovieViewHolder>() {
+) : RecyclerView.Adapter<MyFavoritesMoviesPagerAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
