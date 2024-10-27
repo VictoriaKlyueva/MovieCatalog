@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.data.model.MovieElementModel
-import com.example.moviecatalog.databinding.MyFavoriteMovieBinding
+import com.example.moviecatalog.databinding.ItemMyFavoriteMovieBinding
 
 class MyFavoriteMoviesPagerAdapter(
     private var movies: List<MovieElementModel>
 ) : RecyclerView.Adapter<MyFavoriteMoviesPagerAdapter.MovieViewHolder>() {
 
     inner class MovieViewHolder(
-        val binding: MyFavoriteMovieBinding
+        val binding: ItemMyFavoriteMovieBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieElementModel) {
             Glide.with(binding.root.context)
@@ -34,7 +34,7 @@ class MyFavoriteMoviesPagerAdapter(
         parent: ViewGroup,
         viewType: Int
     ): MovieViewHolder {
-        val binding = MyFavoriteMovieBinding
+        val binding = ItemMyFavoriteMovieBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
     }
