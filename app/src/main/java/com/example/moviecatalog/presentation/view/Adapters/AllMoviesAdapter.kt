@@ -32,7 +32,7 @@ class AllMoviesAdapter (
         fun bind(movie: MovieElementModel) {
             Glide.with(binding.root.context)
                 .load(movie.poster)
-                .transform(RoundedCorners(48))
+                .transform(RoundedCorners(96))
                 .into(binding.movieFromAllImageView)
         }
     }

@@ -51,13 +51,13 @@
             android:name="com.example.moviecatalog.presentation.view.Fragments.MyFavoriteMoviesFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"/>
+            android:layout_marginBottom="36dp" />
 
         <fragment
             android:id="@+id/allMoviesFragment"
             android:name="com.example.moviecatalog.presentation.view.Fragments.AllMoviesFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"/>
+            android:layout_marginBottom="36dp" />
     </LinearLayout>
 </ScrollView>

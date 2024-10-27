@@ -54,7 +54,6 @@
             }
         }
 
-
         fun getRandomMovie(movies: List<MovieElementModel>): MovieElementModel {
             val randomIndex = (movies.indices).random()
             return movies[randomIndex]
