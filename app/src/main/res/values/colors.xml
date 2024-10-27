@@ -7,8 +7,11 @@
     <color name="dark_faded">#333333</color>
     <color name="gray">#CCCCCC</color>
     <color name="gray_faded">#999999</color>
+
     <color name="gradient_start">#DF2800</color>
     <color name="gradient_end">#FF6633</color>
+    <color name="dark_gradient_start">#DF2800</color>
+    <color name="dark_gradient_end">#FF6633</color>
 
     <color name="one_star">#FF1500</color>
     <color name="two_stars">#FF2B00</color>
