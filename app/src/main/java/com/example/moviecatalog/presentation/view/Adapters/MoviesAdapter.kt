@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.data.model.MovieElementModel
-import com.example.moviecatalog.databinding.ItemMovieBinding
+import com.example.moviecatalog.databinding.ItemMovieEnhancedBinding
 
 class MoviesAdapter(
     private var movies: List<MovieElementModel>,
@@ -16,7 +16,7 @@ class MoviesAdapter(
 ) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = ItemMovieBinding
+        val binding = ItemMovieEnhancedBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
     }
@@ -34,7 +34,7 @@ class MoviesAdapter(
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(private val binding: ItemMovieBinding) :
+    inner class MovieViewHolder(private val binding: ItemMovieEnhancedBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: MovieElementModel) {

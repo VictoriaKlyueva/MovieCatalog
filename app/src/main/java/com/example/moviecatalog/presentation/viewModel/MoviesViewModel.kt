@@ -22,8 +22,7 @@
         private val _favoritesMovies = MutableLiveData<List<MovieElementModel>>()
         val favoritesMovies: LiveData<List<MovieElementModel>> get() = _favoritesMovies
 
-        fun fetchMovies() {
-            val page = (1..5).random()
+        fun fetchMovies(page: Int = (1..5).random()) {
             movieResponseUseCase.execute(page) { movies, error ->
                 if (error == null) {
                     _movies.postValue(movies?.take(5) ?: emptyList())
