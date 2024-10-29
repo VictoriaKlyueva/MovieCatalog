@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:text="@string/welcome_moviecatalog"
         android:fontFamily="@font/manrope_bold"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="36sp"/>
 
     <androidx.appcompat.widget.AppCompatButton

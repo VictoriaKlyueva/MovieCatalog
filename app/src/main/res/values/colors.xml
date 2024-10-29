@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="dark">#1E1E1E</color>
+    <color name="dark_shadow">#1A1A1A</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_faded">#333333</color>
+    <color name="gray">#CCCCCC</color>
     <color name="gray_faded">#999999</color>
+
+    <color name="gradient_start">#DF2800</color>
+    <color name="gradient_end">#FF6633</color>
+    <color name="dark_gradient_start">#DF2800</color>
+    <color name="dark_gradient_end">#FF6633</color>
+
+    <color name="one_star">#FF1500</color>
+    <color name="two_stars">#FF2B00</color>
+    <color name="three_stars">#FF4000</color>
+    <color name="four_stars">#FF8000</color>
+    <color name="five_stars">#FFB222</color>
+    <color name="six_stars">#F4E225</color>
+    <color name="seven_stars">#9CB814</color>
+    <color name="eight_stars">#4EAD1F</color>
+    <color name="nine_stars">#00991A</color>
 </resources>

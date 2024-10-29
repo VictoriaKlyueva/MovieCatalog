@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/dark"
+    android:scrollbars="none"
     tools:context=".presentation.view.Fragments.MoviesFragment">
 
     <LinearLayout
@@ -21,13 +22,15 @@
                 android:id="@+id/progress_bar"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:visibility="gone" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="464dp"
-                app:layout_constraintTop_toBottomOf="@id/progress_bar" />
+                android:layout_height="500dp"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                android:scrollbars="none"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -36,8 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="48dp"
-            android:drawableLeft="@drawable/ic_cube"
+            android:layout_marginVertical="36dp"
+            android:drawableStart="@drawable/ic_cube"
             android:layout_marginTop="24dp"
             android:background="@drawable/button_primary_default"
             android:fontFamily="@font/manrope_bold"
@@ -45,5 +48,19 @@
             android:text="@string/to_watch_random_movie"
             android:textAllCaps="false"
             android:paddingHorizontal="16dp" />
+
+        <fragment
+            android:id="@+id/myFavoritesFragment"
+            android:name="com.example.moviecatalog.presentation.view.Fragments.MyFavoriteMoviesFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp" />
+
+        <fragment
+            android:id="@+id/allMoviesFragment"
+            android:name="com.example.moviecatalog.presentation.view.Fragments.AllMoviesFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp" />
     </LinearLayout>
 </ScrollView>

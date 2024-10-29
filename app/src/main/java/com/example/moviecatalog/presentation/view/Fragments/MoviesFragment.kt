@@ -6,13 +6,10 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMoviesBinding
-import com.example.moviecatalog.presentation.view.Activities.MovieDetailsActivity
 import com.example.moviecatalog.presentation.view.Adapters.MoviesAdapter
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
@@ -20,9 +17,9 @@ class MoviesFragment : Fragment() {
 
     private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
-    private val movieViewModel: MoviesViewModel by viewModels()
+    private val moviesViewModel: MoviesViewModel by viewModels()
     private lateinit var moviesAdapter: MoviesAdapter
-    private var movieList: List<MovieElementModel> = emptyList() // Список фильмов
+    private var movieList: List<MovieElementModel> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +39,7 @@ class MoviesFragment : Fragment() {
             onRandomMovieButtonClicked()
         }
 
-        movieViewModel.fetchMovies()
+        moviesViewModel.fetchMovies()
     }
 
     private fun setupRecyclerView() {
@@ -67,15 +64,24 @@ class MoviesFragment : Fragment() {
     private fun observeMovies() {
         binding.progressBar.visibility = View.VISIBLE
 
-        movieViewModel.movies.observe(viewLifecycleOwner) { movies ->
+        moviesViewModel.movies.observe(viewLifecycleOwner) { result ->
             binding.progressBar.visibility = View.GONE
-            moviesAdapter.updateMovies(movies)
-            movieList = movies
+
+            when {
+                result.isNullOrEmpty() -> {
+                    println("No movies found")
+                }
+                else -> {
+                    moviesAdapter.updateMovies(result)
+                    movieList = result
+                }
+            }
         }
     }
 
+
     private fun onRandomMovieButtonClicked() {
-        val randomMovie = movieViewModel.getRandomMovie(movieList)
+        val randomMovie = moviesViewModel.getRandomMovie(movieList)
         println("Случайный фильм: ${randomMovie.name}")
     }
 

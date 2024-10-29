@@ -29,4 +29,7 @@
     <string name="title_activity_feed">FeedActivity</string>
     <string name="to_watch">Смотреть</string>
     <string name="to_watch_random_movie">Случайный фильм</string>
+    <string name="my_favorites">Мне нравится</string>
+    <string name="all">Все</string>
+    <string name="all_movies">Все фильмы</string>
 </resources>

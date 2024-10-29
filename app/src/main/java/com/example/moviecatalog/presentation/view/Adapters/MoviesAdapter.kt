@@ -1,15 +1,14 @@
 package com.example.moviecatalog.presentation.view.Adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
-import com.example.moviecatalog.databinding.ItemMovieBinding
-import com.example.moviecatalog.presentation.view.Fragments.MoviesFragment
+import com.example.moviecatalog.databinding.ItemMovieEnhancedBinding
 
 class MoviesAdapter(
     private var movies: List<MovieElementModel>,
@@ -17,7 +16,8 @@ class MoviesAdapter(
 ) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMovieEnhancedBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
     }
 
@@ -28,12 +28,14 @@ class MoviesAdapter(
 
     override fun getItemCount(): Int = movies.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateMovies(newMovies: List<MovieElementModel>) {
         movies = newMovies
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieViewHolder(private val binding: ItemMovieEnhancedBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: MovieElementModel) {
             binding.viewPagerTitle.text = movie.name
