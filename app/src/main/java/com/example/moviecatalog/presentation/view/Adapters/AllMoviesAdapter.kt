@@ -60,9 +60,6 @@ class AllMoviesAdapter(
                 else -> android.graphics.Color.WHITE
             }
 
-            println(averageRating)
-            println(ratingTextColor)
-
             binding.rating.setBackgroundResource(ratingBackground)
             binding.rating.setTextColor(ratingTextColor)
         }

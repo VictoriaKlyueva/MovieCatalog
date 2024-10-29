@@ -21,7 +21,8 @@
                 android:id="@+id/progress_bar"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                android:visibility="gone" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"

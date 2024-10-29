@@ -64,12 +64,21 @@ class MoviesFragment : Fragment() {
     private fun observeMovies() {
         binding.progressBar.visibility = View.VISIBLE
 
-        moviesViewModel.movies.observe(viewLifecycleOwner) { movies ->
+        moviesViewModel.movies.observe(viewLifecycleOwner) { result ->
             binding.progressBar.visibility = View.GONE
-            moviesAdapter.updateMovies(movies)
-            movieList = movies
+
+            when {
+                result.isNullOrEmpty() -> {
+                    println("No movies found")
+                }
+                else -> {
+                    moviesAdapter.updateMovies(result)
+                    movieList = result
+                }
+            }
         }
     }
+
 
     private fun onRandomMovieButtonClicked() {
         val randomMovie = moviesViewModel.getRandomMovie(movieList)
