@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/dark"
+    android:scrollbars="none"
     tools:context=".presentation.view.Fragments.MoviesFragment">
 
     <LinearLayout
@@ -28,7 +29,8 @@
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="464dp"
-                app:layout_constraintTop_toBottomOf="@id/progress_bar" />
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                android:scrollbars="none"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -33,5 +33,5 @@
         android:layout_below="@id/myFavoritesTextView"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        android:scrollbars="horizontal"/>
+        android:scrollbars="none"/>
 </RelativeLayout>
