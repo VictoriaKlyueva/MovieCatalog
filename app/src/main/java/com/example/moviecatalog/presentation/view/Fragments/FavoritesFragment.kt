@@ -1,18 +1,21 @@
-package com.example.moviecatalog
+package com.example.moviecatalog.presentation.view.Fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.moviecatalog.R
 
 
-class WelcomeFragment : Fragment() {
+class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_welcome, container, false)
+        println("хей хей ночной народ")
+
+        return view
     }
 }
