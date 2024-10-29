@@ -1,15 +1,17 @@
 package com.example.moviecatalog.presentation.view.Adapters
 
 import android.annotation.SuppressLint
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.ItemMovieSimpleBinding
 
-class AllMoviesAdapter (
+class AllMoviesAdapter(
     private var movies: List<MovieElementModel>
 ) : RecyclerView.Adapter<AllMoviesAdapter.MovieViewHolder>() {
 
@@ -29,13 +31,43 @@ class AllMoviesAdapter (
     inner class MovieViewHolder(private val binding: ItemMovieSimpleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("DefaultLocale")
         fun bind(movie: MovieElementModel) {
             Glide.with(binding.root.context)
                 .load(movie.poster)
                 .transform(RoundedCorners(96))
                 .into(binding.movieFromAllImageView)
+
+            // Rating
+            val averageRating = movie.reviews.map { it.rating }.average()
+            binding.rating.text = String.format("%.1f", averageRating)
+
+            val ratingBackground = when {
+                averageRating >= 9 -> R.drawable.rating_nine
+                averageRating >= 8 -> R.drawable.rating_eight
+                averageRating >= 7 -> R.drawable.rating_seven
+                averageRating >= 6 -> R.drawable.rating_six
+                averageRating >= 5 -> R.drawable.rating_five
+                averageRating >= 4 -> R.drawable.rating_four
+                averageRating >= 3 -> R.drawable.rating_three
+                averageRating >= 2 -> R.drawable.rating_two
+                averageRating >= 1 -> R.drawable.rating_one
+                else -> R.drawable.button_primary_default
+            }
+
+            val ratingTextColor = when {
+                averageRating in (5.0 .. 7.0) -> R.color.dark_faded
+                else -> android.graphics.Color.WHITE
+            }
+
+            println(averageRating)
+            println(ratingTextColor)
+
+            binding.rating.setBackgroundResource(ratingBackground)
+            binding.rating.setTextColor(ratingTextColor)
         }
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateMovies(newMovies: List<MovieElementModel>) {

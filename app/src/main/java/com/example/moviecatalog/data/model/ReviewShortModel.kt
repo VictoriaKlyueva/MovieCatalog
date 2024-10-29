@@ -1,6 +1,6 @@
-    package com.example.moviecatalog.data.model
+package com.example.moviecatalog.data.model
 
-    data class ReviewShortModel (
-        val id: String,
-        val rating: Int
-    )
+data class ReviewShortModel (
+    val id: String,
+    val rating: Int
+)
