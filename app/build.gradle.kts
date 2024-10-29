@@ -51,6 +51,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
     implementation(libs.androidx.viewpager2)
     implementation(libs.github.glide)
     annotationProcessor(libs.compiler)

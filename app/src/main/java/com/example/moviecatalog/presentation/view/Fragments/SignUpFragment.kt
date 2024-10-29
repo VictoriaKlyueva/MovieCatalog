@@ -1,5 +1,6 @@
 package com.example.moviecatalog.presentation.view.Fragments
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
@@ -11,9 +12,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.Gender
+import com.example.moviecatalog.data.model.LoginCredentials
+import com.example.moviecatalog.data.model.UserRegisterModel
 import com.example.moviecatalog.databinding.FragmentSignUpBinding
 import com.example.moviecatalog.presentation.utils.DateHelper
 import com.example.moviecatalog.presentation.utils.GenderToggleHandler
+import com.example.moviecatalog.presentation.view.Activities.FeedActivity
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
 import com.example.moviecatalog.utils.EditTextHelper
 
@@ -110,6 +115,23 @@ class SignUpFragment : Fragment() {
         viewModel.isButtonEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
             updateSignUpButton(isEnabled)
         })
+
+        binding.buttonSignUp.setOnClickListener {
+            val user = UserRegisterModel(
+                userName = binding.editTextLogin.text.toString(),
+                name = binding.editTextName.text.toString(),
+                password = binding.editTextPassword.text.toString(),
+                email = binding.editTextEmail.text.toString(),
+                birthDate = binding.editTextDateOfBirth.text.toString(),
+                gender = if (binding.buttonMale.isChecked) Gender.MALE else Gender.FEMALE
+            )
+            viewModel.onSignUpButtonClicked(user)
+
+            if (binding.buttonSignUp.isEnabled) {
+                val intent = Intent(requireActivity(), FeedActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
         return binding.root
     }
