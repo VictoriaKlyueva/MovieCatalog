@@ -35,7 +35,7 @@ class AllMoviesAdapter(
         fun bind(movie: MovieElementModel) {
             Glide.with(binding.root.context)
                 .load(movie.poster)
-                .transform(RoundedCorners(96))
+                .transform(RoundedCorners(24))
                 .into(binding.movieFromAllImageView)
 
             // Rating
@@ -56,8 +56,10 @@ class AllMoviesAdapter(
             }
 
             val ratingTextColor = when {
-                averageRating in (5.0 .. 7.0) -> R.color.dark_faded
-                else -> android.graphics.Color.WHITE
+                averageRating in (5.0 .. 7.0) && averageRating != 5.0 && averageRating != 7.0 ->
+                    R.color.dark_faded
+                else ->
+                    android.graphics.Color.WHITE
             }
 
             binding.rating.setBackgroundResource(ratingBackground)
