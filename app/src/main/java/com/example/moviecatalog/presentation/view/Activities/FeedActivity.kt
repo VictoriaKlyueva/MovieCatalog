@@ -5,12 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.moviecatalog.R
-import com.example.moviecatalog.presentation.view.Fragments.FavoritesFragment
+import com.example.moviecatalog.presentation.view.FavoritesFragment
 import com.example.moviecatalog.presentation.view.Fragments.FeedFragment
 import com.example.moviecatalog.presentation.view.Fragments.MoviesFragment
 import com.example.moviecatalog.presentation.view.Fragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
 
 class FeedActivity : AppCompatActivity() {
 
@@ -77,8 +76,8 @@ class FeedActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.nav_feed->setCurrentFragment(feedFragment)
                 R.id.nav_movies->setCurrentFragment(moviesFragment)
-                R.id.nav_favorites->setCurrentFragment(profileFragment)
-                R.id.nav_profile->setCurrentFragment(favoritesFragment)
+                R.id.nav_favorites->setCurrentFragment(favoritesFragment)
+                R.id.nav_profile->setCurrentFragment(profileFragment)
             }
             true
         }

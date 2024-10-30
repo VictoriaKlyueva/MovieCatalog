@@ -18,8 +18,9 @@ class MoviesFragment : Fragment() {
     private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
     private val moviesViewModel: MoviesViewModel by viewModels()
-    private lateinit var moviesAdapter: MoviesAdapter
     private var movieList: List<MovieElementModel> = emptyList()
+
+    private lateinit var moviesAdapter: MoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,7 +79,6 @@ class MoviesFragment : Fragment() {
             }
         }
     }
-
 
     private fun onRandomMovieButtonClicked() {
         val randomMovie = moviesViewModel.getRandomMovie(movieList)
