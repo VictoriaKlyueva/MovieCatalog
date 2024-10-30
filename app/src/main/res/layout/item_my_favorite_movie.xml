@@ -2,13 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/myFavoriteMovieFrameLayout"
     android:layout_width="166dp"
-    android:layout_height="252dp"
-    android:padding="8dp">
+    android:layout_height="252dp">
 
     <ImageView
         android:id="@+id/myFavoriteMovieImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:background="@drawable/rounded_corners"/>
+        android:background="@drawable/rounded_corners"
+        android:padding="8dp" />
 </FrameLayout>

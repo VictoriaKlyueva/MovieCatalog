@@ -40,7 +40,7 @@ class MoviesFragment : Fragment() {
             onRandomMovieButtonClicked()
         }
 
-        moviesViewModel.fetchMovies()
+        moviesViewModel.fetchMovies(page = 1)
     }
 
     private fun setupRecyclerView() {
