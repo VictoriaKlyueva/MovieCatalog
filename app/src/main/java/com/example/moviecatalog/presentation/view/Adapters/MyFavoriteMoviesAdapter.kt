@@ -3,24 +3,22 @@ package com.example.moviecatalog.presentation.view.Adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.ItemMyFavoriteMovieBinding
 
-class MyFavoriteMoviesPagerAdapter(
-    private var movies: List<MovieElementModel>,
-    private val recyclerView: RecyclerView
-) : RecyclerView.Adapter<MyFavoriteMoviesPagerAdapter.MovieViewHolder>() {
+class MyFavoriteMoviesAdapter(
+    private var movies: List<MovieElementModel>
+) : RecyclerView.Adapter<MyFavoriteMoviesAdapter.MovieViewHolder>() {
 
     private var firstVisiblePosition = 0
 
     @SuppressLint("NotifyDataSetChanged")
     fun setFirstVisiblePosition(position: Int) {
         firstVisiblePosition = position
-        notifyDataSetChanged() // Обновляем адаптер, чтобы все элементы пересоздались
+        notifyDataSetChanged()
     }
 
     inner class MovieViewHolder(
@@ -33,7 +31,7 @@ class MyFavoriteMoviesPagerAdapter(
                 .transform(RoundedCorners(24))
                 .into(binding.myFavoriteMovieImageView)
 
-            val scale = if (isFirstVisible) 1.05f else 1.0f
+            val scale = if (isFirstVisible) 1.1f else 1.0f
 
             binding.myFavoriteMovieImageView.animate()
                 .scaleX(scale)

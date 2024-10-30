@@ -54,7 +54,7 @@
             android:name="com.example.moviecatalog.presentation.view.Fragments.MyFavoriteMoviesFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp" />
+            android:layout_marginBottom="24dp" />
 
         <fragment
             android:id="@+id/allMoviesFragment"

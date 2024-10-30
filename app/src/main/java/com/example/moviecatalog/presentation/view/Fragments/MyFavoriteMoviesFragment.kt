@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMyFavoritesBinding
-import com.example.moviecatalog.presentation.view.Adapters.MyFavoriteMoviesPagerAdapter
+import com.example.moviecatalog.presentation.view.Adapters.MyFavoriteMoviesAdapter
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
 class MyFavoriteMoviesFragment : Fragment() {
@@ -20,7 +20,7 @@ class MyFavoriteMoviesFragment : Fragment() {
     private val moviesViewModel: MoviesViewModel by viewModels()
 
     private var favoritesMovies: List<MovieElementModel> = emptyList()
-    private lateinit var moviesAdapter: MyFavoriteMoviesPagerAdapter
+    private lateinit var moviesAdapter: MyFavoriteMoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,10 +41,14 @@ class MyFavoriteMoviesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MyFavoriteMoviesPagerAdapter(emptyList(), binding.recyclerViewFavorites)
+        moviesAdapter = MyFavoriteMoviesAdapter(emptyList())
         binding.recyclerViewFavorites.adapter = moviesAdapter
         binding.recyclerViewFavorites.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
 
         binding.recyclerViewFavorites.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
