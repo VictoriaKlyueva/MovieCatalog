@@ -30,11 +30,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.GenreModel
+import com.example.moviecatalog.presentation.ui.DarkFaded
+import com.example.moviecatalog.presentation.ui.GradientEnd
+import com.example.moviecatalog.presentation.ui.GradientStart
+import com.example.moviecatalog.presentation.ui.Theme
 import com.example.moviecatalog.presentation.viewModel.FavoritesViewModel
 
 class FavoritesFragment : Fragment() {
@@ -83,7 +86,7 @@ class FavoritesFragment : Fragment() {
             favoritesGenresState.value = result ?: emptyList()
         }
 
-        return MaterialTheme {
+        return Theme {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -92,10 +95,7 @@ class FavoritesFragment : Fragment() {
             ) {
                 Text(
                     text = stringResource(id = R.string.favorite),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 32.sp,
-                    color = Color.White,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.titleLarge
                 )
 
                 Spacer(modifier = Modifier.height(32.dp))
@@ -105,8 +105,8 @@ class FavoritesFragment : Fragment() {
                         .drawWithCache {
                             val brush = Brush.horizontalGradient(
                                 listOf(
-                                    Color(resources.getColor(R.color.gradient_start)),
-                                    Color(resources.getColor(R.color.gradient_end))
+                                    GradientStart,
+                                    GradientEnd
                                 )
                             )
                             onDrawWithContent {
@@ -114,11 +114,8 @@ class FavoritesFragment : Fragment() {
                                 drawRect(brush, blendMode = BlendMode.SrcAtop)
                             }
                         },
-                    text = "Любимые жанры",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
-                    color = Color.White,
-                    style = MaterialTheme.typography.bodyMedium
+                    text = stringResource(id = R.string.favorite_genres),
+                    style = MaterialTheme.typography.bodyLarge
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -139,7 +136,7 @@ class FavoritesFragment : Fragment() {
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
-                .background(Color(resources.getColor(R.color.dark_faded))),
+                .background(DarkFaded),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -147,7 +144,6 @@ class FavoritesFragment : Fragment() {
                     .padding(start = 16.dp)
                     .weight(1f),
                 text = genre,
-                color = Color.White,
                 style = MaterialTheme.typography.bodyMedium
             )
 
