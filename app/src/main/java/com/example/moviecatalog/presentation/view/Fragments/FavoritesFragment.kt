@@ -88,18 +88,35 @@ class FavoritesFragment : Fragment() {
                 .padding(24.dp),
             horizontalAlignment = Alignment.Start
         ) {
-            Text(text = stringResource(id = R.string.favorite), style = MaterialTheme.typography.titleLarge)
-            Spacer(modifier = Modifier.height(32.dp))
+            Text(
+                text = stringResource(id = R.string.favorite),
+                style = MaterialTheme.typography.titleLarge
+            )
+
+            Spacer(
+                modifier = Modifier.height(32.dp)
+            )
+
             GenreSection()
-            Spacer(modifier = Modifier.height(32.dp))
+
+            Spacer(
+                modifier = Modifier.height(32.dp)
+            )
+
             MovieSection()
         }
     }
 
     @Composable
     private fun GenreSection() {
-        Text(modifier = gradientTextModifier, text = stringResource(id = R.string.favorite_genres), style = MaterialTheme.typography.bodyLarge)
+        Text(
+            modifier = gradientTextModifier,
+            text = stringResource(id = R.string.favorite_genres),
+            style = MaterialTheme.typography.bodyLarge
+
+        )
         Spacer(modifier = Modifier.height(16.dp))
+
         LazyColumn {
             items(favoritesGenres) { genre ->
                 GenreItem(genre.name.replaceFirstChar(Char::uppercaseChar))
@@ -110,8 +127,16 @@ class FavoritesFragment : Fragment() {
 
     @Composable
     private fun MovieSection() {
-        Text(modifier = gradientTextModifier, text = stringResource(id = R.string.favorite_movies), style = MaterialTheme.typography.bodyLarge)
-        LazyVerticalGrid(columns = GridCells.Fixed(3), modifier = Modifier.fillMaxWidth()) {
+        Text(
+            modifier = gradientTextModifier,
+            text = stringResource(id = R.string.favorite_movies),
+            style = MaterialTheme.typography.bodyLarge
+        )
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
+            modifier = Modifier.fillMaxWidth()
+        ) {
             items(favoriteMovies) { movie -> MovieItem(movie) }
         }
     }
@@ -124,15 +149,25 @@ class FavoritesFragment : Fragment() {
             .background(DarkFaded),
             verticalAlignment = Alignment.CenterVertically) {
 
-            Text(modifier = Modifier.padding(start = 16.dp).weight(1f), text = genre, style = MaterialTheme.typography.bodyMedium)
+            Text(
+                modifier = Modifier.padding(start = 16.dp).weight(1f),
+                text = genre,
+                style = MaterialTheme.typography.bodyMedium
+            )
 
             Button(
                 modifier = Modifier.padding(end = 16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(resources.getColor(R.color.dark))),
+                colors = ButtonDefaults.buttonColors(containerColor = Dark),
                 shape = RoundedCornerShape(8.dp),
-                onClick = { /* Логика удаления из избранного */ }
+                onClick = {
+                    /* Логика удаления из избранного */
+                }
             ) {
-                Image(painter = painterResource(id = R.drawable.ic_broken_heart), contentDescription = "Broken Heart", modifier = Modifier.size(24.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.ic_broken_heart),
+                    contentDescription = "Broken Heart",
+                    modifier = Modifier.size(24.dp)
+                )
             }
         }
     }
@@ -149,7 +184,12 @@ class FavoritesFragment : Fragment() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-                Image(painter = rememberAsyncImagePainter(movie.poster), contentDescription = movie.name, modifier = Modifier.fillMaxSize())
+                Image(
+                    painter = rememberAsyncImagePainter(movie.poster),
+                    contentDescription = movie.name,
+                    modifier = Modifier.fillMaxSize()
+                )
+
                 val averageRating = movie.reviews.map { it.rating }.average()
                 Surface(
                     modifier = Modifier
@@ -158,10 +198,20 @@ class FavoritesFragment : Fragment() {
                     color = getRatingColor(averageRating),
                     shape = RoundedCornerShape(4.dp)
                 ) {
-                    Text(text = String.format("%.1f", averageRating), style = MaterialTheme.typography.bodySmall, color = getRatingTextColor(averageRating), modifier = Modifier.padding(4.dp))
+                    Text(
+                        text = String.format("%.1f", averageRating),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = getRatingTextColor(averageRating),
+                        modifier = Modifier.padding(4.dp)
+                    )
                 }
             }
-            Text(text = "${movie.reviews.size} reviews", style = MaterialTheme.typography.bodySmall, color = Color.White)
+
+            Text(
+                text = "${movie.reviews.size} reviews",
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.White
+            )
         }
     }
 
@@ -181,6 +231,9 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun getRatingTextColor(rating: Double): Color {
-        return if (rating in 5.0..7.0) DarkFaded else Color.White
+        return if (rating in 5.0..7.0)
+            DarkFaded
+        else
+            Color.White
     }
 }
