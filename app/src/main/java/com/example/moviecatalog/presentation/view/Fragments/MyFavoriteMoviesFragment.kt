@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMyFavoritesBinding
 import com.example.moviecatalog.presentation.view.Adapters.MyFavoriteMoviesPagerAdapter
@@ -40,10 +41,28 @@ class MyFavoriteMoviesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MyFavoriteMoviesPagerAdapter(emptyList())
+        moviesAdapter = MyFavoriteMoviesPagerAdapter(emptyList(), binding.recyclerViewFavorites)
         binding.recyclerViewFavorites.adapter = moviesAdapter
         binding.recyclerViewFavorites.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        binding.recyclerViewFavorites.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    updateFirstVisibleItem()
+                }
+            }
+        )
+    }
+
+    private fun updateFirstVisibleItem() {
+        val layoutManager =  binding.recyclerViewFavorites.layoutManager as? LinearLayoutManager
+        val firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition()
+
+        if (firstVisibleItemPosition != null && firstVisibleItemPosition >= 0) {
+            moviesAdapter.setFirstVisiblePosition(firstVisibleItemPosition)
+        }
     }
 
     private fun observeMovies() {

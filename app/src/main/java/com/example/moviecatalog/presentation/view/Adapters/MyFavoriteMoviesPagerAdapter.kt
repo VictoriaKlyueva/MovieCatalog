@@ -11,22 +11,35 @@ import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.ItemMyFavoriteMovieBinding
 
 class MyFavoriteMoviesPagerAdapter(
-    private var movies: List<MovieElementModel>
+    private var movies: List<MovieElementModel>,
+    private val recyclerView: RecyclerView
 ) : RecyclerView.Adapter<MyFavoriteMoviesPagerAdapter.MovieViewHolder>() {
+
+    private var firstVisiblePosition = 0
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setFirstVisiblePosition(position: Int) {
+        firstVisiblePosition = position
+        notifyDataSetChanged() // Обновляем адаптер, чтобы все элементы пересоздались
+    }
 
     inner class MovieViewHolder(
         val binding: ItemMyFavoriteMovieBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieElementModel) {
+
+        fun bind(movie: MovieElementModel, isFirstVisible: Boolean) {
             Glide.with(binding.root.context)
                 .load(movie.poster)
-                .transform(RoundedCorners(48))
+                .transform(RoundedCorners(24))
                 .into(binding.myFavoriteMovieImageView)
-        }
 
-        fun setScale(scale: Float) {
-            binding.myFavoriteMovieFrameLayout.scaleX = scale
-            binding.myFavoriteMovieFrameLayout.scaleY = scale
+            val scale = if (isFirstVisible) 1.05f else 1.0f
+
+            binding.myFavoriteMovieImageView.animate()
+                .scaleX(scale)
+                .scaleY(scale)
+                .setDuration(200)
+                .start()
         }
     }
 
@@ -41,20 +54,8 @@ class MyFavoriteMoviesPagerAdapter(
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movies[position]
-        holder.bind(movie)
-
-        val recyclerView = holder.binding.root.parent as? RecyclerView
-        if (recyclerView != null) {
-            val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
-            if (layoutManager != null) {
-                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-
-                val scale = if (position == firstVisibleItemPosition) 1.1f else 1.0f
-                holder.setScale(scale)
-            }
-        }
+        holder.bind(movie, position == firstVisiblePosition)
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateMovies(newMovies: List<MovieElementModel>) {
@@ -64,3 +65,4 @@ class MyFavoriteMoviesPagerAdapter(
 
     override fun getItemCount(): Int = movies.size
 }
+
