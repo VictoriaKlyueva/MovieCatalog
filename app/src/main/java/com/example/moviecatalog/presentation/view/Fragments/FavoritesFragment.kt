@@ -118,6 +118,10 @@ class FavoritesFragment : Fragment() {
             )
 
             MovieSection()
+
+            Spacer(
+                modifier = Modifier.height(64.dp)
+            )
         }
     }
 
