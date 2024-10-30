@@ -34,4 +34,5 @@
     <string name="all_movies">Все фильмы</string>
     <string name="favorite">Избранное</string>
     <string name="favorite_genres">Любимые жанры</string>
+    <string name="favorite_movies">Любимые фильмы</string>
 </resources>

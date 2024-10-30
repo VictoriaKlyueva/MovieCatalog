@@ -16,6 +16,12 @@ val manropeFamily = FontFamily(
 )
 
 val Typography = androidx.compose.material3.Typography(
+    bodySmall = TextStyle(
+        fontFamily = manropeFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        color = Color.White
+    ),
     bodyMedium = TextStyle(
         fontFamily = manropeFamily,
         fontWeight = FontWeight.Normal,
