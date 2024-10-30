@@ -47,14 +47,23 @@ class FavoritesFragment : Fragment() {
     private val gradientTextModifier = Modifier
         .graphicsLayer(alpha = 0.99f)
         .drawWithCache {
-            val brush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
+            val brush = Brush.horizontalGradient(
+                listOf(
+                    GradientStart,
+                    GradientEnd
+                )
+            )
             onDrawWithContent {
                 drawContent()
                 drawRect(brush, blendMode = BlendMode.SrcAtop)
             }
         }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         return ComposeView(requireContext()).apply {
             setContent {
                 Theme {
@@ -64,9 +73,14 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
+
         observeData()
+
         favoritesViewModel.fetchFavoritesGenres()
         favoritesViewModel.fetchFavoritesMovies()
     }
