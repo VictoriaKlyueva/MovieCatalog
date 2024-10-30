@@ -20,7 +20,8 @@ import com.example.moviecatalog.utils.EditTextHelper
 class SignInFragment : Fragment() {
 
     private var _binding: FragmentSignInBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?:
+        throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: SignInViewModel
 

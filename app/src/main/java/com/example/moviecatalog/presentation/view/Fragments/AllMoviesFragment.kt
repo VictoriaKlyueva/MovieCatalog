@@ -15,7 +15,8 @@ import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
 class AllMoviesFragment : Fragment() {
     private var _binding: FragmentAllMoviesBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?:
+        throw IllegalStateException("Binding is not initialized")
 
     private val moviesViewModel: MoviesViewModel by viewModels()
 

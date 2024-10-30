@@ -17,7 +17,8 @@ import com.example.moviecatalog.presentation.viewModel.FeedViewModel
 
 class FeedFragment : Fragment(R.layout.fragment_feed) {
     private var _binding: FragmentFeedBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?:
+        throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: FeedViewModel
 

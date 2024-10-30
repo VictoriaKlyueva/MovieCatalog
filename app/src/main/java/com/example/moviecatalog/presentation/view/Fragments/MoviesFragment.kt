@@ -16,10 +16,11 @@ import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 class MoviesFragment : Fragment() {
 
     private var _binding: FragmentMoviesBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?:
+        throw IllegalStateException("Binding is not initialized")
+
     private val moviesViewModel: MoviesViewModel by viewModels()
     private var movieList: List<MovieElementModel> = emptyList()
-
     private lateinit var moviesAdapter: MoviesAdapter
 
     override fun onCreateView(
@@ -52,6 +53,7 @@ class MoviesFragment : Fragment() {
         val handler = Handler(Looper.getMainLooper())
         val runnable = object : Runnable {
             override fun run() {
+                if (_binding == null) return // Prevent leaks and crashes if the fragment is destroyed
                 val currentItem = binding.viewPager.currentItem
                 val nextItem = if (currentItem == moviesAdapter.itemCount - 1) 0 else currentItem + 1
                 binding.viewPager.setCurrentItem(nextItem, true)
@@ -91,7 +93,6 @@ class MoviesFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        _binding = null // Clear the binding reference
     }
 }
-

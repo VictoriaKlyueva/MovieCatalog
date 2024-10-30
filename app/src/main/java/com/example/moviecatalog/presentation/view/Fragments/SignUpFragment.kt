@@ -25,7 +25,8 @@ import com.example.moviecatalog.utils.EditTextHelper
 class SignUpFragment : Fragment() {
 
     private var _binding: FragmentSignUpBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?:
+        throw IllegalStateException("Binding is not initialized")
 
     private lateinit var genderToggleHandler: GenderToggleHandler
     private lateinit var viewModel: SignUpViewModel

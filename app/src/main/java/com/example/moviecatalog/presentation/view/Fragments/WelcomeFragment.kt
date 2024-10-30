@@ -17,7 +17,8 @@ import com.example.moviecatalog.presentation.viewmodels.WelcomeViewModel
 class WelcomeFragment : Fragment() {
 
     private var _binding: FragmentWelcomeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?:
+        throw IllegalStateException("Binding is not initialized")
 
     private lateinit var welcomeViewModel: WelcomeViewModel
 
