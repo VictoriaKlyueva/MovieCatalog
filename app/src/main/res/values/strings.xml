@@ -9,7 +9,6 @@
     <string name="sign_up">Зарегистрироваться</string>
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="enter_into_account">Вход в аккаунт</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
@@ -35,4 +34,9 @@
     <string name="favorite">Избранное</string>
     <string name="favorite_genres">Любимые жанры</string>
     <string name="favorite_movies">Любимые фильмы</string>
+    <string name="there_is_nothing_here">Здесь пока пусто</string>
+    <string name="add_genres_and_movies">
+        Добавьте любимые жанры и фильмы, чтобы вернуться к ним позже
+    </string>
+    <string name="find_movie_for_you">Найти фильм для себя</string>
 </resources>

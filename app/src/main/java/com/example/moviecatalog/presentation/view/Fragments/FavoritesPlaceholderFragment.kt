@@ -97,14 +97,14 @@ class FavoritesPlaceholderFragment : Fragment() {
                 modifier = Modifier.padding(start = 24.dp, bottom = 16.dp)
             ) {
                 Text(
-                    text = "Здесь пока пусто",
+                    text = stringResource(id = R.string.there_is_nothing_here),
                     style = MaterialTheme.typography.titleLarge,
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Добавьте любимые жанры и фильмы, чтобы вернуться к ним позже",
+                    text = stringResource(id = R.string.add_genres_and_movies),
                     style = MaterialTheme.typography.bodyMedium,
                 )
 
@@ -119,7 +119,9 @@ class FavoritesPlaceholderFragment : Fragment() {
                 ),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(),
-                onClick = { /* Если на кнопочку нажали */ }
+                onClick = { 
+                    /* Если на кнопочку нажали */ 
+                }
             ) {
                 Box(
                     modifier = Modifier
@@ -135,7 +137,7 @@ class FavoritesPlaceholderFragment : Fragment() {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Найти фильм для себя",
+                        text = stringResource(id = R.string.find_movie_for_you),
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 16.sp
                     )
