@@ -16,7 +16,7 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="register">Регистрация</string>
     <string name="email">Электронная почта</string>
-    <string name="Name">Имя</string>
+    <string name="name">Имя</string>
     <string name="confirm_password">Подтвердите пароль</string>
     <string name="date_of_birth">Дата рождения</string>
     <string name="male">Мужчина</string>
@@ -39,4 +39,8 @@
         Добавьте любимые жанры и фильмы, чтобы вернуться к ним позже
     </string>
     <string name="find_movie_for_you">Найти фильм для себя</string>
+    <string name="good_morning">Доброе утро,</string>
+    <string name="my_friends">Мои друзья</string>
+    <string name="personal_info">Личная информация</string>
+    <string name="gender">Пол</string>
 </resources>
