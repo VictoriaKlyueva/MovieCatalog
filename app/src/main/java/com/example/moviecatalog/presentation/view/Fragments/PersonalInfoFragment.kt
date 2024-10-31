@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.moviecatalog.R
-import com.example.moviecatalog.databinding.FragmentProfileBinding
+import com.example.moviecatalog.databinding.FragmentPersonalInfoBinding
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
-class ProfileFragment : Fragment(R.layout.fragment_profile) {
+class PersonalInfoFragment : Fragment() {
 
-    private var _binding: FragmentProfileBinding? = null
+    private var _binding: FragmentPersonalInfoBinding? = null
     private val binding get() = _binding ?:
     throw IllegalStateException("Binding is not initialized")
 
@@ -22,7 +21,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentPersonalInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
 

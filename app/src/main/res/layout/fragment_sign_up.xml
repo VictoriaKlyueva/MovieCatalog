@@ -52,7 +52,7 @@
         android:layout_height="48dp"
 
         android:autofillHints="name"
-        android:hint="@string/Name"
+        android:hint="@string/name"
 
         android:fontFamily="@font/manrope_regular"
         android:textColorHint="@color/gray_faded"
