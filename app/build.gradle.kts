@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.androidx.viewpager2)
     implementation(libs.github.glide)
+    implementation(libs.androidx.navigation.fragment)
     annotationProcessor(libs.compiler)
     implementation(libs.converter.gson)
     implementation(libs.retrofit.converter.gson)

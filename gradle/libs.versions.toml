@@ -25,6 +25,7 @@ retrofit = "2.9.0"
 navigationUiKtxVersion = "2.3.5"
 squareupRetrofit = "2.6.2"
 viewpager2 = "1.1.0"
+navigationFragment = "2.8.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -59,6 +60,7 @@ moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "mosh
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { module = "com.squareup.retrofit:converter-gson", version.ref = "converterGsonVersion" }
 retrofit-v262 = { module = "com.squareup.retrofit2:retrofit", version.ref = "squareupRetrofit" }
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

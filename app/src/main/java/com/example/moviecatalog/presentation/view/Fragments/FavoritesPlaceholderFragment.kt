@@ -17,16 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.moviecatalog.R
 import com.example.moviecatalog.presentation.ui.*
 
@@ -49,7 +47,9 @@ class FavoritesPlaceholderFragment : Fragment() {
     @Composable
     private fun Content() {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Dark),
             horizontalAlignment = Alignment.Start
         ) {
             Box(
@@ -119,8 +119,9 @@ class FavoritesPlaceholderFragment : Fragment() {
                 ),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(),
-                onClick = { 
-                    /* Если на кнопочку нажали */ 
+                onClick = {
+                    val navController = findNavController()
+                    navController.navigate(R.id.feedFragment)
                 }
             ) {
                 Box(
