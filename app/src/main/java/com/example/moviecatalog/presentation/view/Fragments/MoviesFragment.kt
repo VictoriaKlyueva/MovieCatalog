@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.viewpager2.widget.ViewPager2
+import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMoviesBinding
 import com.example.moviecatalog.presentation.view.Adapters.MoviesAdapter
@@ -53,20 +55,55 @@ class MoviesFragment : Fragment() {
         val handler = Handler(Looper.getMainLooper())
         val runnable = object : Runnable {
             override fun run() {
-                if (_binding == null) return // Prevent leaks and crashes if the fragment is destroyed
+                if (_binding == null)
+                    return
+
                 val currentItem = binding.viewPager.currentItem
-                val nextItem = if (currentItem == moviesAdapter.itemCount - 1) 0 else currentItem + 1
+                val nextItem =
+                    if (currentItem == moviesAdapter.itemCount - 1)
+                        0
+                    else
+                        currentItem + 1
+
                 binding.viewPager.setCurrentItem(nextItem, true)
+                updateProgress(nextItem + 1)
                 handler.postDelayed(this, 5000)
             }
         }
 
-        handler.postDelayed(runnable, 3000)
+        handler.postDelayed(runnable, 0)
+        updateProgress(1)
+
+        binding.viewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    updateProgress(position + 1)
+                }
+            }
+        )
     }
 
-    private fun observeMovies() {
-        binding.progressBar.visibility = View.VISIBLE
+    private fun updateProgress(currentStep: Int) {
+        val progressSteps = listOf(
+            binding.progressStep1,
+            binding.progressStep2,
+            binding.progressStep3,
+            binding.progressStep4,
+            binding.progressStep5
+        )
 
+        for (i in progressSteps.indices) {
+            if (i < currentStep) {
+                progressSteps[i].setBackgroundResource(R.drawable.progress_step_active)
+            } else {
+                progressSteps[i].setBackgroundResource(R.drawable.progress_step_inactive)
+            }
+        }
+    }
+
+
+    private fun observeMovies() {
         moviesViewModel.movies.observe(viewLifecycleOwner) { result ->
             when {
                 result.isNullOrEmpty() -> {
@@ -80,6 +117,7 @@ class MoviesFragment : Fragment() {
         }
     }
 
+
     private fun onRandomMovieButtonClicked() {
         val randomMovie = moviesViewModel.getRandomMovie(movieList)
         println("Случайный фильм: ${randomMovie.name}")
@@ -91,6 +129,6 @@ class MoviesFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Clear the binding reference
+        _binding = null
     }
 }
