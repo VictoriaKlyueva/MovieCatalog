@@ -62,11 +62,12 @@ class MyFavoriteMoviesFragment : Fragment() {
     }
 
     private fun updateFirstVisibleItem() {
-        val layoutManager =  binding.recyclerViewFavorites.layoutManager as? LinearLayoutManager
-        val firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition()
+        val layoutManager = binding.recyclerViewFavorites.layoutManager as? LinearLayoutManager
+        val firstCompletelyVisibleItemPosition =
+            layoutManager?.findFirstCompletelyVisibleItemPosition()
 
-        if (firstVisibleItemPosition != null && firstVisibleItemPosition >= 0) {
-            moviesAdapter.setFirstVisiblePosition(firstVisibleItemPosition)
+        if (firstCompletelyVisibleItemPosition != null && firstCompletelyVisibleItemPosition >= 0) {
+            moviesAdapter.setFirstVisiblePosition(firstCompletelyVisibleItemPosition)
         }
     }
 

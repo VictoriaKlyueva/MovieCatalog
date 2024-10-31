@@ -13,11 +13,12 @@ class MyFavoriteMoviesAdapter(
     private var movies: List<MovieElementModel>
 ) : RecyclerView.Adapter<MyFavoriteMoviesAdapter.MovieViewHolder>() {
 
-    private var firstVisiblePosition = 0
+    private var firstVisiblePositions: MutableSet<Int> = mutableSetOf()
 
     @SuppressLint("NotifyDataSetChanged")
     fun setFirstVisiblePosition(position: Int) {
-        firstVisiblePosition = position
+        firstVisiblePositions.clear()
+        firstVisiblePositions.add(position)
         notifyDataSetChanged()
     }
 
@@ -33,11 +34,8 @@ class MyFavoriteMoviesAdapter(
 
             val scale = if (isFirstVisible) 1.1f else 1.0f
 
-            binding.myFavoriteMovieImageView.animate()
-                .scaleX(scale)
-                .scaleY(scale)
-                .setDuration(200)
-                .start()
+            binding.myFavoriteMovieImageView.scaleX = scale
+            binding.myFavoriteMovieImageView.scaleY = scale
         }
     }
 
@@ -52,7 +50,7 @@ class MyFavoriteMoviesAdapter(
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movies[position]
-        holder.bind(movie, position == firstVisiblePosition)
+        holder.bind(movie, firstVisiblePositions.contains(position))
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -63,4 +61,5 @@ class MyFavoriteMoviesAdapter(
 
     override fun getItemCount(): Int = movies.size
 }
+
 
