@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.moviecatalog.R
 import com.example.moviecatalog.presentation.view.FavoritesFragment
+import com.example.moviecatalog.presentation.view.Fragments.FavoritesPlaceholderFragment
 import com.example.moviecatalog.presentation.view.Fragments.FeedFragment
 import com.example.moviecatalog.presentation.view.Fragments.MoviesFragment
 import com.example.moviecatalog.presentation.view.Fragments.ProfileFragment
@@ -68,7 +69,7 @@ class FeedActivity : AppCompatActivity() {
         val feedFragment = FeedFragment()
         val moviesFragment = MoviesFragment()
         val profileFragment = ProfileFragment()
-        val favoritesFragment = FavoritesFragment()
+        val favoritesFragment = FavoritesPlaceholderFragment()
 
         setCurrentFragment(feedFragment)
 

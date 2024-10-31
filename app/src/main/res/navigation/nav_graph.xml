@@ -14,8 +14,8 @@
         android:label="@string/movies" />
 
     <fragment
-        android:id="@+id/favoritesFragment"
-        android:name="com.example.moviecatalog.presentation.view.FavoritesFragment"
+        android:id="@+id/favoritesPlaceholderFragment"
+        android:name="com.example.moviecatalog.presentation.view.Fragments.FavoritesPlaceholderFragment"
         android:label="@string/favorites" />
 
     <fragment
