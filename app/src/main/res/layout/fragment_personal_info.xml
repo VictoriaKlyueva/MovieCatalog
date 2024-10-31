@@ -131,18 +131,17 @@
             android:layout_marginBottom="4dp" />
 
         <RadioGroup
-            android:id="@+id/toggleGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ToggleButton
-                android:id="@+id/buttonMale"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:background="@drawable/toggle_active"
                 android:checked="true"
+                android:enabled="false"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textOff="@string/male"
@@ -150,12 +149,12 @@
                 android:textSize="14sp" />
 
             <ToggleButton
-                android:id="@+id/buttonFemale"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:background="@drawable/toggle_inactive"
                 android:checked="false"
+                android:enabled="false"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textOff="@string/female"
