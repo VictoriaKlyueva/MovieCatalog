@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -177,6 +178,7 @@ class FavoritesFragment : Fragment() {
                 modifier = Modifier.padding(end = 16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Dark),
                 shape = RoundedCornerShape(8.dp),
+                contentPadding = PaddingValues(0.dp),
                 onClick = {
                     /* Логика удаления из избранного */
                 }

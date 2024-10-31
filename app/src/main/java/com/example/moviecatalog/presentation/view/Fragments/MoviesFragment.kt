@@ -68,8 +68,6 @@ class MoviesFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
 
         moviesViewModel.movies.observe(viewLifecycleOwner) { result ->
-            binding.progressBar.visibility = View.GONE
-
             when {
                 result.isNullOrEmpty() -> {
                     println("No movies found")

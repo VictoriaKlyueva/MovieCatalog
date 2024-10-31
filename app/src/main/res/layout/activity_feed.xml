@@ -22,6 +22,7 @@
         android:background="@drawable/bottom_nav_background"
         style="@style/CustomBottomNavigationView"
         app:itemTextColor="@color/gray_faded"
+        app:itemActiveIndicatorStyle="@null"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled" />
 </RelativeLayout>
