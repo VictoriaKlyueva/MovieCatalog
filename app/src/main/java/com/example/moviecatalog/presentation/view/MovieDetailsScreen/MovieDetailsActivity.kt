@@ -408,7 +408,7 @@ fun MovieInfoCell(name: String, value: String, modifier: Modifier) {
         Text(
             modifier = Modifier
                 .padding(
-                    start = 8.dp,
+                    start = 10.dp,
                     top = 8.dp,
                     end = 8.dp
                 ),
@@ -424,7 +424,7 @@ fun MovieInfoCell(name: String, value: String, modifier: Modifier) {
         Text(
             modifier = Modifier
                 .padding(
-                    start = 8.dp,
+                    start = 10.dp,
                     bottom = 8.dp,
                     end = 8.dp
                 ),
