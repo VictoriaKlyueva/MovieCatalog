@@ -1,26 +1,30 @@
 package com.example.moviecatalog.presentation.view.FavoritesScreen
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
-import com.example.moviecatalog.presentation.ui.GradientEnd
-import com.example.moviecatalog.presentation.ui.GradientStart
+import androidx.compose.ui.res.colorResource
+import com.example.moviecatalog.R
 
-object GradientTextModifier {
-    val gradientTextModifier = Modifier
+@Composable
+fun getGradientTextModifier(): Modifier {
+    val gradientStart = colorResource(id = R.color.gradient_start)
+    val gradientEnd = colorResource(id = R.color.gradient_end)
+
+    return Modifier
         .graphicsLayer(alpha = 0.99f)
         .drawWithCache {
             val brush = Brush.horizontalGradient(
-                listOf(
-                    GradientStart,
-                    GradientEnd
-                )
+                listOf(gradientStart, gradientEnd)
             )
+
             onDrawWithContent {
                 drawContent()
                 drawRect(brush, blendMode = BlendMode.SrcAtop)
             }
         }
 }
+

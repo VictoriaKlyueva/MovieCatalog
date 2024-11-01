@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
@@ -68,7 +69,7 @@ class FavoritesFragment : Fragment() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Dark)
+                .background(colorResource(id = R.color.dark))
                 .padding(24.dp),
             horizontalAlignment = Alignment.Start
         ) {

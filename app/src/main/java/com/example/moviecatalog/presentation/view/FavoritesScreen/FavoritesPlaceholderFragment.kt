@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -49,7 +50,7 @@ class FavoritesPlaceholderFragment : Fragment() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Dark),
+                .background(colorResource(id = R.color.dark)),
             horizontalAlignment = Alignment.Start
         ) {
             Box(
@@ -129,8 +130,8 @@ class FavoritesPlaceholderFragment : Fragment() {
                         .background(
                             Brush.horizontalGradient(
                                 listOf(
-                                    GradientStart,
-                                    GradientEnd
+                                    colorResource(id = R.color.gradient_start),
+                                    colorResource(id = R.color.gradient_end)
                                 )
                             )
                         )
