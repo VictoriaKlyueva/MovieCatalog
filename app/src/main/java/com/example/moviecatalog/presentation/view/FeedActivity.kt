@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.moviecatalog.R
 import com.example.moviecatalog.databinding.ActivityFeedBinding
-import com.example.moviecatalog.presentation.view.FavoritesScreen.FavoritesPlaceholderFragment
+import com.example.moviecatalog.presentation.view.FavoritesScreen.FavoritesFragment
 import com.example.moviecatalog.presentation.view.FeedScreen.FeedFragment
 import com.example.moviecatalog.presentation.view.MoviesScreen.MoviesFragment
 import com.example.moviecatalog.presentation.view.ProfileScreen.ProfileFragment
@@ -20,7 +20,7 @@ class FeedActivity : AppCompatActivity() {
     private val feedFragment = FeedFragment()
     private val moviesFragment = MoviesFragment()
     private val profileFragment = ProfileFragment()
-    private val favoritesFragment = FavoritesPlaceholderFragment()
+    private val favoritesFragment = FavoritesFragment()
 
     private var initialFragment: Fragment? = null
 
@@ -52,7 +52,7 @@ class FeedActivity : AppCompatActivity() {
                 R.id.moviesFragment -> {
                     binding.bottomNavigation.selectedItemId = R.id.nav_movies
                 }
-                R.id.favoritesPlaceholderFragment -> {
+                R.id.favoritesFragment -> {
                     binding.bottomNavigation.selectedItemId = R.id.nav_favorites
                 }
                 R.id.profileFragment -> {
