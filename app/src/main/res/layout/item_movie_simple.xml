@@ -11,8 +11,9 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:background="@drawable/rounded_corners"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:background="@drawable/rounded_corners_mini"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clipToOutline="true" />
 
     <LinearLayout
         android:id="@+id/genres"

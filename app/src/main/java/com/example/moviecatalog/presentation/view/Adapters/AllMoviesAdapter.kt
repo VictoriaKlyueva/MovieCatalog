@@ -35,7 +35,7 @@ class AllMoviesAdapter(
         fun bind(movie: MovieElementModel) {
             Glide.with(binding.root.context)
                 .load(movie.poster)
-                .transform(RoundedCorners(24))
+                .transform(RoundedCorners(8))
                 .into(binding.movieFromAllImageView)
 
             // Rating
