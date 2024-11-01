@@ -30,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageButton
-        android:id="@+id/back_button"
+        android:id="@+id/deleteFriendButton"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:padding="8dp"

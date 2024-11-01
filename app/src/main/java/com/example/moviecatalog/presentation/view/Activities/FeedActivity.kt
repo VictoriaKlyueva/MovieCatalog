@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.moviecatalog.R
-import com.example.moviecatalog.presentation.view.FavoritesFragment
 import com.example.moviecatalog.presentation.view.Fragments.FavoritesPlaceholderFragment
 import com.example.moviecatalog.presentation.view.Fragments.FeedFragment
 import com.example.moviecatalog.presentation.view.Fragments.MoviesFragment
@@ -21,13 +20,16 @@ class FeedActivity : AppCompatActivity() {
     private val profileFragment = ProfileFragment()
     private val favoritesFragment = FavoritesPlaceholderFragment()
 
+    private var initialFragment: Fragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        setCurrentFragment(feedFragment)
+        initialFragment = intent.getSerializableExtra(EXTRA_INITIAL_FRAGMENT) as? Fragment
+        setCurrentFragment(initialFragment ?: feedFragment)
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -41,7 +43,6 @@ class FeedActivity : AppCompatActivity() {
         }
 
         val navController = findNavController(R.id.nav_host_fragment)
-
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.feedFragment -> {
@@ -60,12 +61,33 @@ class FeedActivity : AppCompatActivity() {
         }
     }
 
-    private fun setCurrentFragment(fragment: Fragment) {
-        if (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) != fragment) {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.nav_host_fragment, fragment)
-            transaction.commit()
+    private fun updateBottomNavigation() {
+        val initialFragmentTag = intent.getStringExtra(EXTRA_INITIAL_FRAGMENT)
+        initialFragment = when (initialFragmentTag) {
+            "profile" -> profileFragment
+            else -> feedFragment
         }
+        bottomNavigationView.selectedItemId = when (initialFragment) {
+            profileFragment -> R.id.nav_profile
+            favoritesFragment -> R.id.nav_favorites
+            moviesFragment -> R.id.nav_movies
+            else -> R.id.nav_feed
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateBottomNavigation()
+    }
+
+    private fun setCurrentFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment, fragment)
+            .commit()
+    }
+
+    companion object {
+        const val EXTRA_INITIAL_FRAGMENT = "initial_fragment"
     }
 }
 

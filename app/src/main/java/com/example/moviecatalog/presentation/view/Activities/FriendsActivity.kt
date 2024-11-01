@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviecatalog.databinding.ActivityFriendsBinding
 import com.example.moviecatalog.domain.model.FakeFriends
 import com.example.moviecatalog.presentation.view.Adapters.FriendsAdapter
+import com.example.moviecatalog.presentation.view.Fragments.ProfileFragment
 import com.example.moviecatalog.presentation.viewModel.FriendsViewModel
 
 class FriendsActivity : AppCompatActivity() {
@@ -29,7 +30,9 @@ class FriendsActivity : AppCompatActivity() {
 
     private fun setupButtons() {
         binding.backButton.setOnClickListener {
-            val intent = Intent(this, FeedActivity::class.java)
+            val intent = Intent(this, FeedActivity::class.java).apply {
+                putExtra(FeedActivity.EXTRA_INITIAL_FRAGMENT, "profile")
+            }
             startActivity(intent)
         }
     }

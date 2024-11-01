@@ -4,7 +4,7 @@ import com.example.moviecatalog.data.model.Gender
 import com.example.moviecatalog.data.model.ProfileModel
 
 object FakeFriends {
-    val friends = listOf(
+    val friends = mutableListOf(
         ProfileModel(
             id = "1",
             nickName = "Пашка Хорев",

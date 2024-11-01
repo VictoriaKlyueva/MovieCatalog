@@ -6,14 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.ProfileModel
 import com.example.moviecatalog.databinding.ItemFriendBinding
 
 class FriendsAdapter(
-    private var profiles: List<ProfileModel>
-): RecyclerView.Adapter<FriendsAdapter.FriendViewHolder>() {
+    private var profiles: MutableList<ProfileModel>
+) : RecyclerView.Adapter<FriendsAdapter.FriendViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
         val binding = ItemFriendBinding
@@ -23,7 +21,7 @@ class FriendsAdapter(
 
     override fun onBindViewHolder(holder: FriendsAdapter.FriendViewHolder, position: Int) {
         val profile = profiles[position]
-        holder.bind(profile)
+        holder.bind(profile, position)
     }
 
     override fun getItemCount(): Int = profiles.size
@@ -32,8 +30,7 @@ class FriendsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("DefaultLocale")
-        fun bind(profile: ProfileModel) {
-
+        fun bind(profile: ProfileModel, position: Int) {
             // Avatar
             if (profile.avatarLink != null) {
                 Glide.with(binding.root.context)
@@ -44,6 +41,17 @@ class FriendsAdapter(
 
             // Name
             binding.friendName.text = profile.name
+
+            // Минус друг
+            binding.deleteFriendButton.setOnClickListener {
+                removeFriend(position)
+            }
         }
+    }
+
+    private fun removeFriend(position: Int) {
+        profiles.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, profiles.size)
     }
 }
