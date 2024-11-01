@@ -53,7 +53,7 @@
                 android:id="@+id/heart_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_heart" />
+                android:src="@drawable/ic_heart_filled" />
         </LinearLayout>
     </LinearLayout>
 

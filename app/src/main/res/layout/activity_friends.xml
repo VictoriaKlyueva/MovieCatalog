@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:background="@drawable/button_back"
-            android:src="@drawable/back_icon"
+            android:src="@drawable/ic_back"
             tools:ignore="ContentDescription" />
 
         <TextView

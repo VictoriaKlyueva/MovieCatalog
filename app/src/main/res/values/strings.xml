@@ -4,6 +4,7 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_movies_details">MovieDetailsActivity</string>
     <string name="welcome_moviecatalog">Добро пожаловать\nв MovieCatalog</string>
     <string name="log_in_to_account">Войти в аккаунт</string>
     <string name="sign_up">Зарегистрироваться</string>
@@ -44,4 +45,6 @@
     <string name="personal_info">Личная информация</string>
     <string name="gender">Пол</string>
     <string name="title_activity_friends">FriendsActivity</string>
+    <string name="fake_description">Группа европейских мигрантов покидает Лондон на пароходе, чтобы начать новую жизнь в Нью-Йорке. Когда они сталкиваются с другим судном, плывущим по течению в открытом море, их путешествие превращается в кошмар</string>
+    <string name="rating">Рейтинг</string>
 </resources>

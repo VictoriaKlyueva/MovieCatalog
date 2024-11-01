@@ -1,5 +1,6 @@
 package com.example.moviecatalog.presentation.view.FeedScreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentFeedBinding
+import com.example.moviecatalog.presentation.view.FriendsScreen.FriendsActivity
+import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
 import com.example.moviecatalog.presentation.viewModel.FeedViewModel
 
 class FeedFragment : Fragment(R.layout.fragment_feed) {
@@ -78,6 +81,11 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
             .load(movie.poster)
             .transform(RoundedCorners(48))
             .into(binding.moviePoster)
+
+        binding.moviePoster.setOnClickListener {
+            val intent = Intent(requireContext(), MovieDetailsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {
