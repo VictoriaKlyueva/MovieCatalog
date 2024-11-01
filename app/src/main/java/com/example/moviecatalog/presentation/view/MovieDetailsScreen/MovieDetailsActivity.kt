@@ -125,7 +125,7 @@ fun MovieDetailsScreen(movie: MovieElementModel) {
                 .padding(start = 24.dp, end = 24.dp, top = 36.dp)
         ) {
             item {
-                Spacer(modifier = Modifier.height(474.dp))
+                Spacer(modifier = Modifier.height(400.dp))
             }
 
             item {
