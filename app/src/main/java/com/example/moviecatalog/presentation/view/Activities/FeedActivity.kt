@@ -1,20 +1,22 @@
 package com.example.moviecatalog.presentation.view.Activities
 
-
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.moviecatalog.R
+import com.example.moviecatalog.databinding.ActivityFeedBinding
 import com.example.moviecatalog.presentation.view.Fragments.FavoritesPlaceholderFragment
 import com.example.moviecatalog.presentation.view.Fragments.FeedFragment
 import com.example.moviecatalog.presentation.view.Fragments.MoviesFragment
 import com.example.moviecatalog.presentation.view.Fragments.ProfileFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class FeedActivity : AppCompatActivity() {
 
-    private lateinit var bottomNavigationView: BottomNavigationView
+    private var _binding: ActivityFeedBinding? = null
+    private val binding get() = _binding ?:
+        throw IllegalStateException("Binding is not initialized")
+
     private val feedFragment = FeedFragment()
     private val moviesFragment = MoviesFragment()
     private val profileFragment = ProfileFragment()
@@ -24,15 +26,14 @@ class FeedActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_feed)
-
-        bottomNavigationView = findViewById(R.id.bottom_navigation)
+        _binding = ActivityFeedBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initialFragment = intent.getSerializableExtra(EXTRA_INITIAL_FRAGMENT) as? Fragment
         setCurrentFragment(initialFragment ?: feedFragment)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
                 R.id.nav_feed -> setCurrentFragment(feedFragment)
                 R.id.nav_movies -> setCurrentFragment(moviesFragment)
                 R.id.nav_favorites -> setCurrentFragment(favoritesFragment)
@@ -43,19 +44,19 @@ class FeedActivity : AppCompatActivity() {
         }
 
         val navController = findNavController(R.id.nav_host_fragment)
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.feedFragment -> {
-                    bottomNavigationView.selectedItemId = R.id.nav_feed
+                    binding.bottomNavigation.selectedItemId = R.id.nav_feed
                 }
                 R.id.moviesFragment -> {
-                    bottomNavigationView.selectedItemId = R.id.nav_movies
+                    binding.bottomNavigation.selectedItemId = R.id.nav_movies
                 }
                 R.id.favoritesPlaceholderFragment -> {
-                    bottomNavigationView.selectedItemId = R.id.nav_favorites
+                    binding.bottomNavigation.selectedItemId = R.id.nav_favorites
                 }
                 R.id.profileFragment -> {
-                    bottomNavigationView.selectedItemId = R.id.nav_profile
+                    binding.bottomNavigation.selectedItemId = R.id.nav_profile
                 }
             }
         }
@@ -67,7 +68,7 @@ class FeedActivity : AppCompatActivity() {
             "profile" -> profileFragment
             else -> feedFragment
         }
-        bottomNavigationView.selectedItemId = when (initialFragment) {
+        binding.bottomNavigation.selectedItemId = when (initialFragment) {
             profileFragment -> R.id.nav_profile
             favoritesFragment -> R.id.nav_favorites
             moviesFragment -> R.id.nav_movies
@@ -90,4 +91,3 @@ class FeedActivity : AppCompatActivity() {
         const val EXTRA_INITIAL_FRAGMENT = "initial_fragment"
     }
 }
-

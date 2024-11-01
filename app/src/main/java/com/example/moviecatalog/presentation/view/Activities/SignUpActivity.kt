@@ -10,10 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.databinding.ActivitySignInBinding
+import com.example.moviecatalog.databinding.ActivitySignUpBinding
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
 
 class SignUpActivity : AppCompatActivity() {
+
+    private var _binding: ActivitySignUpBinding? = null
+    private val binding get() = _binding ?:
+    throw IllegalStateException("Binding is not initialized")
 
     private lateinit var signUpViewModel: SignUpViewModel
 
@@ -23,9 +29,7 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpViewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
 
-        val backButton = findViewById<ImageButton>(R.id.back_button)
-
-        backButton.setOnClickListener {
+        binding.backButton.setOnClickListener {
             signUpViewModel.onBackButtonClicked()
         }
 

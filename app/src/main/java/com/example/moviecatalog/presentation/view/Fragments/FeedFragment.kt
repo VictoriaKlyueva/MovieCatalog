@@ -51,7 +51,6 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         return binding.root
     }
 
-
     private fun displayMovie(movie: MovieElementModel) {
         binding.movieName.text = movie.name
         binding.movieCountry.text = movie.country
