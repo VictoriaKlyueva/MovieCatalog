@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Activities
+package com.example.moviecatalog.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,10 +6,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.moviecatalog.R
 import com.example.moviecatalog.databinding.ActivityFeedBinding
-import com.example.moviecatalog.presentation.view.Fragments.FavoritesPlaceholderFragment
-import com.example.moviecatalog.presentation.view.Fragments.FeedFragment
-import com.example.moviecatalog.presentation.view.Fragments.MoviesFragment
-import com.example.moviecatalog.presentation.view.Fragments.ProfileFragment
+import com.example.moviecatalog.presentation.view.FavoritesScreen.FavoritesPlaceholderFragment
+import com.example.moviecatalog.presentation.view.FeedScreen.FeedFragment
+import com.example.moviecatalog.presentation.view.MoviesScreen.MoviesFragment
+import com.example.moviecatalog.presentation.view.ProfileScreen.ProfileFragment
 
 class FeedActivity : AppCompatActivity() {
 

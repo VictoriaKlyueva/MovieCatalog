@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Fragments
+package com.example.moviecatalog.presentation.view.MoviesScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentAllMoviesBinding
-import com.example.moviecatalog.presentation.view.Adapters.AllMoviesAdapter
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
 class AllMoviesFragment : Fragment() {

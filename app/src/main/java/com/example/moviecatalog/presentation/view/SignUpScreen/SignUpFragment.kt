@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Fragments
+package com.example.moviecatalog.presentation.view.SignUpScreen
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
@@ -13,12 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.Gender
-import com.example.moviecatalog.data.model.LoginCredentials
 import com.example.moviecatalog.data.model.UserRegisterModel
 import com.example.moviecatalog.databinding.FragmentSignUpBinding
 import com.example.moviecatalog.presentation.utils.DateHelper
 import com.example.moviecatalog.presentation.utils.GenderToggleHandler
-import com.example.moviecatalog.presentation.view.Activities.FeedActivity
+import com.example.moviecatalog.presentation.view.FeedActivity
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
 import com.example.moviecatalog.utils.EditTextHelper
 

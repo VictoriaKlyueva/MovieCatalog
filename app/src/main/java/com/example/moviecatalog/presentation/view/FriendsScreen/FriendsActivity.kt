@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Activities
+package com.example.moviecatalog.presentation.view.FriendsScreen
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.moviecatalog.databinding.ActivityFriendsBinding
 import com.example.moviecatalog.domain.model.FakeFriends
-import com.example.moviecatalog.presentation.view.Adapters.FriendsAdapter
-import com.example.moviecatalog.presentation.view.Fragments.ProfileFragment
+import com.example.moviecatalog.presentation.view.FeedActivity
 import com.example.moviecatalog.presentation.viewModel.FriendsViewModel
 
 class FriendsActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Activities
+package com.example.moviecatalog.presentation.view.WelcomeScreen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

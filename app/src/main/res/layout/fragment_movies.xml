@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/dark"
     android:scrollbars="none"
-    tools:context=".presentation.view.Fragments.MoviesFragment">
+    tools:context=".presentation.view.MoviesScreen.MoviesFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -94,14 +94,14 @@
 
         <fragment
             android:id="@+id/myFavoritesFragment"
-            android:name="com.example.moviecatalog.presentation.view.Fragments.MyFavoriteMoviesFragment"
+            android:name="com.example.moviecatalog.presentation.view.MoviesScreen.MyFavoriteMoviesFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp" />
 
         <fragment
             android:id="@+id/allMoviesFragment"
-            android:name="com.example.moviecatalog.presentation.view.Fragments.AllMoviesFragment"
+            android:name="com.example.moviecatalog.presentation.view.MoviesScreen.AllMoviesFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="96dp" />

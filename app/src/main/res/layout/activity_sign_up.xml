@@ -64,7 +64,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.moviecatalog.presentation.view.Fragments.SignUpFragment"
+        android:name="com.example.moviecatalog.presentation.view.SignUpScreen.SignUpFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />

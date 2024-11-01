@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Fragments
+package com.example.moviecatalog.presentation.view.FavoritesScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater

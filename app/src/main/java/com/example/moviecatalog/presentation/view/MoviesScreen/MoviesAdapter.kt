@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Adapters
+package com.example.moviecatalog.presentation.view.MoviesScreen
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

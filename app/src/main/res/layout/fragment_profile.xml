@@ -10,7 +10,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".presentation.view.Fragments.ProfileFragment"
+        tools:context=".presentation.view.ProfileScreen.ProfileFragment"
         android:background="@color/dark">
 
         <ImageView
@@ -119,7 +119,7 @@
 
         <fragment
             android:id="@+id/personalInfoFragment"
-            android:name="com.example.moviecatalog.presentation.view.Fragments.PersonalInfoFragment"
+            android:name="com.example.moviecatalog.presentation.view.ProfileScreen.PersonalInfoFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"

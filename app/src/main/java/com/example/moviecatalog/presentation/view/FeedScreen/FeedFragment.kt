@@ -1,7 +1,6 @@
-package com.example.moviecatalog.presentation.view.Fragments
+package com.example.moviecatalog.presentation.view.FeedScreen
 
 import android.os.Bundle
-import android.renderscript.ScriptGroup.Binding
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.GenreModel
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentFeedBinding
 import com.example.moviecatalog.presentation.viewModel.FeedViewModel

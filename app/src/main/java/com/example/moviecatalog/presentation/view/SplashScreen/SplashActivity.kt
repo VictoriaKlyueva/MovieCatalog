@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Activities
+package com.example.moviecatalog.presentation.view.SplashScreen
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.presentation.view.MainActivity
 import com.example.moviecatalog.presentation.viewModel.SplashViewModel
 
 @SuppressLint("CustomSplashScreen")

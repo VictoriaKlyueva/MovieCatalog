@@ -1,11 +1,11 @@
-package com.example.moviecatalog.presentation.view.Activities
+package com.example.moviecatalog.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.moviecatalog.presentation.view.WelcomeScreen.WelcomeActivity
 import com.example.moviecatalog.presentation.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {

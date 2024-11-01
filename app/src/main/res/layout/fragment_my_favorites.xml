@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.view.Fragments.MyFavoriteMoviesFragment">
+    tools:context=".presentation.view.MoviesScreen.MyFavoriteMoviesFragment">
 
     <com.example.moviecatalog.presentation.view.Views.GradientTextView
         android:id="@+id/myFavoritesTextView"

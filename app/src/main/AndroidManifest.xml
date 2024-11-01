@@ -16,36 +16,36 @@
         android:theme="@style/Theme.MovieCatalog"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.view.Activities.FriendsActivity"
+            android:name=".presentation.view.FriendsScreen.FriendsActivity"
             android:exported="false"
             android:label="@string/title_activity_friends"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
-            android:name=".presentation.view.Activities.FeedActivity"
+            android:name=".presentation.view.FeedActivity"
             android:exported="false"
             android:label="@string/title_activity_feed"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
-            android:name=".presentation.view.Activities.SignUpActivity"
+            android:name=".presentation.view.SignUpScreen.SignUpActivity"
             android:exported="false"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
-            android:name=".presentation.view.Activities.SignInActivity"
+            android:name=".presentation.view.SignInScreen.SignInActivity"
             android:exported="false"
             android:label="@string/title_activity_sign_in"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
-            android:name=".presentation.view.Activities.WelcomeActivity"
+            android:name=".presentation.view.WelcomeScreen.WelcomeActivity"
             android:exported="false"
             android:label="@string/title_activity_welcome"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
-            android:name=".presentation.view.Activities.MainActivity"
+            android:name=".presentation.view.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
-            android:name=".presentation.view.Activities.SplashActivity"
+            android:name=".presentation.view.SplashScreen.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>

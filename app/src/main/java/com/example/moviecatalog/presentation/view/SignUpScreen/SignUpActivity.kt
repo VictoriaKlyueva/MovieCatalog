@@ -1,19 +1,12 @@
-package com.example.moviecatalog.presentation.view.Activities
+package com.example.moviecatalog.presentation.view.SignUpScreen
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
-import android.widget.ImageButton
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.moviecatalog.R
-import com.example.moviecatalog.databinding.ActivityFriendsBinding
-import com.example.moviecatalog.databinding.ActivitySignInBinding
 import com.example.moviecatalog.databinding.ActivitySignUpBinding
-import com.example.moviecatalog.presentation.viewModel.SignInViewModel
+import com.example.moviecatalog.presentation.view.WelcomeScreen.WelcomeActivity
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
 
 class SignUpActivity : AppCompatActivity() {

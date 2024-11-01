@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Fragments
+package com.example.moviecatalog.presentation.view.MoviesScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMyFavoritesBinding
-import com.example.moviecatalog.presentation.view.Adapters.MyFavoriteMoviesAdapter
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
 class MyFavoriteMoviesFragment : Fragment() {

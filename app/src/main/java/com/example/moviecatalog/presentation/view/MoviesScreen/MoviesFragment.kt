@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Fragments
+package com.example.moviecatalog.presentation.view.MoviesScreen
 
 import android.os.Bundle
 import android.os.Handler
@@ -12,7 +12,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMoviesBinding
-import com.example.moviecatalog.presentation.view.Adapters.MoviesAdapter
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
 class MoviesFragment : Fragment() {

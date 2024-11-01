@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Adapters
+package com.example.moviecatalog.presentation.view.FriendsScreen
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ class FriendsAdapter(
         return FriendViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FriendsAdapter.FriendViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
         val profile = profiles[position]
         holder.bind(profile, position)
     }

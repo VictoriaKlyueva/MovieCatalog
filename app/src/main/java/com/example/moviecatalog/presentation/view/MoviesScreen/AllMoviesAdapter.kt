@@ -1,7 +1,6 @@
-package com.example.moviecatalog.presentation.view.Adapters
+package com.example.moviecatalog.presentation.view.MoviesScreen
 
 import android.annotation.SuppressLint
-import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +20,7 @@ class AllMoviesAdapter(
         return MovieViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AllMoviesAdapter.MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movies[position]
         holder.bind(movie)
     }

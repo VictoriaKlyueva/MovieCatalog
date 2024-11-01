@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view
+package com.example.moviecatalog.presentation.view.FavoritesScreen
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
