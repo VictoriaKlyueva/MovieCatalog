@@ -81,4 +81,9 @@ class AllMoviesFragment : Fragment() {
             isLoading = false
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
