@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
 import com.example.moviecatalog.databinding.ActivityFeedBinding
+import com.example.moviecatalog.databinding.ActivityFriendsBinding
 import com.example.moviecatalog.databinding.ActivitySignInBinding
 import com.example.moviecatalog.presentation.viewModel.MainViewModel
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
@@ -17,13 +18,15 @@ class SignInActivity : AppCompatActivity() {
 
     private var _binding: ActivitySignInBinding? = null
     private val binding get() = _binding ?:
-    throw IllegalStateException("Binding is not initialized")
+        throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: SignInViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_in)
+        _binding = ActivitySignInBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         viewModel = ViewModelProvider(this)[SignInViewModel::class.java]
 

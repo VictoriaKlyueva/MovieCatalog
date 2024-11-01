@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.databinding.ActivityFriendsBinding
 import com.example.moviecatalog.databinding.ActivitySignInBinding
 import com.example.moviecatalog.databinding.ActivitySignUpBinding
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
@@ -25,7 +26,9 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        _binding = ActivitySignUpBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         signUpViewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
 
