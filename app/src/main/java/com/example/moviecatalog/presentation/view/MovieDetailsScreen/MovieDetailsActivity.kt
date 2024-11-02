@@ -176,6 +176,14 @@ fun MovieDetailsScreen(movie: MovieElementModel) {
             item {
                 DirectorSection(movie)
             }
+
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            item {
+                GenresSection(movie)
+            }
         }
     }
 }
