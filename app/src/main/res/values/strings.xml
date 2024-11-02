@@ -49,6 +49,9 @@
     <string name="rating">Рейтинг</string>
     <string name="information">Информация</string>
     <string name="director">Режиссёр</string>
-    <string name="finance">Финансы</string><string name="genres">Жанры</string>
+    <string name="finance">Финансы</string>
+    <string name="genres">Жанры</string>
+    <string name="reviews">Отзывы</string>
+
 
 </resources>

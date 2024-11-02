@@ -133,7 +133,7 @@ fun MovieDetailsScreen(movie: MovieElementModel) {
                     top = 72.dp,
                     bottom = 24.dp
                 )
-                .clip(shape= RoundedCornerShape(16.dp))
+                .clip(shape = RoundedCornerShape(16.dp))
         ) {
             item {
                 Spacer(modifier = Modifier.height(400.dp))
@@ -197,6 +197,14 @@ fun MovieDetailsScreen(movie: MovieElementModel) {
 
             item {
                 FinanceSection()
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            item {
+                ReviewSection()
             }
         }
     }
