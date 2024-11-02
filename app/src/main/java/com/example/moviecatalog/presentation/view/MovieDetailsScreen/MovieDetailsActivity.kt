@@ -133,7 +133,7 @@ fun MovieDetailsScreen(movie: MovieElementModel) {
                     top = 72.dp,
                     bottom = 24.dp
                 )
-                .clip(shape= RoundedCornerShape(8.dp))
+                .clip(shape= RoundedCornerShape(16.dp))
         ) {
             item {
                 Spacer(modifier = Modifier.height(400.dp))
