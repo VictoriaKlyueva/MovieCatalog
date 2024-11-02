@@ -1,37 +1,29 @@
 package com.example.moviecatalog.presentation.view.MovieDetailsScreen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.MovieElementModel
 
 @Composable
-fun DirectorSection(movie: MovieElementModel) {
+fun FinanceSection() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -50,50 +42,49 @@ fun DirectorSection(movie: MovieElementModel) {
                     .width(20.dp)
                     .height(20.dp),
                 tint = colorResource(id = R.color.gray),
-                painter = painterResource(id = R.drawable.ic_genres),
+                painter = painterResource(id = R.drawable.ic_finance),
                 contentDescription = "Icon heart",
             )
 
             Spacer(modifier = Modifier.width(4.dp))
 
             Text(
-                text = stringResource(id = R.string.director),
+                text = stringResource(id = R.string.finance),
                 color = colorResource(id = R.color.gray),
                 style = MaterialTheme.typography.bodyMedium
             )
         }
 
+        Spacer(modifier = Modifier.height(8.dp))
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
-                .background(
-                    color = colorResource(id = R.color.dark),
-                    shape = RoundedCornerShape(8.dp)
-                ),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(start = 16.dp, bottom = 16.dp, end = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Image(
+            InfoCell(
+                "Бюджет",
+                "$ 15 000 000",
                 modifier = Modifier
-                    .size(56.dp)
-                    .padding(8.dp)
-                    .clip(CircleShape)
-                    .background(Color.Transparent),
-                painter = rememberAsyncImagePainter(movie.poster),
-                contentDescription = movie.name,
-                contentScale = ContentScale.Crop
+                    .weight(1f)
+                    .background(
+                        color = colorResource(id = R.color.dark),
+                        shape = RoundedCornerShape(8.dp)
+                    )
             )
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Text(
+            InfoCell(
+                "Сборы в мире",
+                "$ 30 000 000",
                 modifier = Modifier
-                    .padding(vertical = 4.dp)
-                    .weight(1f),
-                text = "Баран кто то там",
-                color = Color.White,
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Start
+                    .weight(1f)
+                    .background(
+                        color = colorResource(id = R.color.dark),
+                        shape = RoundedCornerShape(8.dp)
+                    )
             )
         }
     }

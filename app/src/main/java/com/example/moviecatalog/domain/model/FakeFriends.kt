@@ -7,6 +7,24 @@ object FakeFriends {
     val friends = mutableListOf(
         ProfileModel(
             id = "1",
+            nickName = "АННА БАУШЕВА",
+            email = "хз",
+            avatarLink = null,
+            name = "АННА БАУШЕВА",
+            birthDate = "хз",
+            gender = Gender.fromValue(1)!!
+        ),
+        ProfileModel(
+            id = "1",
+            nickName = "Куся Аннович",
+            email = "хз",
+            avatarLink = null,
+            name = "Куся Аннович",
+            birthDate = "хз",
+            gender = Gender.fromValue(1)!!
+        ),
+        ProfileModel(
+            id = "1",
             nickName = "Пашка Хорев",
             email = "хз",
             avatarLink = "https://avatars.dzeninfra.ru/get-zen_doc/1244179/pub_62e41a4477aa332473c65a72_62e41d0877aa332473c9ed2f/scale_1200",
@@ -16,7 +34,7 @@ object FakeFriends {
         ),
         ProfileModel(
             id = "2",
-            nickName = "Заята Будаева (IOS разработчик)",
+            nickName = "Заята IOS разработчик",
             email = "хз",
             avatarLink = null,
             name = "Заята IOS разработчик",

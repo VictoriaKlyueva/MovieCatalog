@@ -66,7 +66,7 @@ fun InfoSection() {
                 .padding(start = 16.dp, end = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            MovieInfoCell(
+            InfoCell(
                 "Страны",
                 "Германия, США",
                 modifier = Modifier
@@ -79,7 +79,7 @@ fun InfoSection() {
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            MovieInfoCell(
+            InfoCell(
                 "Возраст",
                 "16+",
                 modifier = Modifier
@@ -99,7 +99,7 @@ fun InfoSection() {
                 .padding(start = 16.dp, bottom = 16.dp, end = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            MovieInfoCell(
+            InfoCell(
                 "Время",
                 "1 ч 30 мин",
                 modifier = Modifier
@@ -112,7 +112,7 @@ fun InfoSection() {
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            MovieInfoCell(
+            InfoCell(
                 "Год выхода",
                 "2022",
                 modifier = Modifier
@@ -127,7 +127,7 @@ fun InfoSection() {
 }
 
 @Composable
-fun MovieInfoCell(name: String, value: String, modifier: Modifier) {
+fun InfoCell(name: String, value: String, modifier: Modifier) {
     Column(
         modifier = modifier
     ) {

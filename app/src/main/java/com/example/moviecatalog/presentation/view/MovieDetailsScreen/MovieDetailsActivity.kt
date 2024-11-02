@@ -127,7 +127,13 @@ fun MovieDetailsScreen(movie: MovieElementModel) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 24.dp, end = 24.dp, top = 36.dp)
+                .padding(
+                    start = 24.dp,
+                    end = 24.dp,
+                    top = 72.dp,
+                    bottom = 24.dp
+                )
+                .clip(shape= RoundedCornerShape(8.dp))
         ) {
             item {
                 Spacer(modifier = Modifier.height(400.dp))
@@ -183,6 +189,14 @@ fun MovieDetailsScreen(movie: MovieElementModel) {
 
             item {
                 GenresSection(movie)
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            item {
+                FinanceSection()
             }
         }
     }
