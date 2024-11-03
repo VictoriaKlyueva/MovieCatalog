@@ -8,16 +8,15 @@ import com.example.moviecatalog.data.repository.RegisterUserRepository
 import com.example.moviecatalog.domain.usecase.RegisterUserUseCase
 import com.example.moviecatalog.presentation.utils.ValidationUtils
 
-class SignUpViewModel : ViewModel() {
+class SignUpViewModel(
+    private val registerUserUseCase: RegisterUserUseCase
+) : ViewModel() {
 
     private val _navigateToWelcome = MutableLiveData<Boolean>()
     val navigateToWelcome: LiveData<Boolean> get() = _navigateToWelcome
 
     private val _isButtonEnabled = MutableLiveData<Boolean>().apply { value = false }
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
-
-    private val userRepository = RegisterUserRepository()
-    private val registerUserUseCase = RegisterUserUseCase(userRepository)
 
     fun onSignUpDataChanged(
         login: String,

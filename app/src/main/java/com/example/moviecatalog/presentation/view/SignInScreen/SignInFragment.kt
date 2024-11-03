@@ -11,19 +11,25 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.model.LoginCredentials
+import com.example.moviecatalog.data.repository.LoginCredentialsRepositoryImpl
 import com.example.moviecatalog.databinding.FragmentSignInBinding
+import com.example.moviecatalog.domain.repository.LoginCredentialsRepository
 import com.example.moviecatalog.presentation.view.FeedActivity
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
+import com.example.moviecatalog.presentation.viewModel.SignInViewModelFactory
 import com.example.moviecatalog.utils.EditTextHelper
 
 class SignInFragment : Fragment() {
 
     private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding ?:
-        throw IllegalStateException("Binding is not initialized")
+    throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: SignInViewModel
+    private lateinit var tokenDataSource: TokenDataSource
+    private lateinit var loginCredentialsRepository: LoginCredentialsRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,12 +37,22 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignInBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[SignInViewModel::class.java]
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        tokenDataSource = TokenDataSource(requireContext())
+        loginCredentialsRepository = LoginCredentialsRepositoryImpl(tokenDataSource)
+
+        viewModel = ViewModelProvider(
+            this,
+            SignInViewModelFactory(loginCredentialsRepository)
+        )[SignInViewModel::class.java]
 
         setupEditTextListeners()
         setupSignInButton()
-        
-        return binding.root
     }
 
     private fun setupEditTextListeners() {
@@ -67,17 +83,19 @@ class SignInFragment : Fragment() {
     private fun setupSignInButton() {
         viewModel.isButtonEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
             binding.buttonSignIn.isEnabled = isEnabled
-            binding.buttonSignIn.setTextColor(
-                if (isEnabled)
-                    ContextCompat.getColor(requireContext(), R.color.white)
-                else ContextCompat.getColor(requireContext(), R.color.gray_faded)
-            )
-            binding.buttonSignIn.setBackgroundResource(
-                if (isEnabled)
-                    R.drawable.button_primary_default
-                else
-                    R.drawable.button_secondary
-            )
+            context?.let {
+                binding.buttonSignIn.setTextColor(
+                    if (isEnabled)
+                        ContextCompat.getColor(it, R.color.white)
+                    else ContextCompat.getColor(it, R.color.gray_faded)
+                )
+                binding.buttonSignIn.setBackgroundResource(
+                    if (isEnabled)
+                        R.drawable.button_primary_default
+                    else
+                        R.drawable.button_secondary
+                )
+            }
         })
 
         binding.buttonSignIn.setOnClickListener {
@@ -93,7 +111,7 @@ class SignInFragment : Fragment() {
             }
         }
     }
-    
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -123,7 +123,7 @@ class SignUpFragment : Fragment() {
                 password = binding.editTextPassword.text.toString(),
                 email = binding.editTextEmail.text.toString(),
                 birthDate = binding.editTextDateOfBirth.text.toString(),
-                gender = if (binding.buttonMale.isChecked) Gender.MALE else Gender.FEMALE
+                gender = if (binding.buttonMale.isChecked) 0 else 1
             )
             viewModel.onSignUpButtonClicked(user)
 

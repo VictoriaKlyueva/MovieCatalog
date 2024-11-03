@@ -51,7 +51,10 @@ android {
 }
 
 dependencies {
-    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation(libs.okhttp3.logging.interceptor)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.security.crypto)
+    implementation(libs.coil.compose)
     implementation(libs.moshi)
     implementation(libs.moshi.kotlin)
     implementation(libs.androidx.viewpager2)

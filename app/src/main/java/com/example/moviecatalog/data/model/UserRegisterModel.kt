@@ -8,6 +8,8 @@ data class UserRegisterModel(
     val name: String,
     val password: String,
     val email: String,
-    @SerializedName("birthDate") val birthDate: String,
-    @SerializedName("Gender") val gender: Gender
+    @SerializedName("birthDate")
+    val birthDate: String,
+    @SerializedName("Gender")
+    val gender: Int
 )
