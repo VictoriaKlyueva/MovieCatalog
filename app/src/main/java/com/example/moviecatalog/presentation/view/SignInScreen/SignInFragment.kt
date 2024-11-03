@@ -47,7 +47,7 @@ class SignInFragment : Fragment() {
         loginCredentialsRepository = LoginCredentialsRepositoryImpl(tokenDataSource)
 
         viewModel = ViewModelProvider(
-            this,
+            requireActivity(),
             SignInViewModelFactory(loginCredentialsRepository)
         )[SignInViewModel::class.java]
 

@@ -55,8 +55,6 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.security.crypto)
     implementation(libs.coil.compose)
-    implementation(libs.moshi)
-    implementation(libs.moshi.kotlin)
     implementation(libs.androidx.viewpager2)
     implementation(libs.github.glide)
     implementation(libs.androidx.navigation.fragment)
