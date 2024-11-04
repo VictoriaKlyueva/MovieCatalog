@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.view.Views
+package com.example.moviecatalog.presentation.view.utils
 
 import android.annotation.SuppressLint
 import android.content.Context

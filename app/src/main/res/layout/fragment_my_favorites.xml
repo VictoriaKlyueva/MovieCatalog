@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.view.MoviesScreen.MyFavoriteMoviesFragment">
 
-    <com.example.moviecatalog.presentation.view.Views.GradientTextView
+    <com.example.moviecatalog.presentation.view.utils.GradientTextView
         android:id="@+id/myFavoritesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

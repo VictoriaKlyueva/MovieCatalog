@@ -28,12 +28,18 @@ class SignInViewModel(
         _isButtonEnabled.value = ValidationUtils.isSignInDataValid(login, password)
     }
 
-    fun onSignInButtonClicked(user: LoginCredentials) {
+    fun onSignInButtonClicked(
+        user: LoginCredentials,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
         loginUseCase.execute(user) { success ->
             if (success) {
                 println("Успешный вход в аккаунт")
+                onSuccess()
             } else {
-                println("Ошибка входа(")
+                println("Ошибка входа")
+                onError()
             }
         }
     }

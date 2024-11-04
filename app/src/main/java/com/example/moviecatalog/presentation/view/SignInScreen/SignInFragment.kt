@@ -6,6 +6,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,6 +15,7 @@ import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.LoginCredentials
 import com.example.moviecatalog.databinding.FragmentSignInBinding
 import com.example.moviecatalog.presentation.view.FeedActivity
+import com.example.moviecatalog.presentation.view.utils.AlertHelper
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.SignInViewModelFactory
 import com.example.moviecatalog.utils.EditTextHelper
@@ -25,6 +27,8 @@ class SignInFragment : Fragment() {
     throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: SignInViewModel
+
+    private val alertHelper = AlertHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,15 +84,12 @@ class SignInFragment : Fragment() {
             binding.buttonSignIn.isEnabled = isEnabled
             context?.let {
                 binding.buttonSignIn.setTextColor(
-                    if (isEnabled)
-                        ContextCompat.getColor(it, R.color.white)
+                    if (isEnabled) ContextCompat.getColor(it, R.color.white)
                     else ContextCompat.getColor(it, R.color.gray_faded)
                 )
                 binding.buttonSignIn.setBackgroundResource(
-                    if (isEnabled)
-                        R.drawable.button_primary_default
-                    else
-                        R.drawable.button_secondary
+                    if (isEnabled) R.drawable.button_primary_default
+                    else R.drawable.button_secondary
                 )
             }
         })
@@ -98,12 +99,16 @@ class SignInFragment : Fragment() {
                 username = binding.editTextLogin.text.toString(),
                 password = binding.editTextPassword.text.toString()
             )
-            viewModel.onSignInButtonClicked(user)
-
-            if (binding.buttonSignIn.isEnabled) {
+            viewModel.onSignInButtonClicked(user, {
                 val intent = Intent(requireActivity(), FeedActivity::class.java)
                 startActivity(intent)
-            }
+            }, {
+                alertHelper.showAlert(
+                    requireContext(),
+                    "Ошибка",
+                    "Неверные логин или пароль"
+                )
+            })
         }
     }
 

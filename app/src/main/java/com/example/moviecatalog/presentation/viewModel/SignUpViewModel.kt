@@ -46,12 +46,18 @@ class SignUpViewModel(
         )
     }
 
-    fun onSignUpButtonClicked(user: UserRegisterModel) {
+    fun onSignUpButtonClicked(
+        user: UserRegisterModel,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
         registerUseCase.execute(user) { success ->
             if (success) {
                 println("Успешная регистрация")
+                onSuccess()
             } else {
                 println("Ошибка(")
+                onError()
             }
         }
     }

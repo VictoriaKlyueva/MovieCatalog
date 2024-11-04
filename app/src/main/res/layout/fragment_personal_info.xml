@@ -5,7 +5,7 @@
     android:background="@color/dark"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.example.moviecatalog.presentation.view.Views.GradientTextView
+    <com.example.moviecatalog.presentation.view.utils.GradientTextView
         android:id="@+id/personalInfoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

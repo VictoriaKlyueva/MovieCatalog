@@ -18,6 +18,7 @@ import com.example.moviecatalog.databinding.FragmentSignUpBinding
 import com.example.moviecatalog.domain.utils.DateHelper
 import com.example.moviecatalog.domain.utils.GenderToggleHandler
 import com.example.moviecatalog.presentation.view.FeedActivity
+import com.example.moviecatalog.presentation.view.utils.AlertHelper
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.SignUpViewModelFactory
 import com.example.moviecatalog.utils.EditTextHelper
@@ -29,8 +30,10 @@ class SignUpFragment : Fragment() {
     private val binding get() = _binding ?:
         throw IllegalStateException("Binding is not initialized")
 
-    private lateinit var genderToggleHandler: GenderToggleHandler
     private lateinit var viewModel: SignUpViewModel
+    
+    private val alertHelper = AlertHelper()
+    private lateinit var genderToggleHandler: GenderToggleHandler
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -125,7 +128,16 @@ class SignUpFragment : Fragment() {
                 gender = if (binding.buttonMale.isChecked) 0 else 1
             )
 
-            viewModel.onSignUpButtonClicked(user)
+            viewModel.onSignUpButtonClicked(user, {
+                val intent = Intent(requireActivity(), FeedActivity::class.java)
+                startActivity(intent)
+            }, {
+                alertHelper.showAlert(
+                    requireContext(),
+                    "Ошибка",
+                    "Неверные логин или пароль"
+                )
+            })
 
             if (binding.buttonSignUp.isEnabled) {
                 val intent = Intent(requireActivity(), FeedActivity::class.java)
