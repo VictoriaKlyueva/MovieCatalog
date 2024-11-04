@@ -69,14 +69,17 @@ class SignUpFragment : Fragment() {
 
     private fun setupEditText(editText: EditText, updateType: UpdateType) {
         EditTextHelper.hideIcon(editText)
-        val passwordIcon = if (editText.transformationMethod == PasswordTransformationMethod.getInstance())
+        val passwordIcon =
+            if (editText.transformationMethod == PasswordTransformationMethod.getInstance())
             R.drawable.ic_show_password
         else
             R.drawable.ic_hide_password
 
-        editText.addTextChangedListener(EditTextHelper.createTextWatcher(editText, passwordIcon) { input ->
-            updateViewModelData(input, updateType)
-        })
+        editText.addTextChangedListener(
+            EditTextHelper.createTextWatcher(editText, passwordIcon) { input ->
+                updateViewModelData(input, updateType)
+            }
+        )
 
         when (updateType) {
             UpdateType.PASSWORD, UpdateType.CONFIRM_PASSWORD -> {
@@ -151,30 +154,66 @@ class SignUpFragment : Fragment() {
         val confirmPassword = binding.editTextConfirmPassword.text.toString()
 
         when (updateType) {
-            UpdateType.LOGIN -> viewModel.onSignUpDataChanged(input, email, name, password, confirmPassword,
+            UpdateType.LOGIN -> viewModel.onSignUpDataChanged(
+                input,
+                email,
+                name,
+                password,
+                confirmPassword,
                 binding.editTextDateOfBirth.text.toString(),
                 binding.buttonMale.isChecked,
                 binding.buttonFemale.isChecked)
-            UpdateType.EMAIL -> viewModel.onSignUpDataChanged(login, input, name, password, confirmPassword,
+
+            UpdateType.EMAIL -> viewModel.onSignUpDataChanged(
+                login,
+                input,
+                name,
+                password,
+                confirmPassword,
                 binding.editTextDateOfBirth.text.toString(),
                 binding.buttonMale.isChecked,
                 binding.buttonFemale.isChecked)
-            UpdateType.NAME -> viewModel.onSignUpDataChanged(login, email, input, password, confirmPassword,
+
+            UpdateType.NAME -> viewModel.onSignUpDataChanged(
+                login,
+                email,
+                input,
+                password,
+                confirmPassword,
                 binding.editTextDateOfBirth.text.toString(),
                 binding.buttonMale.isChecked,
                 binding.buttonFemale.isChecked)
-            UpdateType.PASSWORD -> viewModel.onSignUpDataChanged(login, email, name, input, confirmPassword,
+
+            UpdateType.PASSWORD -> viewModel.onSignUpDataChanged(
+                login,
+                email,
+                name,
+                input,
+                confirmPassword,
                 binding.editTextDateOfBirth.text.toString(),
                 binding.buttonMale.isChecked,
                 binding.buttonFemale.isChecked)
-            UpdateType.CONFIRM_PASSWORD -> viewModel.onSignUpDataChanged(login, email, name, password, input,
+
+            UpdateType.CONFIRM_PASSWORD -> viewModel.onSignUpDataChanged(
+                login,
+                email,
+                name,
+                password,
+                input,
                 binding.editTextDateOfBirth.text.toString(),
                 binding.buttonMale.isChecked,
                 binding.buttonFemale.isChecked)
-            UpdateType.DOB -> viewModel.onSignUpDataChanged(login, email, name, password, confirmPassword,
+
+            UpdateType.DOB -> viewModel.onSignUpDataChanged(
+                login,
+                email,
+                name,
+                password,
+                confirmPassword,
                 input,
                 binding.buttonMale.isChecked,
                 binding.buttonFemale.isChecked)
+
             null -> TODO()
         }
     }
