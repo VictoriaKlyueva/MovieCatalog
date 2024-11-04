@@ -60,4 +60,5 @@
     <string name="year_of_release">Год выхода</string>
     <string name="budget">Бюджет</string>
     <string name="fees">Сборы в мире</string>
+    <string name="dot_divider"> • </string>
 </resources>

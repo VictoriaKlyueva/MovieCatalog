@@ -38,7 +38,10 @@ class MoviesAdapter(
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(private val binding: ItemMovieEnhancedBinding, private val context: Context) :
+    inner class MovieViewHolder(
+        private val binding: ItemMovieEnhancedBinding,
+        private val context: Context
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: MovieElementModel) {
@@ -73,13 +76,13 @@ class MoviesAdapter(
 
             binding.watchButton.setOnClickListener {
                 onWatchButtonClick(movie)
-                goToMovieScreen(movie)
+                goToMovieScreen(movie.id)
             }
         }
 
-        private fun goToMovieScreen(movie: MovieElementModel) {
+        private fun goToMovieScreen(movieId: String) {
             val intent = Intent(context, MovieDetailsActivity::class.java)
-            intent.putExtra("MOVIE_ID", movie.id)
+            intent.putExtra("MOVIE_ID", movieId)
             context.startActivity(intent)
         }
 

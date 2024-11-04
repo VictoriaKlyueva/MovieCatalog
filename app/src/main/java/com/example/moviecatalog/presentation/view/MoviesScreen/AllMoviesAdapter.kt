@@ -1,6 +1,8 @@
 package com.example.moviecatalog.presentation.view.MoviesScreen
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.ItemMovieSimpleBinding
+import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
 
 class AllMoviesAdapter(
     private var movies: List<MovieElementModel>
@@ -17,7 +20,7 @@ class AllMoviesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = ItemMovieSimpleBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(binding)
+        return MovieViewHolder(binding, parent.context)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -27,7 +30,16 @@ class AllMoviesAdapter(
 
     override fun getItemCount(): Int = movies.size
 
-    inner class MovieViewHolder(private val binding: ItemMovieSimpleBinding) :
+    private fun goToMovieScreen(movieId: String, context: Context) {
+        val intent = Intent(context, MovieDetailsActivity::class.java)
+        intent.putExtra("MOVIE_ID", movieId)
+        context.startActivity(intent)
+    }
+
+    inner class MovieViewHolder(
+        private val binding: ItemMovieSimpleBinding,
+        private val context: Context
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("DefaultLocale")
@@ -36,6 +48,10 @@ class AllMoviesAdapter(
                 .load(movie.poster)
                 .transform(RoundedCorners(8))
                 .into(binding.movieFromAllImageView)
+
+            binding.movieFromAllImageView.setOnClickListener {
+                goToMovieScreen(movie.id, context)
+            }
 
             // Rating
             val averageRating = movie.reviews.map { it.rating }.average()

@@ -8,10 +8,12 @@
     import com.example.moviecatalog.data.repository.MovieRepositoryImpl
     import com.example.moviecatalog.domain.usecase.GetFavoritesMoviesUseCase
     import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
+    import com.example.moviecatalog.domain.usecase.GetRandomMovieUseCase
 
     class MoviesViewModel : ViewModel() {
-        private val movieResponseRepository = MovieRepositoryImpl()
-        private val movieResponseUseCase = GetMoviesFromPageUseCase(movieResponseRepository)
+        private val movieRepository = MovieRepositoryImpl()
+        private val movieResponseUseCase = GetMoviesFromPageUseCase(movieRepository)
+        private val getRandomMovieUseCase = GetRandomMovieUseCase(movieRepository)
 
         private val favoritesMoviesRepository = FavoriteMoviesRepositoryImpl()
         private val favoritesMoviesUseCase = GetFavoritesMoviesUseCase(favoritesMoviesRepository)
@@ -21,6 +23,20 @@
 
         private val _favoritesMovies = MutableLiveData<List<MovieElementModel>>()
         val favoritesMovies: LiveData<List<MovieElementModel>> get() = _favoritesMovies
+
+        private val _movie = MutableLiveData<MovieElementModel>()
+        val movie: LiveData<MovieElementModel> get() = _movie
+
+        fun getRandomMovie(callback: (MovieElementModel?, String?) -> Unit) {
+            getRandomMovieUseCase.execute { randomMovie, error ->
+                if (randomMovie != null) {
+                    _movie.postValue(randomMovie)
+                    callback(randomMovie, null)
+                } else {
+                    callback(null, error)
+                }
+            }
+        }
 
         fun fetchMovies(page: Int = (1..5).random()) {
             movieResponseUseCase.execute(page) { movies, error ->
@@ -52,10 +68,5 @@
                     _favoritesMovies.postValue(emptyList())
                 }
             }
-        }
-
-        fun getRandomMovie(movies: List<MovieElementModel>): MovieElementModel {
-            val randomIndex = (movies.indices).random()
-            return movies[randomIndex]
         }
     }

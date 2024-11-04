@@ -10,8 +10,8 @@ import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
 import com.example.moviecatalog.domain.usecase.GetRandomMovieUseCase
 
 class FeedViewModel : ViewModel() {
-    private val movieResponseRepository = MovieRepositoryImpl()
-    private val getRandomMovieUseCase = GetRandomMovieUseCase(movieResponseRepository)
+    private val movieRepository = MovieRepositoryImpl()
+    private val getRandomMovieUseCase = GetRandomMovieUseCase(movieRepository)
 
     private val _movie = MutableLiveData<MovieElementModel>()
     val movie: LiveData<MovieElementModel> get() = _movie

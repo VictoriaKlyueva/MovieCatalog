@@ -63,7 +63,7 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         binding.movieName.text = movie.name
         binding.movieCountry.text = movie.country
         binding.movieYear.text = movie.year.toString()
-        binding.movieSeparator.text = " • "
+        binding.movieSeparator.text = getString(R.string.dot_divider)
 
         hideGenres()
 

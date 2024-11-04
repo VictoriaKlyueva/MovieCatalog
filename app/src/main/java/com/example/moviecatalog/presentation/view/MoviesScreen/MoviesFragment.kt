@@ -1,5 +1,6 @@
 package com.example.moviecatalog.presentation.view.MoviesScreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMoviesBinding
+import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
 class MoviesFragment : Fragment() {
@@ -46,9 +48,7 @@ class MoviesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesAdapter(emptyList()) { movie ->
-            onWatchButtonClicked(movie)
-        }
+        moviesAdapter = MoviesAdapter(emptyList()) { movie -> }
         binding.viewPager.adapter = moviesAdapter
 
         val handler = Handler(Looper.getMainLooper())
@@ -116,14 +116,22 @@ class MoviesFragment : Fragment() {
         }
     }
 
-
-    private fun onRandomMovieButtonClicked() {
-        val randomMovie = moviesViewModel.getRandomMovie(movieList)
-        println("Случайный фильм: ${randomMovie.name}")
+    private fun goToMovieScreen(movieId: String) {
+        val intent = Intent(requireContext(), MovieDetailsActivity::class.java)
+        intent.putExtra("MOVIE_ID", movieId)
+        startActivity(intent)
     }
 
-    private fun onWatchButtonClicked(movie: MovieElementModel) {
-        println("Представим что MovieDetailsActivity запустилась")
+    private fun onRandomMovieButtonClicked() {
+        moviesViewModel.getRandomMovie { randomMovie, error ->
+            if (error != null || randomMovie == null) {
+                println("Ошибка получения фильма")
+            }
+            else {
+                println("Случайный фильм: ${randomMovie.name}")
+                goToMovieScreen(randomMovie.id)
+            }
+        }
     }
 
     override fun onDestroyView() {
