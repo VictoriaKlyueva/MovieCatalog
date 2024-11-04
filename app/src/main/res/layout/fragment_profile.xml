@@ -52,7 +52,7 @@
                 app:layout_constraintStart_toEndOf="@+id/avatar"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/back_button">
+                app:layout_constraintEnd_toStartOf="@+id/logout_button">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/back_button"
+                android:id="@+id/logout_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"

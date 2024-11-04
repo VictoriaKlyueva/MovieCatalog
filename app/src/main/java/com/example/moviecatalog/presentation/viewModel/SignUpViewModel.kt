@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.model.UserRegisterModel
-import com.example.moviecatalog.data.repository.RegisterRepositoryImpl
+import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.domain.usecase.RegisterUseCase
 import com.example.moviecatalog.domain.utils.ValidationUtils
 
@@ -21,7 +21,7 @@ class SignUpViewModel(
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
 
     private val tokenDataSource = TokenDataSource(context)
-    private val registerRepository = RegisterRepositoryImpl(tokenDataSource)
+    private val registerRepository = AuthRepositoryImpl(tokenDataSource)
     private val registerUseCase = RegisterUseCase(registerRepository)
 
     fun onSignUpDataChanged(

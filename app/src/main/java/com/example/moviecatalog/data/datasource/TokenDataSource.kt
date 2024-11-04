@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.example.moviecatalog.common.Constants
+import com.example.moviecatalog.common.Constants.USER_TOKEN_KEY
 
 class TokenDataSource(context: Context) {
     private val masterKeyAlias = MasterKey.Builder(context)
@@ -19,18 +20,18 @@ class TokenDataSource(context: Context) {
     )
 
     fun getToken(): String? {
-        return sharedPreferences.getString("user_token_key", null)
+        return sharedPreferences.getString(USER_TOKEN_KEY, null)
     }
 
     fun save(token: String) {
         sharedPreferences.edit()
-            .putString("user_token_key", token)
+            .putString(USER_TOKEN_KEY, token)
             .apply()
     }
 
     fun delete() {
         sharedPreferences.edit()
-            .remove("user_token_key")
+            .remove(USER_TOKEN_KEY)
             .apply()
     }
 }

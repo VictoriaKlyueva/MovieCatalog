@@ -1,12 +1,12 @@
 package com.example.moviecatalog.domain.usecase
 
 import com.example.moviecatalog.data.model.LoginCredentials
-import com.example.moviecatalog.data.repository.LoginRepositoryImpl
+import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 
 class LoginUseCase(
-    private val loginCredentialsRepository: LoginRepositoryImpl
+    private val authRepository: AuthRepositoryImpl
 ) {
     fun execute(user: LoginCredentials, callback: (Boolean) -> Unit) {
-        loginCredentialsRepository.loginUser(user, callback)
+        authRepository.loginUser(user, callback)
     }
 }

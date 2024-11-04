@@ -19,8 +19,8 @@ interface ApiService {
     @POST("/api/account/register")
     fun registerUser(@Body user: UserRegisterModel): Call<Token>
 
-    @POST("account/logout")
-    suspend fun logout()
+    @POST("api/account/logout")
+    fun logout(): Call<Void>
 
     @GET("api/movies/{page}")
     fun getMovies(@Path("page") page: Int): Call<MovieResponse>

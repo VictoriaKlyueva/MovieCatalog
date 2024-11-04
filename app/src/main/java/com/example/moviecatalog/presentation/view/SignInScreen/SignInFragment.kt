@@ -38,13 +38,16 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupViewModel()
+        setupEditTextListeners()
+        setupSignInButton()
+    }
+
+    private fun setupViewModel() {
         viewModel = ViewModelProvider(
             requireActivity(),
             SignInViewModelFactory(requireContext())
         )[SignInViewModel::class.java]
-
-        setupEditTextListeners()
-        setupSignInButton()
     }
 
     private fun setupEditTextListeners() {

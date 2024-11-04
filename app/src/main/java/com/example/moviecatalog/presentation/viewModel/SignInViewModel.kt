@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.model.LoginCredentials
-import com.example.moviecatalog.data.repository.LoginRepositoryImpl
+import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.domain.usecase.LoginUseCase
 import com.example.moviecatalog.domain.utils.ValidationUtils
 
@@ -21,8 +21,8 @@ class SignInViewModel(
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
 
     private val tokenDataSource = TokenDataSource(context)
-    private val loginRepository = LoginRepositoryImpl(tokenDataSource)
-    private val loginUseCase = LoginUseCase(loginRepository)
+    private val authRepository = AuthRepositoryImpl(tokenDataSource)
+    private val loginUseCase = LoginUseCase(authRepository)
 
     fun onSignInDataChanged(login: String, password: String) {
         _isButtonEnabled.value = ValidationUtils.isSignInDataValid(login, password)
