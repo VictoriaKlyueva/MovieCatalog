@@ -12,14 +12,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentFeedBinding
-import com.example.moviecatalog.presentation.view.FriendsScreen.FriendsActivity
 import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
 import com.example.moviecatalog.presentation.viewModel.FeedViewModel
 
 class FeedFragment : Fragment(R.layout.fragment_feed) {
     private var _binding: FragmentFeedBinding? = null
-    private val binding get() = _binding ?:
-        throw IllegalStateException("Binding is not initialized")
+    private val binding get() = _binding ?: throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: FeedViewModel
 
@@ -35,43 +33,52 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[FeedViewModel::class.java]
+        viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
 
         hideGenres()
 
-        viewModel.movies.observe(viewLifecycleOwner) { movies ->
-            movies?.let {
-                if (it.isNotEmpty()) {
-                    displayMovie(viewModel.getRandomMovie(it))
-                }
-            }
-        }
-
-        viewModel.fetchMovies()
+        observeData()
+        fetchRandomMovie()
 
         return binding.root
+    }
+
+    private fun fetchRandomMovie() {
+        viewModel.getRandomMovie { randomMovie, error ->
+            if (error != null) {
+                println("Ошибка получения фильма")
+            }
+        }
+    }
+
+    private fun observeData() {
+        viewModel.movie.observe(viewLifecycleOwner) { randomMovie ->
+            randomMovie?.let {
+                displayMovie(it)
+            }
+        }
     }
 
     private fun displayMovie(movie: MovieElementModel) {
         binding.movieName.text = movie.name
         binding.movieCountry.text = movie.country
-        binding.movieSeparator.text = " • "
         binding.movieYear.text = movie.year.toString()
+        binding.movieSeparator.text = " • "
 
         hideGenres()
 
-        for (i in movie.genres.indices) {
-            when (i) {
+        movie.genres.take(3).forEachIndexed { index, genre ->
+            when (index) {
                 0 -> {
-                    binding.genreOne.text = movie.genres[i].name
+                    binding.genreOne.text = genre.name
                     binding.genreOne.visibility = View.VISIBLE
                 }
                 1 -> {
-                    binding.genreTwo.text = movie.genres[i].name
+                    binding.genreTwo.text = genre.name
                     binding.genreTwo.visibility = View.VISIBLE
                 }
                 2 -> {
-                    binding.genreThree.text = movie.genres[i].name
+                    binding.genreThree.text = genre.name
                     binding.genreThree.visibility = View.VISIBLE
                 }
             }

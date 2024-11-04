@@ -4,30 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.ProfileModel
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
+import com.example.moviecatalog.domain.usecase.GetRandomMovieUseCase
 
 class FeedViewModel : ViewModel() {
     private val movieResponseRepository = MovieRepositoryImpl()
-    private val getMoviesFromPageUseCase = GetMoviesFromPageUseCase(movieResponseRepository)
+    private val getRandomMovieUseCase = GetRandomMovieUseCase(movieResponseRepository)
 
-    private val _movies = MutableLiveData<List<MovieElementModel>>()
-    val movies: LiveData<List<MovieElementModel>> get() = _movies
+    private val _movie = MutableLiveData<MovieElementModel>()
+    val movie: LiveData<MovieElementModel> get() = _movie
 
-    fun fetchMovies() {
-        val page = (1..5).random()
-        getMoviesFromPageUseCase.execute(page) { movies, error ->
-            if (error == null) {
-                _movies.postValue(movies!!)
+    fun getRandomMovie(callback: (MovieElementModel?, String?) -> Unit) {
+        getRandomMovieUseCase.execute { randomMovie, error ->
+            if (randomMovie != null) {
+                _movie.postValue(randomMovie)
+                callback(randomMovie, null)
             } else {
-                println("Ошибка получения данных: $error")
+                callback(null, error)
             }
         }
-    }
-
-    fun getRandomMovie(movies: List<MovieElementModel>): MovieElementModel {
-        val randomIndex = (movies.indices).random()
-        return movies[randomIndex]
     }
 }
 
