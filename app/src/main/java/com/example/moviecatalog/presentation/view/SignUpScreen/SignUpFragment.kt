@@ -9,6 +9,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
@@ -38,66 +39,56 @@ class SignUpFragment : Fragment() {
     ): View {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
+        initializeViewModel()
+        setupTextWatchers()
+        setupDateOfBirthPicker()
+        setupGenderToggleHandler()
+        setupSignUpButton()
+
+        viewModel.isButtonEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
+            updateSignUpButton(isEnabled)
+        })
+
+        return binding.root
+    }
+
+    private fun initializeViewModel() {
         viewModel = ViewModelProvider(
             requireActivity(),
             SignUpViewModelFactory(requireContext())
         )[SignUpViewModel::class.java]
+    }
 
-        EditTextHelper.hideIcon(binding.editTextLogin)
-        binding.editTextLogin.addTextChangedListener(EditTextHelper.createTextWatcher(
-            binding.editTextLogin,
-            R.drawable.ic_clear
-        ) { input ->
-            updateViewModelData(input)
+    private fun setupTextWatchers() {
+        setupEditText(binding.editTextLogin, UpdateType.LOGIN)
+        setupEditText(binding.editTextEmail, UpdateType.EMAIL)
+        setupEditText(binding.editTextName, UpdateType.NAME)
+        setupEditText(binding.editTextPassword, UpdateType.PASSWORD)
+        setupEditText(binding.editTextConfirmPassword, UpdateType.CONFIRM_PASSWORD)
+    }
+
+    private fun setupEditText(editText: EditText, updateType: UpdateType) {
+        EditTextHelper.hideIcon(editText)
+        val passwordIcon = if (editText.transformationMethod == PasswordTransformationMethod.getInstance())
+            R.drawable.ic_show_password
+        else
+            R.drawable.ic_hide_password
+
+        editText.addTextChangedListener(EditTextHelper.createTextWatcher(editText, passwordIcon) { input ->
+            updateViewModelData(input, updateType)
         })
-        EditTextHelper.setClearTextOnIconTouch(binding.editTextLogin)
 
-        EditTextHelper.hideIcon(binding.editTextEmail)
-        binding.editTextEmail.addTextChangedListener(EditTextHelper.createTextWatcher(
-            binding.editTextEmail,
-            R.drawable.ic_clear
-        ) { input ->
-            updateViewModelData(input = input, email = true)
-        })
-        EditTextHelper.setClearTextOnIconTouch(binding.editTextEmail)
+        when (updateType) {
+            UpdateType.PASSWORD, UpdateType.CONFIRM_PASSWORD -> {
+                EditTextHelper.setHidePasswordOnIconTouch(editText)
+            }
+            else -> {
+                EditTextHelper.setClearTextOnIconTouch(editText)
+            }
+        }
+    }
 
-        EditTextHelper.hideIcon(binding.editTextName)
-        binding.editTextName.addTextChangedListener(EditTextHelper.createTextWatcher(
-            binding.editTextName,
-            R.drawable.ic_clear
-        ) { input ->
-            updateViewModelData(input = input, name = true)
-        })
-        EditTextHelper.setClearTextOnIconTouch(binding.editTextName)
-
-        val passwordIcon =
-            if (binding.editTextPassword.transformationMethod == PasswordTransformationMethod.getInstance())
-                R.drawable.ic_show_password
-            else
-                R.drawable.ic_hide_password
-
-        binding.editTextPassword.addTextChangedListener(EditTextHelper.createTextWatcher(
-            binding.editTextPassword,
-            passwordIcon
-        ) { input ->
-            updateViewModelData(input = input, password = true)
-        })
-        EditTextHelper.setHidePasswordOnIconTouch(binding.editTextPassword)
-
-        val confirmPasswordIcon =
-            if (binding.editTextConfirmPassword.transformationMethod == PasswordTransformationMethod.getInstance())
-                R.drawable.ic_show_password
-            else
-                R.drawable.ic_hide_password
-
-        binding.editTextConfirmPassword.addTextChangedListener(EditTextHelper.createTextWatcher(
-            binding.editTextConfirmPassword,
-            confirmPasswordIcon
-        ) { input ->
-            updateViewModelData(input = input, confirmPassword = true)
-        })
-        EditTextHelper.setHidePasswordOnIconTouch(binding.editTextConfirmPassword)
-
+    private fun setupDateOfBirthPicker() {
         val dateHelper = DateHelper()
         binding.editTextDateOfBirth.setOnClickListener {
             dateHelper.showDatePickerDialog(requireContext(), binding.editTextDateOfBirth)
@@ -106,7 +97,7 @@ class SignUpFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                updateViewModelData()
+                updateViewModelData(binding.editTextDateOfBirth.text.toString(), UpdateType.DOB)
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -114,27 +105,22 @@ class SignUpFragment : Fragment() {
                 dateHelper.updateDateDrawable(binding.editTextDateOfBirth, dateText)
             }
         })
+    }
 
+    private fun setupGenderToggleHandler() {
         genderToggleHandler = GenderToggleHandler(binding.buttonMale, binding.buttonFemale)
+    }
 
-        viewModel.isButtonEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
-            updateSignUpButton(isEnabled)
-        })
-
+    private fun setupSignUpButton() {
         binding.buttonSignUp.setOnClickListener {
-
-            val convertedData = dateHelper.convertDate(binding.editTextDateOfBirth.text.toString())
-
             val user = UserRegisterModel(
                 userName = binding.editTextLogin.text.toString(),
                 name = binding.editTextName.text.toString(),
                 password = binding.editTextPassword.text.toString(),
                 email = binding.editTextEmail.text.toString(),
-                birthDate = convertedData,
+                birthDate = DateHelper().convertDate(binding.editTextDateOfBirth.text.toString()),
                 gender = if (binding.buttonMale.isChecked) 0 else 1
             )
-
-            println(user.birthDate)
 
             viewModel.onSignUpButtonClicked(user)
 
@@ -143,41 +129,56 @@ class SignUpFragment : Fragment() {
                 startActivity(intent)
             }
         }
+    }
 
-        return binding.root
+    private enum class UpdateType {
+        LOGIN,
+        EMAIL,
+        NAME,
+        PASSWORD,
+        CONFIRM_PASSWORD,
+        DOB
     }
 
     private fun updateViewModelData(
         input: String = "",
-        email: Boolean = false,
-        name: Boolean = false,
-        password: Boolean = false,
-        confirmPassword: Boolean = false
+        updateType: UpdateType? = null
     ) {
-        viewModel.onSignUpDataChanged(
-            binding.editTextLogin.text.toString(),
-            if (email)
-                input
-            else
-                binding.editTextEmail.text.toString(),
-            if (name)
-                input
-            else
-                binding.editTextName.text.toString(),
-            if (password)
-                input
-            else
-                binding.editTextPassword.text.toString(),
-            if (confirmPassword)
-                input
-            else
-                binding.editTextConfirmPassword.text.toString(),
+        val login = binding.editTextLogin.text.toString()
+        val email = binding.editTextEmail.text.toString()
+        val name = binding.editTextName.text.toString()
+        val password = binding.editTextPassword.text.toString()
+        val confirmPassword = binding.editTextConfirmPassword.text.toString()
 
-            binding.editTextDateOfBirth.text.toString(),
-            binding.buttonMale.isChecked,
-            binding.buttonFemale.isChecked
-        )
+        when (updateType) {
+            UpdateType.LOGIN -> viewModel.onSignUpDataChanged(input, email, name, password, confirmPassword,
+                binding.editTextDateOfBirth.text.toString(),
+                binding.buttonMale.isChecked,
+                binding.buttonFemale.isChecked)
+            UpdateType.EMAIL -> viewModel.onSignUpDataChanged(login, input, name, password, confirmPassword,
+                binding.editTextDateOfBirth.text.toString(),
+                binding.buttonMale.isChecked,
+                binding.buttonFemale.isChecked)
+            UpdateType.NAME -> viewModel.onSignUpDataChanged(login, email, input, password, confirmPassword,
+                binding.editTextDateOfBirth.text.toString(),
+                binding.buttonMale.isChecked,
+                binding.buttonFemale.isChecked)
+            UpdateType.PASSWORD -> viewModel.onSignUpDataChanged(login, email, name, input, confirmPassword,
+                binding.editTextDateOfBirth.text.toString(),
+                binding.buttonMale.isChecked,
+                binding.buttonFemale.isChecked)
+            UpdateType.CONFIRM_PASSWORD -> viewModel.onSignUpDataChanged(login, email, name, password, input,
+                binding.editTextDateOfBirth.text.toString(),
+                binding.buttonMale.isChecked,
+                binding.buttonFemale.isChecked)
+            UpdateType.DOB -> viewModel.onSignUpDataChanged(login, email, name, password, confirmPassword,
+                input,
+                binding.buttonMale.isChecked,
+                binding.buttonFemale.isChecked)
+            null -> TODO()
+        }
     }
+
 
     private fun updateSignUpButton(isEnabled: Boolean) {
         EditTextHelper.updateButtonStatus(isEnabled)
