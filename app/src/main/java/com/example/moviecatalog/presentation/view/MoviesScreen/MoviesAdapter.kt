@@ -1,6 +1,8 @@
 package com.example.moviecatalog.presentation.view.MoviesScreen
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.ItemMovieEnhancedBinding
+import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
 
 class MoviesAdapter(
     private var movies: List<MovieElementModel>,
@@ -19,7 +22,7 @@ class MoviesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = ItemMovieEnhancedBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(binding)
+        return MovieViewHolder(binding, parent.context)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -35,7 +38,7 @@ class MoviesAdapter(
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(private val binding: ItemMovieEnhancedBinding) :
+    inner class MovieViewHolder(private val binding: ItemMovieEnhancedBinding, private val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: MovieElementModel) {
@@ -70,7 +73,14 @@ class MoviesAdapter(
 
             binding.watchButton.setOnClickListener {
                 onWatchButtonClick(movie)
+                goToMovieScreen(movie)
             }
+        }
+
+        private fun goToMovieScreen(movie: MovieElementModel) {
+            val intent = Intent(context, MovieDetailsActivity::class.java)
+            intent.putExtra("MOVIE_ID", movie.id)
+            context.startActivity(intent)
         }
 
         private fun hideGenres() {
