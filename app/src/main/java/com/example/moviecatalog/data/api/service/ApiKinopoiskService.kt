@@ -1,4 +1,4 @@
-package com.example.moviecatalog.data.api
+package com.example.moviecatalog.data.api.service
 
 import com.example.moviecatalog.common.Constants
 import com.example.moviecatalog.data.model.MovieResponse

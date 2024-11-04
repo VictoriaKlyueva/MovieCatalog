@@ -11,11 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.model.LoginCredentials
-import com.example.moviecatalog.data.repository.LoginCredentialsRepositoryImpl
 import com.example.moviecatalog.databinding.FragmentSignInBinding
-import com.example.moviecatalog.domain.repository.LoginCredentialsRepository
 import com.example.moviecatalog.presentation.view.FeedActivity
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 import com.example.moviecatalog.presentation.viewModel.SignInViewModelFactory

@@ -1,5 +1,6 @@
-package com.example.moviecatalog.data.api
+package com.example.moviecatalog.data.api.client
 
+import com.example.moviecatalog.data.api.service.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

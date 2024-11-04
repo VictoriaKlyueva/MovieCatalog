@@ -1,10 +1,10 @@
-package com.example.moviecatalog.data.api
+package com.example.moviecatalog.data.api.service
 
 import com.example.moviecatalog.data.model.LoginCredentials
 import com.example.moviecatalog.data.model.MovieResponse
 import com.example.moviecatalog.data.model.MoviesListModel
 import com.example.moviecatalog.data.model.ProfileModel
-import com.example.moviecatalog.data.model.Token
+import com.example.moviecatalog.domain.token.Token
 import com.example.moviecatalog.data.model.UserRegisterModel
 import retrofit2.Call
 import retrofit2.http.Body

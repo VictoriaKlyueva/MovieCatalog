@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.model.MovieElementModel
-import com.example.moviecatalog.data.repository.MovieResponseRepositoryImpl
+import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 import com.example.moviecatalog.domain.usecase.MovieResponseUseCase
 
 class MovieDetailsViewModel : ViewModel() {
-    private val movieResponseRepository = MovieResponseRepositoryImpl()
+    private val movieResponseRepository = MovieRepositoryImpl()
     private val movieResponseUseCase = MovieResponseUseCase(movieResponseRepository)
 
     private val _movies = MutableLiveData<List<MovieElementModel>>()

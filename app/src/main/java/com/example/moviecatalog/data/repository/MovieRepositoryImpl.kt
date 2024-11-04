@@ -1,6 +1,6 @@
 package com.example.moviecatalog.data.repository
 
-import com.example.moviecatalog.data.api.ApiClient
+import com.example.moviecatalog.data.api.client.ApiClient
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.data.model.MovieResponse
 import com.example.moviecatalog.domain.repository.MovieResponseRepository
@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieResponseRepositoryImpl: MovieResponseRepository {
+class MovieRepositoryImpl: MovieResponseRepository {
     override fun getMovies(page: Int, callback: (List<MovieElementModel>?, String?) -> Unit) {
         val call = ApiClient.apiService.getMovies(page)
         call.enqueue(object : Callback<MovieResponse> {

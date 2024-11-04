@@ -1,6 +1,6 @@
 package com.example.moviecatalog.data.repository
 
-import com.example.moviecatalog.data.api.ApiClient
+import com.example.moviecatalog.data.api.client.ApiClient
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.data.model.MoviesListModel
 import com.example.moviecatalog.domain.repository.FavoritesMoviesRepository

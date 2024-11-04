@@ -1,6 +1,7 @@
-package com.example.moviecatalog.data.api
+package com.example.moviecatalog.data.api.client
 
 import com.example.moviecatalog.common.Constants.BASE_URL
+import com.example.moviecatalog.data.api.service.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

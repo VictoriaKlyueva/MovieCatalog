@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.model.UserRegisterModel
-import com.example.moviecatalog.domain.usecase.RegisterUserUseCase
+import com.example.moviecatalog.domain.usecase.RegisterUseCase
 import com.example.moviecatalog.presentation.utils.ValidationUtils
 
 class SignUpViewModel(
-    private val registerUserUseCase: RegisterUserUseCase
+    private val registerUserUseCase: RegisterUseCase
 ) : ViewModel() {
 
     private val _navigateToWelcome = MutableLiveData<Boolean>()

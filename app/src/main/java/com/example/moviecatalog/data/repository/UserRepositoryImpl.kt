@@ -1,6 +1,6 @@
 package com.example.moviecatalog.data.repository
 
-import com.example.moviecatalog.data.api.ApiClient
+import com.example.moviecatalog.data.api.client.ApiClient
 import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.ProfileModel
 import com.example.moviecatalog.domain.repository.UserRepository
