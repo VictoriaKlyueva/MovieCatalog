@@ -31,6 +31,8 @@ fun MovieSection(favoriteMovies: List<MovieElementModel>) {
         style = MaterialTheme.typography.bodyLarge
     )
 
+    Spacer(modifier = Modifier.height(16.dp))
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = Modifier.fillMaxWidth()
