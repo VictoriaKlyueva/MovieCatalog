@@ -24,9 +24,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.MovieDetailsModel
+import com.example.moviecatalog.domain.utils.DateHelper
 
 @Composable
-fun InfoSection() {
+fun InfoSection(movie: MovieDetailsModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -67,8 +69,8 @@ fun InfoSection() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             InfoCell(
-                "Страны",
-                "Германия, США",
+                stringResource(id = R.string.countries),
+                movie.country ?: stringResource(id = R.string.unknown),
                 modifier = Modifier
                     .weight(1f)
                     .background(
@@ -80,8 +82,8 @@ fun InfoSection() {
             Spacer(modifier = Modifier.width(8.dp))
 
             InfoCell(
-                "Возраст",
-                "16+",
+                stringResource(id = R.string.age),
+                movie.ageLimit.toString() + "+",
                 modifier = Modifier
                     .width(IntrinsicSize.Min)
                     .background(
@@ -100,8 +102,8 @@ fun InfoSection() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             InfoCell(
-                "Время",
-                "1 ч 30 мин",
+                stringResource(id = R.string.time),
+                minutesToHours(movie.time.toString().toInt()),
                 modifier = Modifier
                     .weight(1f)
                     .background(
@@ -113,8 +115,8 @@ fun InfoSection() {
             Spacer(modifier = Modifier.width(8.dp))
 
             InfoCell(
-                "Год выхода",
-                "2022",
+                stringResource(id = R.string.year_of_release),
+                movie.year.toString(),
                 modifier = Modifier
                     .weight(1f)
                     .background(
@@ -159,4 +161,11 @@ fun InfoCell(name: String, value: String, modifier: Modifier) {
             style = MaterialTheme.typography.bodyMedium
         )
     }
+}
+
+fun minutesToHours(minutes: Int): String {
+    val hours = minutes / 60
+    val remainingMinutes = minutes % 60
+
+    return "$hours ч $remainingMinutes мин"
 }

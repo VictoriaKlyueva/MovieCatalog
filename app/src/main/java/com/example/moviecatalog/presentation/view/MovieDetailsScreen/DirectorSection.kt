@@ -82,7 +82,7 @@ fun DirectorSection(movie: MovieDetailsModel) {
                     .padding(8.dp)
                     .clip(CircleShape)
                     .background(Color.Transparent),
-                painter = rememberAsyncImagePainter(movie.poster),
+                painter = rememberAsyncImagePainter(R.drawable.avatar_default),
                 contentDescription = movie.name,
                 contentScale = ContentScale.Crop
             )
@@ -93,7 +93,7 @@ fun DirectorSection(movie: MovieDetailsModel) {
                 modifier = Modifier
                     .padding(vertical = 4.dp)
                     .weight(1f),
-                text = "Баран кто то там",
+                text = movie.director ?: stringResource(id = R.string.unknown),
                 color = Color.White,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Start

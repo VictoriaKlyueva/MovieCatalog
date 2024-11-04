@@ -24,6 +24,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieDetailsModel
 import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.domain.utils.DateHelper
 import com.example.moviecatalog.presentation.ui.Theme
 import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
 
@@ -164,7 +165,7 @@ fun MovieDetailsScreen(movie: MovieDetailsModel) {
             }
 
             item {
-                DescriptionSection()
+                DescriptionSection(movie)
             }
 
             item {
@@ -180,7 +181,7 @@ fun MovieDetailsScreen(movie: MovieDetailsModel) {
             }
 
             item {
-                InfoSection()
+                InfoSection(movie)
             }
 
             item {
@@ -204,7 +205,7 @@ fun MovieDetailsScreen(movie: MovieDetailsModel) {
             }
 
             item {
-                FinanceSection()
+                FinanceSection(movie)
             }
 
             item {

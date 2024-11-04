@@ -45,7 +45,6 @@
     <string name="personal_info">Личная информация</string>
     <string name="gender">Пол</string>
     <string name="title_activity_friends">FriendsActivity</string>
-    <string name="fake_description">Группа европейских мигрантов покидает Лондон на пароходе, чтобы начать новую жизнь в Нью-Йорке. Когда они сталкиваются с другим судном, плывущим по течению в открытом море, их путешествие превращается в кошмар</string>
     <string name="rating">Рейтинг</string>
     <string name="information">Информация</string>
     <string name="director">Режиссёр</string>
@@ -53,5 +52,12 @@
     <string name="genres">Жанры</string>
     <string name="reviews">Отзывы</string>
     <string name="add_review">Добавить отзыв</string>
-
+    <string name="no_description">У фильма нет описания :(</string>
+    <string name="countries">Страны</string>
+    <string name="unknown">Неизвестно</string>
+    <string name="age">Возраст</string>
+    <string name="time">Время</string>
+    <string name="year_of_release">Год выхода</string>
+    <string name="budget">Бюджет</string>
+    <string name="fees">Сборы в мире</string>
 </resources>

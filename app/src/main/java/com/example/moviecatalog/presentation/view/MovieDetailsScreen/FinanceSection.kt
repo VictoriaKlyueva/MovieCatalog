@@ -21,9 +21,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.MovieDetailsModel
 
 @Composable
-fun FinanceSection() {
+fun FinanceSection(movie: MovieDetailsModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -64,8 +65,8 @@ fun FinanceSection() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             InfoCell(
-                "Бюджет",
-                "$ 15 000 000",
+                stringResource(id = R.string.budget),
+                formatCurrency(movie.budget),
                 modifier = Modifier
                     .weight(1f)
                     .background(
@@ -77,8 +78,8 @@ fun FinanceSection() {
             Spacer(modifier = Modifier.width(8.dp))
 
             InfoCell(
-                "Сборы в мире",
-                "$ 30 000 000",
+                stringResource(id = R.string.fees),
+                formatCurrency(movie.fees),
                 modifier = Modifier
                     .weight(1f)
                     .background(
@@ -87,5 +88,13 @@ fun FinanceSection() {
                     )
             )
         }
+    }
+}
+
+fun formatCurrency(input: Int?): String {
+    return if (input != null) {
+        "$ " + String.format("%,d", input).replace(",", " ")
+    } else {
+        "$ " + String.format("%,d", input).replace(",", " ")
     }
 }

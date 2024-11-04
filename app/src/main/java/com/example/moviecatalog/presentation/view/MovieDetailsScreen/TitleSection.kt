@@ -40,8 +40,8 @@ fun TitleSection(movie: MovieDetailsModel) {
         )
 
         Text(
-            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp),
-            text = "Аче тут писать то",
+            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp),
+            text = movie.tagline ?: "",
             style = MaterialTheme.typography.bodyMedium,
             fontSize = 20.sp
         )

@@ -15,9 +15,10 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.MovieDetailsModel
 
 @Composable
-fun DescriptionSection() {
+fun DescriptionSection(movie: MovieDetailsModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -29,7 +30,7 @@ fun DescriptionSection() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = stringResource(id = R.string.fake_description),
+            text = movie.description ?: stringResource(id = R.string.no_description),
             style = MaterialTheme.typography.bodyMedium
         )
     }
