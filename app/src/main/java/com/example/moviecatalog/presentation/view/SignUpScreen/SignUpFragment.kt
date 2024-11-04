@@ -14,8 +14,8 @@ import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.UserRegisterModel
 import com.example.moviecatalog.databinding.FragmentSignUpBinding
-import com.example.moviecatalog.presentation.utils.DateHelper
-import com.example.moviecatalog.presentation.utils.GenderToggleHandler
+import com.example.moviecatalog.domain.utils.DateHelper
+import com.example.moviecatalog.domain.utils.GenderToggleHandler
 import com.example.moviecatalog.presentation.view.FeedActivity
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.SignUpViewModelFactory
@@ -122,14 +122,20 @@ class SignUpFragment : Fragment() {
         })
 
         binding.buttonSignUp.setOnClickListener {
+
+            val convertedData = dateHelper.convertDate(binding.editTextDateOfBirth.text.toString())
+
             val user = UserRegisterModel(
                 userName = binding.editTextLogin.text.toString(),
                 name = binding.editTextName.text.toString(),
                 password = binding.editTextPassword.text.toString(),
                 email = binding.editTextEmail.text.toString(),
-                birthDate = binding.editTextDateOfBirth.text.toString(),
+                birthDate = convertedData,
                 gender = if (binding.buttonMale.isChecked) 0 else 1
             )
+
+            println(user.birthDate)
+
             viewModel.onSignUpButtonClicked(user)
 
             if (binding.buttonSignUp.isEnabled) {
@@ -166,6 +172,7 @@ class SignUpFragment : Fragment() {
                 input
             else
                 binding.editTextConfirmPassword.text.toString(),
+
             binding.editTextDateOfBirth.text.toString(),
             binding.buttonMale.isChecked,
             binding.buttonFemale.isChecked

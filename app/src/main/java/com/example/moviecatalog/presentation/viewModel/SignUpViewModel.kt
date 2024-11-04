@@ -8,7 +8,7 @@ import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.model.UserRegisterModel
 import com.example.moviecatalog.data.repository.RegisterRepositoryImpl
 import com.example.moviecatalog.domain.usecase.RegisterUseCase
-import com.example.moviecatalog.presentation.utils.ValidationUtils
+import com.example.moviecatalog.domain.utils.ValidationUtils
 
 class SignUpViewModel(
     context: Context

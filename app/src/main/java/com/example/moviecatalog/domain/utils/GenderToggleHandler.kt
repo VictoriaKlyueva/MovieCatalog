@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.utils
+package com.example.moviecatalog.domain.utils
 
 import android.widget.ToggleButton
 

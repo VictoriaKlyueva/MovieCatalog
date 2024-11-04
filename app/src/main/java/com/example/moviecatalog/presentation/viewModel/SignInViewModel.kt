@@ -8,7 +8,7 @@ import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.model.LoginCredentials
 import com.example.moviecatalog.data.repository.LoginRepositoryImpl
 import com.example.moviecatalog.domain.usecase.LoginUseCase
-import com.example.moviecatalog.presentation.utils.ValidationUtils
+import com.example.moviecatalog.domain.utils.ValidationUtils
 
 class SignInViewModel(
     context: Context
