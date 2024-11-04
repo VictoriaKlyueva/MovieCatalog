@@ -34,7 +34,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/viewPagerTitle"
+        android:id="@+id/view_pager_title"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"

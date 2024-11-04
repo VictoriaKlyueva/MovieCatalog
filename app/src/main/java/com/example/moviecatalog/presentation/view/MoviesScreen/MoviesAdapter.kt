@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -39,6 +40,10 @@ class MoviesAdapter(
 
         fun bind(movie: MovieElementModel) {
             binding.viewPagerTitle.text = movie.name
+            if (binding.viewPagerTitle.text.length > 50) {
+                binding.viewPagerTitle.layoutParams.width =
+                    ConstraintLayout.LayoutParams.MATCH_PARENT
+            }
 
             Glide.with(binding.root.context)
                 .load(movie.poster)
