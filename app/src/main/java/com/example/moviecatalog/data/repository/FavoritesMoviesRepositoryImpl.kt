@@ -3,12 +3,13 @@ package com.example.moviecatalog.data.repository
 import com.example.moviecatalog.data.api.ApiClient
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.data.model.MoviesListModel
+import com.example.moviecatalog.domain.repository.FavoritesMoviesRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FavoritesMoviesRepository {
-    fun getFavorites(callback: (List<MovieElementModel>?, String?) -> Unit) {
+class FavoritesMoviesRepositoryImpl: FavoritesMoviesRepository {
+    override fun getFavorites(callback: (List<MovieElementModel>?, String?) -> Unit) {
         val call = ApiClient.apiService.getFavorites()
         call.enqueue(object : Callback<MoviesListModel> {
             override fun onResponse(

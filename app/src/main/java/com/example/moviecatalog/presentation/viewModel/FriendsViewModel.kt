@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.model.ProfileModel
-import com.example.moviecatalog.data.repository.UserRepository
-import com.example.moviecatalog.domain.usecase.ProfileUseCase
 
 class FriendsViewModel: ViewModel() {
     //private val profileRepository = UserRepository()

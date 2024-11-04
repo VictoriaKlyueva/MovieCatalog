@@ -4,16 +4,16 @@
     import androidx.lifecycle.MutableLiveData
     import androidx.lifecycle.ViewModel
     import com.example.moviecatalog.data.model.MovieElementModel
-    import com.example.moviecatalog.data.repository.FavoritesMoviesRepository
-    import com.example.moviecatalog.data.repository.MovieResponseRepository
+    import com.example.moviecatalog.data.repository.FavoritesMoviesRepositoryImpl
+    import com.example.moviecatalog.data.repository.MovieResponseRepositoryImpl
     import com.example.moviecatalog.domain.usecase.FavoritesMoviesUseCase
     import com.example.moviecatalog.domain.usecase.MovieResponseUseCase
 
     class MoviesViewModel : ViewModel() {
-        private val movieResponseRepository = MovieResponseRepository()
+        private val movieResponseRepository = MovieResponseRepositoryImpl()
         private val movieResponseUseCase = MovieResponseUseCase(movieResponseRepository)
 
-        private val favoritesMoviesRepository = FavoritesMoviesRepository()
+        private val favoritesMoviesRepository = FavoritesMoviesRepositoryImpl()
         private val favoritesMoviesUseCase = FavoritesMoviesUseCase(favoritesMoviesRepository)
 
         private val _movies = MutableLiveData<List<MovieElementModel>>()

@@ -28,8 +28,6 @@ class SignInFragment : Fragment() {
     throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: SignInViewModel
-    private lateinit var tokenDataSource: TokenDataSource
-    private lateinit var loginCredentialsRepository: LoginCredentialsRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,12 +41,9 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tokenDataSource = TokenDataSource(requireContext())
-        loginCredentialsRepository = LoginCredentialsRepositoryImpl(tokenDataSource)
-
         viewModel = ViewModelProvider(
             requireActivity(),
-            SignInViewModelFactory(loginCredentialsRepository)
+            SignInViewModelFactory(requireContext())
         )[SignInViewModel::class.java]
 
         setupEditTextListeners()
