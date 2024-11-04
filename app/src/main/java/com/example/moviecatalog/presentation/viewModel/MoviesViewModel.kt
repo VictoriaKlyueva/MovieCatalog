@@ -4,7 +4,7 @@
     import androidx.lifecycle.MutableLiveData
     import androidx.lifecycle.ViewModel
     import com.example.moviecatalog.data.model.MovieElementModel
-    import com.example.moviecatalog.data.repository.FavoritesMoviesRepositoryImpl
+    import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
     import com.example.moviecatalog.data.repository.MovieRepositoryImpl
     import com.example.moviecatalog.domain.usecase.FavoritesMoviesUseCase
     import com.example.moviecatalog.domain.usecase.MovieResponseUseCase
@@ -13,7 +13,7 @@
         private val movieResponseRepository = MovieRepositoryImpl()
         private val movieResponseUseCase = MovieResponseUseCase(movieResponseRepository)
 
-        private val favoritesMoviesRepository = FavoritesMoviesRepositoryImpl()
+        private val favoritesMoviesRepository = FavoriteMoviesRepositoryImpl()
         private val favoritesMoviesUseCase = FavoritesMoviesUseCase(favoritesMoviesRepository)
 
         private val _movies = MutableLiveData<List<MovieElementModel>>()

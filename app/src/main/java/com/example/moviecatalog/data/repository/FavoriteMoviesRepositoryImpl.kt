@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FavoritesMoviesRepositoryImpl: FavoritesMoviesRepository {
+class FavoriteMoviesRepositoryImpl: FavoritesMoviesRepository {
     override fun getFavorites(callback: (List<MovieElementModel>?, String?) -> Unit) {
         val call = ApiClient.apiService.getFavorites()
         call.enqueue(object : Callback<MoviesListModel> {
