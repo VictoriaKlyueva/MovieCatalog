@@ -21,15 +21,15 @@ class SignInViewModel(
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
 
     private val tokenDataSource = TokenDataSource(context)
-    private val loginCredentialsRepository = LoginRepositoryImpl(tokenDataSource)
-    private val loginCredentialsUseCase = LoginUseCase(loginCredentialsRepository)
+    private val loginRepository = LoginRepositoryImpl(tokenDataSource)
+    private val loginUseCase = LoginUseCase(loginRepository)
 
     fun onSignInDataChanged(login: String, password: String) {
         _isButtonEnabled.value = ValidationUtils.isSignInDataValid(login, password)
     }
 
     fun onSignInButtonClicked(user: LoginCredentials) {
-        loginCredentialsUseCase.execute(user) { success ->
+        loginUseCase.execute(user) { success ->
             if (success) {
                 println("Успешный вход в аккаунт")
             } else {

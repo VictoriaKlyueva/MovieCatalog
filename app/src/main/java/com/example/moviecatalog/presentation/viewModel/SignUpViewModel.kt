@@ -1,14 +1,17 @@
 package com.example.moviecatalog.presentation.viewModel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.model.UserRegisterModel
+import com.example.moviecatalog.data.repository.RegisterRepositoryImpl
 import com.example.moviecatalog.domain.usecase.RegisterUseCase
 import com.example.moviecatalog.presentation.utils.ValidationUtils
 
 class SignUpViewModel(
-    private val registerUserUseCase: RegisterUseCase
+    context: Context
 ) : ViewModel() {
 
     private val _navigateToWelcome = MutableLiveData<Boolean>()
@@ -16,6 +19,10 @@ class SignUpViewModel(
 
     private val _isButtonEnabled = MutableLiveData<Boolean>().apply { value = false }
     val isButtonEnabled: LiveData<Boolean> get() = _isButtonEnabled
+
+    private val tokenDataSource = TokenDataSource(context)
+    private val registerRepository = RegisterRepositoryImpl(tokenDataSource)
+    private val registerUseCase = RegisterUseCase(registerRepository)
 
     fun onSignUpDataChanged(
         login: String,
@@ -40,7 +47,7 @@ class SignUpViewModel(
     }
 
     fun onSignUpButtonClicked(user: UserRegisterModel) {
-        registerUserUseCase.execute(user) { success ->
+        registerUseCase.execute(user) { success ->
             if (success) {
                 println("Успешная регистрация")
             } else {

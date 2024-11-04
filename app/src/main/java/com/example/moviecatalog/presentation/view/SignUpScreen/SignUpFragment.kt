@@ -12,15 +12,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.Gender
 import com.example.moviecatalog.data.model.UserRegisterModel
 import com.example.moviecatalog.databinding.FragmentSignUpBinding
 import com.example.moviecatalog.presentation.utils.DateHelper
 import com.example.moviecatalog.presentation.utils.GenderToggleHandler
 import com.example.moviecatalog.presentation.view.FeedActivity
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
+import com.example.moviecatalog.presentation.viewModel.factory.SignUpViewModelFactory
 import com.example.moviecatalog.utils.EditTextHelper
 
+@Suppress("DEPRECATION")
 class SignUpFragment : Fragment() {
 
     private var _binding: FragmentSignUpBinding? = null
@@ -36,7 +37,11 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
+
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            SignUpViewModelFactory(requireContext())
+        )[SignUpViewModel::class.java]
 
         EditTextHelper.hideIcon(binding.editTextLogin)
         binding.editTextLogin.addTextChangedListener(EditTextHelper.createTextWatcher(
