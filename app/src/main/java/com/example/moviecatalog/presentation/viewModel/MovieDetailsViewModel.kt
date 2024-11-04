@@ -3,42 +3,38 @@ package com.example.moviecatalog.presentation.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecatalog.data.model.MovieDetailsModel
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
-import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
+import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
+import com.example.moviecatalog.domain.usecase.GetRandomMovieUseCase
 
 class MovieDetailsViewModel : ViewModel() {
     private val movieResponseRepository = MovieRepositoryImpl()
-    private val getMoviesFromPageUseCase = GetMoviesFromPageUseCase(movieResponseRepository)
+    private val movieDetailsUseCase = GetMovieDetailsUseCase(movieResponseRepository)
 
-    private val _movies = MutableLiveData<List<MovieElementModel>>()
-    val movies: LiveData<List<MovieElementModel>> get() = _movies
+    private val _movie = MutableLiveData<MovieDetailsModel?>()
+    val movie: LiveData<MovieDetailsModel?> get() = _movie
 
-    private val _randomMovie = MutableLiveData<MovieElementModel?>()
-    val randomMovie: LiveData<MovieElementModel?> get() = _randomMovie
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> get() = _errorMessage
 
-    init {
-        fetchMovies()
+    fun fetchMovie(movieId: String) {
+        println("МУВИ АЙДИ")
+        println(movieId)
+
+        getMovieDetails(movieId)
     }
 
-    private fun fetchMovies() {
-        val page = (1..5).random()
-        getMoviesFromPageUseCase.execute(page) { movies, error ->
-            if (error == null) {
-                _movies.postValue(movies ?: emptyList())
-                updateRandomMovie(movies)
+    private fun getMovieDetails(movieId: String) {
+        movieDetailsUseCase.execute(movieId) { details, error ->
+            if (details != null) {
+                _movie.value = details
+                _errorMessage.value = null
             } else {
-                println("Ошибка получения данных: $error")
+                _movie.value = null
+                _errorMessage.value = error
             }
-        }
-    }
-
-    private fun updateRandomMovie(movieList: List<MovieElementModel>?) {
-        if (!movieList.isNullOrEmpty()) {
-            val randomIndex = (movieList.indices).random()
-            _randomMovie.postValue(movieList[randomIndex])
-        } else {
-            _randomMovie.postValue(null)
         }
     }
 }

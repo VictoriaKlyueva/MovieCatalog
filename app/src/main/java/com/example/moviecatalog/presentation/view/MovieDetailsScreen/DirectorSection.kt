@@ -28,10 +28,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.MovieDetailsModel
 import com.example.moviecatalog.data.model.MovieElementModel
 
 @Composable
-fun DirectorSection(movie: MovieElementModel) {
+fun DirectorSection(movie: MovieDetailsModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

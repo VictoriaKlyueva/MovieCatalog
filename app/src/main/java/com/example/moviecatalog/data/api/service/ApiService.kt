@@ -40,7 +40,7 @@ interface ApiService {
     @GET("api/movies/{page}")
     fun getMovies(@Path("page") page: Int): Call<MovieResponse>
 
-    @GET("api/movies/{id}")
+    @GET("api/movies/details/{id}")
     fun getMoviesDetails(@Path("id") id: String): Call<MovieDetailsModel>
 
 

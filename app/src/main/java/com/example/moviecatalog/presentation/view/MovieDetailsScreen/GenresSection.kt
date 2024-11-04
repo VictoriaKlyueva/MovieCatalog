@@ -26,10 +26,45 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.MovieDetailsModel
 import com.example.moviecatalog.data.model.MovieElementModel
 
 @Composable
-fun GenresSection(movie: MovieElementModel) {
+fun Genre(genreName: String, isFavorite: Boolean = false) {
+    Column(
+        modifier = Modifier
+            .padding(end = 8.dp)
+            .background(
+                if (isFavorite)
+                    Brush.horizontalGradient(
+                        listOf(
+                            colorResource(id = R.color.gradient_start),
+                            colorResource(id = R.color.gradient_end)
+                        )
+                    )
+                else
+                    Brush.horizontalGradient(
+                        listOf(
+                            colorResource(id = R.color.dark),
+                            colorResource(id = R.color.dark)
+                        )
+                    ),
+                shape = RoundedCornerShape(8.dp)
+            )
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(8.dp),
+            text = genreName,
+            color = Color.White,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Start
+        )
+    }
+}
+
+@Composable
+fun GenresSection(movie: MovieDetailsModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -77,39 +112,5 @@ fun GenresSection(movie: MovieElementModel) {
             Genre(movie.genres[1].name)
             Genre(movie.genres[2].name)
         }
-    }
-}
-
-@Composable
-fun Genre(genreName: String, isFavorite: Boolean = false) {
-    Column(
-        modifier = Modifier
-            .padding(end = 8.dp)
-            .background(
-                if (isFavorite)
-                    Brush.horizontalGradient(
-                        listOf(
-                            colorResource(id = R.color.gradient_start),
-                            colorResource(id = R.color.gradient_end)
-                        )
-                    )
-                else
-                    Brush.horizontalGradient(
-                        listOf(
-                            colorResource(id = R.color.dark),
-                            colorResource(id = R.color.dark)
-                        )
-                    ),
-                shape = RoundedCornerShape(8.dp)
-            )
-    ) {
-        Text(
-            modifier = Modifier
-                .padding(8.dp),
-            text = genreName,
-            color = Color.White,
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Start
-        )
     }
 }

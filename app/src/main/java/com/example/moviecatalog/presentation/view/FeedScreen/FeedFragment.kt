@@ -91,6 +91,7 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
 
         binding.moviePoster.setOnClickListener {
             val intent = Intent(requireContext(), MovieDetailsActivity::class.java)
+            intent.putExtra("MOVIE_ID", movie.id)
             startActivity(intent)
         }
     }

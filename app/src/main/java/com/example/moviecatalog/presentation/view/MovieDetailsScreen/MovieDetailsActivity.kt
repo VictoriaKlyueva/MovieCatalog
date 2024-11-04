@@ -1,6 +1,6 @@
 package com.example.moviecatalog.presentation.view.MovieDetailsScreen
 
-import android.graphics.drawable.shapes.OvalShape
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,50 +8,58 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
+import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.MovieDetailsModel
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.presentation.ui.Theme
 import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
 
 class MovieDetailsActivity : ComponentActivity() {
 
-    private val movieDetailsViewModel = MovieDetailsViewModel()
+    private lateinit var viewModel: MovieDetailsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[MovieDetailsViewModel::class.java]
 
-        movieDetailsViewModel.randomMovie.observe(this) { randomMovie ->
-            if (randomMovie != null) {
+        val movieId = intent.getStringExtra("MOVIE_ID") ?: ""
+        if (movieId.isNotEmpty()) {
+            viewModel.fetchMovie(movieId)
+        }
+
+        viewModel.movie.observe(this) { movie ->
+            if (movie != null) {
                 setContent {
                     Theme {
-                        MovieDetailsScreen(randomMovie)
+                        MovieDetailsScreen(movie)
                     }
                 }
+            }
+        }
+
+        viewModel.errorMessage.observe(this) { error ->
+            error?.let {
+                println("Error fetching movie: $it")
             }
         }
     }
 }
 
 @Composable
-fun MovieDetailsScreen(movie: MovieElementModel) {
+fun MovieDetailsScreen(movie: MovieDetailsModel) {
     Box (
         modifier = Modifier
             .fillMaxWidth()
