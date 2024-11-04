@@ -6,15 +6,15 @@
     import com.example.moviecatalog.data.model.MovieElementModel
     import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
     import com.example.moviecatalog.data.repository.MovieRepositoryImpl
-    import com.example.moviecatalog.domain.usecase.FavoritesMoviesUseCase
-    import com.example.moviecatalog.domain.usecase.MovieResponseUseCase
+    import com.example.moviecatalog.domain.usecase.GetFavoritesMoviesUseCase
+    import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
 
     class MoviesViewModel : ViewModel() {
         private val movieResponseRepository = MovieRepositoryImpl()
-        private val movieResponseUseCase = MovieResponseUseCase(movieResponseRepository)
+        private val movieResponseUseCase = GetMoviesFromPageUseCase(movieResponseRepository)
 
         private val favoritesMoviesRepository = FavoriteMoviesRepositoryImpl()
-        private val favoritesMoviesUseCase = FavoritesMoviesUseCase(favoritesMoviesRepository)
+        private val favoritesMoviesUseCase = GetFavoritesMoviesUseCase(favoritesMoviesRepository)
 
         private val _movies = MutableLiveData<List<MovieElementModel>>()
         val movies: LiveData<List<MovieElementModel>> get() = _movies

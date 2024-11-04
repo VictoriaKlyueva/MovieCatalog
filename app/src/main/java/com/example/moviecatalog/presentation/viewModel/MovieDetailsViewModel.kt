@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
-import com.example.moviecatalog.domain.usecase.MovieResponseUseCase
+import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
 
 class MovieDetailsViewModel : ViewModel() {
     private val movieResponseRepository = MovieRepositoryImpl()
-    private val movieResponseUseCase = MovieResponseUseCase(movieResponseRepository)
+    private val getMoviesFromPageUseCase = GetMoviesFromPageUseCase(movieResponseRepository)
 
     private val _movies = MutableLiveData<List<MovieElementModel>>()
     val movies: LiveData<List<MovieElementModel>> get() = _movies
@@ -23,7 +23,7 @@ class MovieDetailsViewModel : ViewModel() {
 
     private fun fetchMovies() {
         val page = (1..5).random()
-        movieResponseUseCase.execute(page) { movies, error ->
+        getMoviesFromPageUseCase.execute(page) { movies, error ->
             if (error == null) {
                 _movies.postValue(movies ?: emptyList())
                 updateRandomMovie(movies)

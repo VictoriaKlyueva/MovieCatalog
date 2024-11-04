@@ -1,6 +1,6 @@
 package com.example.moviecatalog.data.model
 
-data class PageInfo(
+data class PageInfoModel(
     val pageSize: Int,
     val pageCount: Int,
     val currentPage: Int

@@ -6,11 +6,15 @@ import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.model.GenreModel
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
-import com.example.moviecatalog.domain.usecase.MovieResponseUseCase
+import com.example.moviecatalog.domain.usecase.FetchFavoriteGenresUseCase
+import com.example.moviecatalog.domain.usecase.FetchFavoriteMoviesUseCase
+import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
 
 class FavoritesViewModel : ViewModel() {
-    private val movieResponseRepository = MovieRepositoryImpl()
-    private val movieResponseUseCase = MovieResponseUseCase(movieResponseRepository)
+    private val movieRepository = MovieRepositoryImpl()
+    private val getMoviesFromPageUseCase = GetMoviesFromPageUseCase(movieRepository)
+    private val fetchFavoriteGenresUseCase = FetchFavoriteGenresUseCase(movieRepository)
+    private val fetchFavoriteMoviesUseCase = FetchFavoriteMoviesUseCase(movieRepository)
 
     private val _favoritesGenres = MutableLiveData<List<GenreModel>>()
     val favoritesGenres: LiveData<List<GenreModel>> get() = _favoritesGenres
@@ -19,13 +23,15 @@ class FavoritesViewModel : ViewModel() {
     val favoritesMovies: LiveData<List<MovieElementModel>> get() = _favoritesMovies
 
     fun fetchFavoritesGenres(page: Int = (1..5).random()) {
-        movieResponseUseCase.execute(page) { movies, error ->
+        getMoviesFromPageUseCase.execute(page) { movies, error ->
             if (error == null) {
-                val favoriteGenres = mutableListOf<GenreModel>()
-                movies?.forEach { movie ->
-                    favoriteGenres.addAll(movie.genres)
+                if (movies != null) {
+                    fetchFavoriteGenresUseCase.execute(movies) { genres ->
+                        _favoritesGenres.postValue(genres)
+                    }
+                } else {
+                    _favoritesGenres.postValue(emptyList())
                 }
-                _favoritesGenres.postValue(favoriteGenres.distinct().take(5))
             } else {
                 println("Ошибка получения данных: $error")
                 _favoritesGenres.postValue(emptyList())
@@ -34,14 +40,12 @@ class FavoritesViewModel : ViewModel() {
     }
 
     fun fetchFavoritesMovies() {
-        for (page in (1..5)) {
-            movieResponseUseCase.execute(page) { movies, error ->
-                if (error == null) {
-                    _favoritesMovies.postValue(movies)
-                } else {
-                    println("Ошибка получения данных: $error")
-                    _favoritesMovies.postValue(emptyList())
-                }
+        fetchFavoriteMoviesUseCase.execute(1..7) { accumulatedMovies, error ->
+            if (error == null) {
+                _favoritesMovies.postValue(accumulatedMovies!!)
+            } else {
+                println("Ошибка получения данных: $error")
+                _favoritesMovies.postValue(emptyList())
             }
         }
     }
