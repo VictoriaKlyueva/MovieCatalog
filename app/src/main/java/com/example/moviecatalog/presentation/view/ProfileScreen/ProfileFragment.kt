@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.ProfileModel
 import com.example.moviecatalog.databinding.FragmentProfileBinding
 import com.example.moviecatalog.presentation.view.FriendsScreen.FriendsActivity
 import com.example.moviecatalog.presentation.view.WelcomeScreen.WelcomeActivity
@@ -30,8 +32,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         setupViewModel()
         setupButtons()
+        getProfileData()
+        observeProfileData()
 
         return binding.root
+    }
+
+    private fun fillFields(profile: ProfileModel) {
+        binding.profileName.text = profile.name
     }
 
     private fun setupViewModel() {
@@ -52,10 +60,28 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 if (success) {
                     val intent = Intent(requireContext(), WelcomeActivity::class.java)
                     startActivity(intent)
+                    requireActivity().finish()
                 } else {
-                    // Показать ошибку пользователю
                     println("Ошибка выхода")
                 }
+            }
+        }
+    }
+
+    private fun getProfileData() {
+        viewModel.getProfileData { profile, error ->
+            if (error != null) {
+                println("Error retrieving profile: $error")
+            } else {
+                println("Успешный успех!")
+            }
+        }
+    }
+
+    private fun observeProfileData() {
+        viewModel.profile.observe(viewLifecycleOwner) { profile ->
+            profile?.let {
+                fillFields(it)
             }
         }
     }
@@ -65,3 +91,4 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         _binding = null
     }
 }
+

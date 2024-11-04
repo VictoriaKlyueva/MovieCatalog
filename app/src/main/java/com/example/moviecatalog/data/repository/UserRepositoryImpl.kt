@@ -4,13 +4,18 @@ import com.example.moviecatalog.data.api.client.ApiClient
 import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.ProfileModel
 import com.example.moviecatalog.domain.repository.UserRepository
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class UserRepositoryImpl(
     private val userDataSource: UserDataSource
-): UserRepository {
+) : UserRepository {
     override fun getProfile(callback: (ProfileModel?, String?) -> Unit) {
         val call = ApiClient.apiService.getProfile()
         call.enqueue(object : Callback<ProfileModel> {
@@ -19,28 +24,27 @@ class UserRepositoryImpl(
                 response: Response<ProfileModel>
             ) {
                 if (response.isSuccessful) {
-                    callback(response.body(), null)
+                    response.body()?.let { profile ->
+                        callback(profile, null)
+                    } ?: callback(null, "Profile is null")
                 } else {
-                    val errorMessage = "Ошибка: ${response.code()}"
+                    val errorMessage = "Error: ${response.code()}"
                     callback(null, errorMessage)
                 }
             }
 
             override fun onFailure(call: Call<ProfileModel>, t: Throwable) {
-                t.printStackTrace()
-                val errorMessage = "Ошибка: ${t.message}"
+                val errorMessage = "Error: ${t.message ?: "Unknown error"}"
                 callback(null, errorMessage)
             }
         })
     }
 
-
-
-    override fun isUserExist(userId: String): Boolean {
-        return userDataSource.fetchUserId() != null
+    override suspend fun isUserExist(): Boolean {
+        return userDataSource.userId.first() != null
     }
 
-    override fun getUserIdFromLocalStorage(): String? {
-        return userDataSource.fetchUserId()
+    override suspend fun getUserIdFromLocalStorage(): String? {
+        return userDataSource.userId.firstOrNull()
     }
 }

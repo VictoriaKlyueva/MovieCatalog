@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import com.example.moviecatalog.data.model.ProfileModel
 import com.example.moviecatalog.databinding.FragmentPersonalInfoBinding
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
+import com.example.moviecatalog.presentation.viewModel.ProfileViewModel
+import com.example.moviecatalog.presentation.viewModel.factory.ProfileViewModelFactory
 
 class PersonalInfoFragment : Fragment() {
 
@@ -15,14 +19,49 @@ class PersonalInfoFragment : Fragment() {
     private val binding get() = _binding ?:
     throw IllegalStateException("Binding is not initialized")
 
-    private val profileViewModel: MoviesViewModel by viewModels()
+    private lateinit var viewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPersonalInfoBinding.inflate(inflater, container, false)
+
+        setupViewModel()
+        getProfileData()
+        observeProfileData()
+
         return binding.root
+    }
+
+    private fun fillFields(profile: ProfileModel) {
+        binding.textLogin.setText(profile.nickName)
+        binding.textEmail.setText(profile.email)
+        binding.textName.setText(profile.name)
+        binding.textDateOfBirth.setText(profile.birthDate)
+    }
+
+    private fun getProfileData() {
+        viewModel.getProfileData { profile, error ->
+            if (error != null) {
+                println("Error retrieving profile: $error")
+            }
+        }
+    }
+
+    private fun observeProfileData() {
+        viewModel.profile.observe(viewLifecycleOwner) { profile ->
+            profile?.let {
+                fillFields(it)
+            }
+        }
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            ProfileViewModelFactory(requireContext())
+        )[ProfileViewModel::class.java]
     }
 
     override fun onDestroyView() {

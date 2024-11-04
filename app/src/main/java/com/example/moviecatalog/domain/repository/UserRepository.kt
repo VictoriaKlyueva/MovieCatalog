@@ -5,7 +5,7 @@ import com.example.moviecatalog.data.model.ProfileModel
 interface UserRepository {
     fun getProfile(callback: (ProfileModel?, String?) -> Unit)
 
-    fun isUserExist(userId: String): Boolean
+    suspend fun isUserExist(): Boolean
 
-    fun getUserIdFromLocalStorage(): String?
+    suspend fun getUserIdFromLocalStorage(): String?
 }
