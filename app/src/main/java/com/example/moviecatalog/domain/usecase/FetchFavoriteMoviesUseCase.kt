@@ -1,24 +1,17 @@
 package com.example.moviecatalog.domain.usecase
 
 import com.example.moviecatalog.data.model.MovieElementModel
-import com.example.moviecatalog.data.repository.MovieRepositoryImpl
+import com.example.moviecatalog.domain.repository.FavoritesMoviesRepository
 
-class FetchFavoriteMoviesUseCase(private val movieRepository: MovieRepositoryImpl) {
-    fun execute(pages: IntRange, onResult: (List<MovieElementModel>?, String?) -> Unit) {
-        val accumulatedMovies = mutableListOf<MovieElementModel>()
-        var errorOccurred: String? = null
-
-        pages.forEach { page ->
-            movieRepository.getMovies(page) { movies, error ->
-                if (error != null) {
-                    errorOccurred = error
-                }
-
-                if (movies != null) {
-                    accumulatedMovies.addAll(movies)
-                }
-
-                onResult(accumulatedMovies, errorOccurred)
+class FetchFavoriteMoviesUseCase(
+    private val favoritesMoviesRepository: FavoritesMoviesRepository
+) {
+    fun execute(callback: (List<MovieElementModel>?, String?) -> Unit) {
+        favoritesMoviesRepository.getFavorites { movies, error ->
+            if (error != null) {
+                callback(null, error)
+            } else {
+                callback(movies, null)
             }
         }
     }

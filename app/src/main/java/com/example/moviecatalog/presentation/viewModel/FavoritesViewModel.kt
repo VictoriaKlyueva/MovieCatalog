@@ -5,16 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.model.GenreModel
 import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
+import com.example.moviecatalog.domain.repository.FavoritesMoviesRepository
 import com.example.moviecatalog.domain.usecase.FetchFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.FetchFavoriteMoviesUseCase
 import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
 
 class FavoritesViewModel : ViewModel() {
     private val movieRepository = MovieRepositoryImpl()
+    private val favoritesMoviesRepository = FavoriteMoviesRepositoryImpl()
+
     private val getMoviesFromPageUseCase = GetMoviesFromPageUseCase(movieRepository)
     private val fetchFavoriteGenresUseCase = FetchFavoriteGenresUseCase(movieRepository)
-    private val fetchFavoriteMoviesUseCase = FetchFavoriteMoviesUseCase(movieRepository)
+    private val fetchFavoriteMoviesUseCase = FetchFavoriteMoviesUseCase(favoritesMoviesRepository)
 
     private val _favoritesGenres = MutableLiveData<List<GenreModel>>()
     val favoritesGenres: LiveData<List<GenreModel>> get() = _favoritesGenres
@@ -40,9 +44,13 @@ class FavoritesViewModel : ViewModel() {
     }
 
     fun fetchFavoritesMovies() {
-        fetchFavoriteMoviesUseCase.execute(1..7) { accumulatedMovies, error ->
+        fetchFavoriteMoviesUseCase.execute() { movies, error ->
             if (error == null) {
-                _favoritesMovies.postValue(accumulatedMovies!!)
+                if (movies != null) {
+                    _favoritesMovies.postValue(movies)
+                } else {
+                    _favoritesMovies.postValue(emptyList())
+                }
             } else {
                 println("Ошибка получения данных: $error")
                 _favoritesMovies.postValue(emptyList())
