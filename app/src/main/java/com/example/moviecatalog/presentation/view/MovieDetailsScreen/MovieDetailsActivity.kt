@@ -12,9 +12,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -65,6 +68,7 @@ class MovieDetailsActivity : ComponentActivity() {
 @Composable
 fun MovieDetailsScreen(viewModel: MovieDetailsViewModel, movie: MovieDetailsModel) {
     val context = LocalContext.current
+    val isFavorite by viewModel.isFavorite.observeAsState(initial = false)
 
     Box (
         modifier = Modifier
@@ -124,12 +128,31 @@ fun MovieDetailsScreen(viewModel: MovieDetailsViewModel, movie: MovieDetailsMode
                     .align(Alignment.TopEnd)
                     .size(40.dp)
                     .background(
-                        color = colorResource(id = R.color.dark_faded),
+                        brush = if (isFavorite) {
+                            Brush.horizontalGradient(
+                                colors = listOf(
+                                    colorResource(id = R.color.gradient_start),
+                                    colorResource(id = R.color.gradient_end)
+                                )
+                            )
+                        } else {
+                            Brush.horizontalGradient(
+                                colors = listOf(
+                                    colorResource(id = R.color.dark_faded),
+                                    colorResource(id = R.color.dark_faded)
+                                )
+                            )
+                        },
                         shape = RoundedCornerShape(8.dp)
                     )
                     .padding(8.dp)
                     .clickable {
-                        viewModel.addToFavorite()
+                        if (isFavorite) {
+                            viewModel.removeFavorite()
+                        } else {
+                            viewModel.addToFavorite()
+                        }
+                        viewModel.toggleFavorite()
                     }
             ) {
                 Icon(
