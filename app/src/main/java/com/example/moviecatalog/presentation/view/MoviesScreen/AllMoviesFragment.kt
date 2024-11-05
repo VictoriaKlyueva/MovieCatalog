@@ -17,7 +17,7 @@ class AllMoviesFragment : Fragment() {
     private val binding get() = _binding ?:
         throw IllegalStateException("Binding is not initialized")
 
-    private val moviesViewModel: MoviesViewModel by viewModels()
+    private val viewModel: MoviesViewModel by viewModels()
 
     private var allMovies: List<MovieElementModel> = emptyList()
     private lateinit var allMoviesAdapter: AllMoviesAdapter
@@ -37,7 +37,7 @@ class AllMoviesFragment : Fragment() {
         val gridLayoutManager = GridLayoutManager(requireContext(), 3)
         binding.recyclerViewFavorites.layoutManager = gridLayoutManager
 
-        allMoviesAdapter = AllMoviesAdapter(emptyList())
+        allMoviesAdapter = AllMoviesAdapter(emptyList(), viewModel)
         binding.recyclerViewFavorites.adapter = allMoviesAdapter
 
         binding.recyclerViewFavorites.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -60,7 +60,7 @@ class AllMoviesFragment : Fragment() {
     private fun loadMoreMovies() {
         isLoading = true
         currentPage++
-        moviesViewModel.fetchMovies(currentPage)
+        viewModel.fetchMovies(currentPage)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,11 +69,11 @@ class AllMoviesFragment : Fragment() {
         setupRecyclerView()
         observeMovies()
 
-        moviesViewModel.fetchMovies(currentPage)
+        viewModel.fetchMovies(currentPage)
     }
 
     private fun observeMovies() {
-        moviesViewModel.movies.observe(viewLifecycleOwner) { movies ->
+        viewModel.movies.observe(viewLifecycleOwner) { movies ->
             allMoviesAdapter.updateMovies(allMovies + movies)
             allMovies = allMovies + movies
 

@@ -41,10 +41,16 @@ class MoviesViewModel : ViewModel() {
         }
     }
 
+    fun isFavorite(movie: MovieElementModel, callback: (Boolean) -> Unit) {
+        checkFavoriteMovieUseCase.execute(movie.id) { isFavorite, _ ->
+            callback(isFavorite)
+        }
+    }
+
     fun fetchMovies(page: Int = (1..TOTAL_PAGES).random()) {
         movieResponseUseCase.execute(page) { movies, error ->
             if (error == null) {
-                _movies.postValue(movies?.take(5) ?: emptyList())
+                _movies.postValue(movies ?: emptyList())
             } else {
                 println("Ошибка получения данных: $error")
                 _movies.postValue(emptyList())

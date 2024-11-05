@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -12,9 +13,11 @@ import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.ItemMovieSimpleBinding
 import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
+import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 
 class AllMoviesAdapter(
-    private var movies: List<MovieElementModel>
+    private var movies: List<MovieElementModel>,
+    private val viewModel: MoviesViewModel,
 ) : RecyclerView.Adapter<AllMoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -51,6 +54,14 @@ class AllMoviesAdapter(
 
             binding.movieFromAllImageView.setOnClickListener {
                 goToMovieScreen(movie.id, context)
+            }
+
+            viewModel.isFavorite(movie) { isFavorite ->
+                binding.heartContainer.visibility =
+                    if (isFavorite)
+                        View.VISIBLE
+                    else
+                        View.GONE
             }
 
             // Rating

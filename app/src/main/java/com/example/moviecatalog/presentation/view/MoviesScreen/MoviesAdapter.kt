@@ -15,8 +15,7 @@ import com.example.moviecatalog.databinding.ItemMovieEnhancedBinding
 import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
 
 class MoviesAdapter(
-    private var movies: List<MovieElementModel>,
-    private val onWatchButtonClick: (MovieElementModel) -> Unit
+    private var movies: List<MovieElementModel>
 ) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -75,7 +74,6 @@ class MoviesAdapter(
             }
 
             binding.watchButton.setOnClickListener {
-                onWatchButtonClick(movie)
                 goToMovieScreen(movie.id)
             }
         }

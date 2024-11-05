@@ -23,6 +23,7 @@ class MoviesFragment : Fragment() {
         throw IllegalStateException("Binding is not initialized")
 
     private val moviesViewModel: MoviesViewModel by viewModels()
+
     private var movieList: List<MovieElementModel> = emptyList()
     private lateinit var moviesAdapter: MoviesAdapter
 
@@ -48,7 +49,7 @@ class MoviesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        moviesAdapter = MoviesAdapter(emptyList()) { movie -> }
+        moviesAdapter = MoviesAdapter(emptyList())
         binding.viewPager.adapter = moviesAdapter
 
         val handler = Handler(Looper.getMainLooper())
@@ -109,8 +110,8 @@ class MoviesFragment : Fragment() {
                     println("No movies found")
                 }
                 else -> {
-                    moviesAdapter.updateMovies(result)
-                    movieList = result
+                    moviesAdapter.updateMovies(result.take(5))
+                    movieList = result.take(5)
                 }
             }
         }
