@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.data.model.ProfileModel
 import com.example.moviecatalog.databinding.FragmentProfileBinding
 import com.example.moviecatalog.domain.utils.DateHelper
@@ -18,13 +17,17 @@ import com.example.moviecatalog.presentation.view.FriendsScreen.FriendsActivity
 import com.example.moviecatalog.presentation.view.WelcomeScreen.WelcomeActivity
 import com.example.moviecatalog.presentation.viewModel.ProfileViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.ProfileViewModelFactory
-import java.util.Calendar
-import java.util.Date
+import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
+import androidx.appcompat.app.AppCompatActivity
+import com.example.moviecatalog.common.Constants.PICK_IMAGE_REQUEST
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding ?: throw IllegalStateException("Binding is not initialized")
+    private val binding get() =
+        _binding ?: throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: ProfileViewModel
     private val dateHelper = DateHelper()
@@ -39,11 +42,37 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         setupButtons()
         setupGreeting()
+        setupAvatar()
 
-        getProfileData()
         observeProfileData()
 
         return binding.root
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PICK_IMAGE_REQUEST &&
+            resultCode == AppCompatActivity.RESULT_OK &&
+            data != null) {
+            val imageUri: Uri? = data.data
+            imageUri?.let {
+                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(
+                    requireActivity().contentResolver,
+                    imageUri
+                )
+                binding.avatar.setImageBitmap(bitmap)
+            }
+        }
+    }
+
+    private fun setupAvatar() {
+        binding.avatar.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        }
     }
 
     private fun setupGreeting() {
@@ -59,9 +88,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.greetingText.text = greetingText
     }
 
-
     private fun fillFields(profile: ProfileModel) {
         binding.profileName.text = profile.name
+
+        if (profile.avatarLink != null) {
+            Glide.with(binding.root.context)
+                .load(profile.avatarLink)
+                .transform(RoundedCorners(90))
+                .into(binding.avatar)
+        }
     }
 
     private fun setupViewModel() {
@@ -86,16 +121,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 } else {
                     println("Ошибка выхода")
                 }
-            }
-        }
-    }
-
-    private fun getProfileData() {
-        viewModel.getProfileData { profile, error ->
-            if (error != null) {
-                println("Error retrieving profile: $error")
-            } else {
-                println("Успешный успех!")
             }
         }
     }

@@ -13,4 +13,6 @@ object Constants {
 
     const val AUTHORIZATION_HEADER = "Authorization"
     const val BEARER = "Bearer"
+
+    const val PICK_IMAGE_REQUEST = 1
 }
