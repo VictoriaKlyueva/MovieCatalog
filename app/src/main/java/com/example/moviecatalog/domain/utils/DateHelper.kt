@@ -79,4 +79,9 @@ class DateHelper {
 
         return dateTime.format(outputFormatter)
     }
+
+    fun getCurrentTime(): Int {
+        val calendar = Calendar.getInstance()
+        return calendar.get(Calendar.HOUR_OF_DAY)
+    }
 }

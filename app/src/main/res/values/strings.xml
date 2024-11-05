@@ -40,7 +40,6 @@
         Добавьте любимые жанры и фильмы, чтобы вернуться к ним позже
     </string>
     <string name="find_movie_for_you">Найти фильм для себя</string>
-    <string name="good_morning">Доброе утро,</string>
     <string name="my_friends">Мои друзья</string>
     <string name="personal_info">Личная информация</string>
     <string name="gender">Пол</string>
@@ -61,4 +60,9 @@
     <string name="budget">Бюджет</string>
     <string name="fees">Сборы в мире</string>
     <string name="dot_divider"> • </string>
+
+    <string name="good_morning">Доброе утро</string>
+    <string name="good_day">Добрый день</string>
+    <string name="good_evening">Добрый вечер</string>
+    <string name="good_night">Доброй ночи</string>
 </resources>

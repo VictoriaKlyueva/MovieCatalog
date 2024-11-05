@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -12,10 +13,13 @@ import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.data.model.ProfileModel
 import com.example.moviecatalog.databinding.FragmentProfileBinding
+import com.example.moviecatalog.domain.utils.DateHelper
 import com.example.moviecatalog.presentation.view.FriendsScreen.FriendsActivity
 import com.example.moviecatalog.presentation.view.WelcomeScreen.WelcomeActivity
 import com.example.moviecatalog.presentation.viewModel.ProfileViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.ProfileViewModelFactory
+import java.util.Calendar
+import java.util.Date
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -23,6 +27,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val binding get() = _binding ?: throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: ProfileViewModel
+    private val dateHelper = DateHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +36,29 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         setupViewModel()
+
         setupButtons()
+        setupGreeting()
+
         getProfileData()
         observeProfileData()
 
         return binding.root
     }
+
+    private fun setupGreeting() {
+        val hour = dateHelper.getCurrentTime()
+
+        val greetingText = when (hour) {
+            in 6..11 -> getString(R.string.good_morning) + ","
+            in 12..17 -> getString(R.string.good_day) + ","
+            in 18..23 -> getString(R.string.good_evening) + ","
+            else -> getString(R.string.good_night) + ","
+        }
+
+        binding.greetingText.text = greetingText
+    }
+
 
     private fun fillFields(profile: ProfileModel) {
         binding.profileName.text = profile.name
