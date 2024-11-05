@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMyFavoritesBinding
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
@@ -29,7 +31,17 @@ class MyFavoriteMoviesFragment : Fragment() {
     ): View {
         _binding = FragmentMyFavoritesBinding
             .inflate(inflater, container, false)
+
+        setUpNavigation()
+
         return binding.root
+    }
+
+    private fun setUpNavigation() {
+        binding.allTextView.setOnClickListener {
+            val navController = findNavController()
+            navController.navigate(R.id.favoritesFragment)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
