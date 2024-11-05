@@ -22,5 +22,5 @@ data class ProfileModel(
     val birthDate: String,
 
     @SerializedName("gender")
-    val gender: Gender
+    val gender: Int
 )

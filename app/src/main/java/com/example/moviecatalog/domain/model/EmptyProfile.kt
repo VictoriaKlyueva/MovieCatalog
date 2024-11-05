@@ -11,6 +11,6 @@ object EmptyProfile {
         avatarLink = null,
         name = "",
         birthDate = "",
-        gender = Gender.fromValue(1)!!
+        gender = 1
     )
 }

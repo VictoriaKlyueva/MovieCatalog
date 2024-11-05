@@ -42,6 +42,25 @@ class PersonalInfoFragment : Fragment() {
         binding.textEmail.setText(profile.email)
         binding.textName.setText(profile.name)
         binding.textDateOfBirth.setText(dateHelper.formatDateString(profile.birthDate))
+        fillToggles(profile)
+    }
+
+    private fun fillToggles(profile: ProfileModel) {
+        val genderValue = profile.gender
+        when (genderValue) {
+            0 -> {
+                binding.manToggle.isChecked = true
+                binding.womanToggle.isChecked = false
+            }
+            1 -> {
+                binding.manToggle.isChecked = false
+                binding.womanToggle.isChecked = true
+            }
+            else -> {
+                binding.manToggle.isChecked = false
+                binding.womanToggle.isChecked = false
+            }
+        }
     }
 
     private fun getProfileData() {

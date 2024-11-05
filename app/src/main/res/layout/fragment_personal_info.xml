@@ -156,6 +156,7 @@
             android:orientation="horizontal">
 
             <ToggleButton
+                android:id="@+id/man_toggle"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
@@ -169,6 +170,7 @@
                 android:textSize="14sp" />
 
             <ToggleButton
+                android:id="@+id/woman_toggle"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
