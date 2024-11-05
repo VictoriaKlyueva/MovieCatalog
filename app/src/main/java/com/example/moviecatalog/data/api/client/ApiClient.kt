@@ -1,23 +1,46 @@
 package com.example.moviecatalog.data.api.client
 
+import android.content.Context
 import com.example.moviecatalog.common.Constants.BASE_URL
 import com.example.moviecatalog.data.api.service.ApiService
+import com.example.moviecatalog.data.datasource.TokenDataSource
+import com.example.moviecatalog.data.interceptor.AuthInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private val interceptor = HttpLoggingInterceptor()
+    private lateinit var tokenDataSource: TokenDataSource
 
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(interceptor);
+    private val interceptor by lazy {
+        AuthInterceptor(tokenDataSource)
+    }
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(client.build())
-        .build()
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
 
-    val apiService: ApiService = retrofit.create(ApiService::class.java)
+    private val client by lazy {
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(interceptor)
+            .build()
+    }
+
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+    }
+
+    val apiService: ApiService by lazy {
+        retrofit.create(ApiService::class.java)
+    }
+
+    fun init(context: Context) {
+        tokenDataSource = TokenDataSource(context)
+    }
 }

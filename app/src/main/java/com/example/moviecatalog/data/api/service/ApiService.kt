@@ -30,10 +30,10 @@ interface ApiService {
     @GET("api/favorites")
     fun getFavorites(): Call<MoviesListModel>
 
-    @POST("api/favorites/{id}")
+    @POST("api/favorites/{id}/add")
     fun postFavorite(@Path("id") id: String): Call<Void>
 
-    @DELETE("api/favorites/{id}")
+    @DELETE("api/favorites/{id}/delete")
     fun deleteFavorite(@Path("id") id: String): Call<Void>
 
 

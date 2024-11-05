@@ -19,6 +19,8 @@ class AuthRepositoryImpl(
                 if (response.isSuccessful) {
                     response.body()?.let { token ->
                         tokenDataSource.save(token.token)
+                        println("Токен: ")
+                        println(token.token)
                         callback(true)
                     } ?: callback(false)
                 } else {

@@ -1,6 +1,7 @@
 package com.example.moviecatalog.presentation.view.MovieDetailsScreen
 
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.*
@@ -34,6 +36,7 @@ class MovieDetailsActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         viewModel = ViewModelProvider(this)[MovieDetailsViewModel::class.java]
 
         val movieId = intent.getStringExtra("MOVIE_ID") ?: ""
@@ -45,7 +48,7 @@ class MovieDetailsActivity : ComponentActivity() {
             if (movie != null) {
                 setContent {
                     Theme {
-                        MovieDetailsScreen(movie)
+                        MovieDetailsScreen(viewModel, movie)
                     }
                 }
             }
@@ -60,7 +63,9 @@ class MovieDetailsActivity : ComponentActivity() {
 }
 
 @Composable
-fun MovieDetailsScreen(movie: MovieDetailsModel) {
+fun MovieDetailsScreen(viewModel: MovieDetailsViewModel, movie: MovieDetailsModel) {
+    val context = LocalContext.current
+
     Box (
         modifier = Modifier
             .fillMaxWidth()
@@ -99,7 +104,7 @@ fun MovieDetailsScreen(movie: MovieDetailsModel) {
                         shape = RoundedCornerShape(8.dp)
                     )
                     .clickable {
-                        /* Обработчик нажатия */
+                        (context as? Activity)?.finish()
                     }
             ) {
                 Icon(
@@ -123,6 +128,9 @@ fun MovieDetailsScreen(movie: MovieDetailsModel) {
                         shape = RoundedCornerShape(8.dp)
                     )
                     .padding(8.dp)
+                    .clickable {
+                        viewModel.addToFavorite()
+                    }
             ) {
                 Icon(
                     modifier = Modifier.fillMaxSize(),
