@@ -25,10 +25,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.MovieDetailsModel
+import com.example.moviecatalog.data.model.MovieElementModel
 
 
 @Composable
-fun RatingSection() {
+fun RatingSection(movie: MovieDetailsModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -70,6 +72,7 @@ fun RatingSection() {
         ) {
             MovieServiceRating(
                 painterResource(id = R.drawable.ic_logo_simple),
+                String.format("%.1f", movie.reviews.map { it.rating }.average()),
                 modifier = Modifier
                     .weight(1f)
                     .background(
@@ -82,6 +85,7 @@ fun RatingSection() {
 
             MovieServiceRating(
                 painterResource(id = R.drawable.ic_kinopoisk),
+                "10",
                 modifier = Modifier
                     .width(IntrinsicSize.Min)
                     .background(
@@ -94,6 +98,7 @@ fun RatingSection() {
 
             MovieServiceRating(
                 painterResource(id = R.drawable.ic_imdb),
+                "10",
                 modifier = Modifier
                     .width(IntrinsicSize.Min)
                     .background(
@@ -106,7 +111,7 @@ fun RatingSection() {
 }
 
 @Composable
-fun MovieServiceRating(icon: Painter, modifier: Modifier) {
+fun MovieServiceRating(icon: Painter, rating: String, modifier: Modifier) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
@@ -131,7 +136,7 @@ fun MovieServiceRating(icon: Painter, modifier: Modifier) {
                     bottom = 8.dp,
                     end = 8.dp
                 ),
-            text = "9.9",
+            text = rating,
             color = Color.White,
             style = MaterialTheme.typography.bodyLarge
         )

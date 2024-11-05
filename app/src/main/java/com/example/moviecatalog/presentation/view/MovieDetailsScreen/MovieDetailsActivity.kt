@@ -204,7 +204,7 @@ fun MovieDetailsScreen(viewModel: MovieDetailsViewModel, movie: MovieDetailsMode
             }
 
             item {
-                RatingSection()
+                RatingSection(movie)
             }
 
             item {
