@@ -42,7 +42,7 @@ class PersonalInfoFragment : Fragment() {
     }
 
     private fun getProfileData() {
-        viewModel.getProfileData { profile, error ->
+        viewModel.getProfileData { _, error ->
             if (error != null) {
                 println("Error retrieving profile: $error")
             }
