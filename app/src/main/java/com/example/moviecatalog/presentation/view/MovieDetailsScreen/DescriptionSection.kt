@@ -1,6 +1,5 @@
 package com.example.moviecatalog.presentation.view.MovieDetailsScreen
 
-import android.util.EventLogTags.Description
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

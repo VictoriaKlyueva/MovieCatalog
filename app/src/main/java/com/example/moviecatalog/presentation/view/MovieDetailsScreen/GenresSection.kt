@@ -108,9 +108,11 @@ fun GenresSection(movie: MovieDetailsModel) {
                 ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Genre(movie.genres[0].name, true)
-            Genre(movie.genres[1].name)
-            Genre(movie.genres[2].name)
+            movie.genres.forEachIndexed { index, genre ->
+                if (index < 3) {
+                    Genre(genre.name, index == 0)
+                }
+            }
         }
     }
 }

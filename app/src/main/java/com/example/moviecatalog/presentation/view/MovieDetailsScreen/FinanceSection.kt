@@ -91,10 +91,11 @@ fun FinanceSection(movie: MovieDetailsModel) {
     }
 }
 
+@Composable
 fun formatCurrency(input: Int?): String {
     return if (input != null) {
         "$ " + String.format("%,d", input).replace(",", " ")
     } else {
-        "$ " + String.format("%,d", input).replace(",", " ")
+        stringResource(id = R.string.unknown)
     }
 }
