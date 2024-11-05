@@ -124,7 +124,7 @@ class SignUpFragment : Fragment() {
                 name = binding.editTextName.text.toString(),
                 password = binding.editTextPassword.text.toString(),
                 email = binding.editTextEmail.text.toString(),
-                birthDate = DateHelper().convertDate(binding.editTextDateOfBirth.text.toString()),
+                birthDate = DateHelper().convertToDateTimezones(binding.editTextDateOfBirth.text.toString()),
                 gender = if (binding.buttonMale.isChecked) 0 else 1
             )
 

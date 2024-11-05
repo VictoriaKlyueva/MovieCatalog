@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.data.model.ProfileModel
 import com.example.moviecatalog.databinding.FragmentPersonalInfoBinding
+import com.example.moviecatalog.domain.utils.DateHelper
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 import com.example.moviecatalog.presentation.viewModel.ProfileViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.ProfileViewModelFactory
@@ -17,9 +18,11 @@ class PersonalInfoFragment : Fragment() {
 
     private var _binding: FragmentPersonalInfoBinding? = null
     private val binding get() = _binding ?:
-    throw IllegalStateException("Binding is not initialized")
+        throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: ProfileViewModel
+
+    private val dateHelper = DateHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +41,7 @@ class PersonalInfoFragment : Fragment() {
         binding.textLogin.setText(profile.nickName)
         binding.textEmail.setText(profile.email)
         binding.textName.setText(profile.name)
-        binding.textDateOfBirth.setText(profile.birthDate)
+        binding.textDateOfBirth.setText(dateHelper.formatDateString(profile.birthDate))
     }
 
     private fun getProfileData() {

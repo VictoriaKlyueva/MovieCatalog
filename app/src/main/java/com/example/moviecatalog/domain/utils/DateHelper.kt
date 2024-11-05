@@ -6,7 +6,10 @@ import android.widget.DatePicker
 import android.widget.EditText
 import com.example.moviecatalog.R
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 import java.util.Calendar
 import java.util.Locale
@@ -51,7 +54,7 @@ class DateHelper {
         datePickerDialog.show()
     }
 
-    fun convertDate(inputDate: String): String {
+    fun convertToDateTimezones(inputDate: String): String {
         val formatter = DateTimeFormatterBuilder()
             .parseDefaulting(java.time.temporal.ChronoField.HOUR_OF_DAY, 0)
             .parseDefaulting(java.time.temporal.ChronoField.MINUTE_OF_HOUR, 0)
@@ -66,11 +69,14 @@ class DateHelper {
             .toString()
     }
 
-    fun minutesToHours(minutes: Int): String {
-        val hours = minutes / 60
-        val remainingMinutes = minutes % 60
+    fun formatDateString(input: String): String {
+        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+        val dateTime = LocalDateTime.parse(input, inputFormatter)
 
-        return "$hours ч $remainingMinutes мин"
+        val outputFormatter = DateTimeFormatterBuilder()
+            .appendPattern("d MMMM yyyy")
+            .toFormatter(Locale("ru"))
+
+        return dateTime.format(outputFormatter)
     }
-
 }
