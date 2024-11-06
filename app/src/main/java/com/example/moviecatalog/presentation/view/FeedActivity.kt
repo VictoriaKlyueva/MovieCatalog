@@ -1,15 +1,18 @@
 package com.example.moviecatalog.presentation.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.moviecatalog.R
 import com.example.moviecatalog.databinding.ActivityFeedBinding
+import com.example.moviecatalog.domain.utils.NavigationManager
 import com.example.moviecatalog.presentation.view.FavoritesScreen.FavoritesFragment
 import com.example.moviecatalog.presentation.view.FeedScreen.FeedFragment
 import com.example.moviecatalog.presentation.view.MoviesScreen.MoviesFragment
 import com.example.moviecatalog.presentation.view.ProfileScreen.ProfileFragment
+import com.example.moviecatalog.presentation.view.WelcomeScreen.WelcomeActivity
 
 class FeedActivity : AppCompatActivity() {
 
@@ -28,6 +31,8 @@ class FeedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityFeedBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        observeNavigationManager()
 
         initialFragment = intent.getSerializableExtra(EXTRA_INITIAL_FRAGMENT) as? Fragment
         setCurrentFragment(initialFragment ?: feedFragment)
@@ -58,6 +63,15 @@ class FeedActivity : AppCompatActivity() {
                 R.id.profileFragment -> {
                     binding.bottomNavigation.selectedItemId = R.id.nav_profile
                 }
+            }
+        }
+    }
+
+    private fun observeNavigationManager() {
+        NavigationManager.navigateToWelcomeScreen.observe(this) { navigate ->
+            if (navigate) {
+                startActivity(Intent(this, WelcomeActivity::class.java))
+                finish()
             }
         }
     }
