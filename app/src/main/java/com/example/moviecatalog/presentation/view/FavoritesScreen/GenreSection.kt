@@ -34,10 +34,16 @@ fun GenreSection(viewModel: FavoritesViewModel, favoritesGenres: List<GenreModel
 
     Spacer(modifier = Modifier.height(16.dp))
 
-    LazyColumn {
-        items(favoritesGenres) { genre ->
-            GenreItem(viewModel, genre)
-            Spacer(modifier = Modifier.height(8.dp))
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(190.dp)
+    ) {
+        LazyColumn {
+            items(favoritesGenres) { genre ->
+                GenreItem(viewModel, genre)
+                Spacer(modifier = Modifier.height(8.dp))
+            }
         }
     }
 }
@@ -68,7 +74,6 @@ fun GenreItem(viewModel: FavoritesViewModel, genre: GenreModel) {
             contentPadding = PaddingValues(0.dp),
             onClick = {
                 viewModel.removeGenre(genre)
-                // Нужно обновить список
             }
         ) {
             Icon(
