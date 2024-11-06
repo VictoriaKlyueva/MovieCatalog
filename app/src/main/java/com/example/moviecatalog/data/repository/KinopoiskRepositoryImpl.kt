@@ -14,7 +14,8 @@ class KinopoiskRepositoryImpl : KinopoiskRepository {
         var currentPage = 1
 
         fun fetchPage(page: Int) {
-            apiKinopoiskService.getMovies(page).enqueue(object : Callback<FilmSearchByFiltersResponse> {
+            apiKinopoiskService.getMovies(page).enqueue(
+                object : Callback<FilmSearchByFiltersResponse> {
                 override fun onResponse(
                     call: Call<FilmSearchByFiltersResponse>,
                     response: Response<FilmSearchByFiltersResponse>
