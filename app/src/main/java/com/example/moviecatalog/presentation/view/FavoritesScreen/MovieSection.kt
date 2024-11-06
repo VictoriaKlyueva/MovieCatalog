@@ -1,7 +1,10 @@
 package com.example.moviecatalog.presentation.view.FavoritesScreen
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -15,12 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.data.model.MovieElementModel
 import com.example.moviecatalog.R
+import com.example.moviecatalog.presentation.common.Constants.MOVIE_ID
+import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
 
 
 @Composable
@@ -44,12 +50,17 @@ fun MovieSection(favoriteMovies: List<MovieElementModel>) {
 @SuppressLint("DefaultLocale")
 @Composable
 fun MovieItem(movie: MovieElementModel) {
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(0.698f)
             .padding(4.dp)
-            .clip(RoundedCornerShape(8.dp)),
+            .clip(RoundedCornerShape(8.dp))
+            .clickable {
+                goToMovieScreen(movie.id, context)
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -108,3 +119,8 @@ private fun getRatingTextColor(rating: Double): Color {
         Color.White
 }
 
+private fun goToMovieScreen(movieId: String, context: Context) {
+    val intent = Intent(context, MovieDetailsActivity::class.java)
+    intent.putExtra(MOVIE_ID, movieId)
+    context.startActivity(intent)
+}
