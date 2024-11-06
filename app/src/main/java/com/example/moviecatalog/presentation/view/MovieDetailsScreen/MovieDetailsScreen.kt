@@ -212,7 +212,7 @@ fun MovieDetailsScreen(
             }
 
             item {
-                GenresSection(movie)
+                GenresSection(viewModel, movie)
             }
 
             item {

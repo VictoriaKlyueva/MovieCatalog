@@ -1,8 +1,7 @@
-@file:Suppress("IMPLICIT_CAST_TO_ANY")
-
 package com.example.moviecatalog.presentation.view.MovieDetailsScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,10 +24,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
+import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
 
 @Composable
-fun Genre(genreName: String, isFavorite: Boolean = false) {
+fun Genre(viewModel: MovieDetailsViewModel, genre: GenreModel, isFavorite: Boolean = false) {
     Column(
         modifier = Modifier
             .padding(end = 8.dp)
@@ -49,11 +50,14 @@ fun Genre(genreName: String, isFavorite: Boolean = false) {
                     ),
                 shape = RoundedCornerShape(8.dp)
             )
+            .clickable {
+                viewModel.addGenreToFavorites(genre)
+            }
     ) {
         Text(
             modifier = Modifier
                 .padding(8.dp),
-            text = genreName,
+            text = genre.name,
             color = Color.White,
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Start
@@ -62,7 +66,7 @@ fun Genre(genreName: String, isFavorite: Boolean = false) {
 }
 
 @Composable
-fun GenresSection(movie: MovieDetailsModel) {
+fun GenresSection(viewModel: MovieDetailsViewModel, movie: MovieDetailsModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -108,7 +112,7 @@ fun GenresSection(movie: MovieDetailsModel) {
         ) {
             movie.genres.forEachIndexed { index, genre ->
                 if (index < 3) {
-                    Genre(genre.name, index == 0)
+                    Genre(viewModel, genre, index == 0)
                 }
             }
         }

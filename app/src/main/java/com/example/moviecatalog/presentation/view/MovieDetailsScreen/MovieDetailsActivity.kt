@@ -10,6 +10,9 @@ import com.example.moviecatalog.common.Constants.EMPTY_STRING
 import com.example.moviecatalog.presentation.common.Constants.MOVIE_ID
 import com.example.moviecatalog.presentation.ui.Theme
 import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
+import com.example.moviecatalog.presentation.viewModel.SignInViewModel
+import com.example.moviecatalog.presentation.viewModel.factory.MovieDetailsViewModelFactory
+import com.example.moviecatalog.presentation.viewModel.factory.SignInViewModelFactory
 
 class MovieDetailsActivity : ComponentActivity() {
 
@@ -19,7 +22,7 @@ class MovieDetailsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this)[MovieDetailsViewModel::class.java]
+        setupViewModel()
 
         val movieId = intent.getStringExtra(MOVIE_ID) ?: EMPTY_STRING
         if (movieId.isNotEmpty()) {
@@ -49,5 +52,12 @@ class MovieDetailsActivity : ComponentActivity() {
                 println("Error fetching enhanced movie: $it")
             }
         }
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            MovieDetailsViewModelFactory(this)
+        )[MovieDetailsViewModel::class.java]
     }
 }

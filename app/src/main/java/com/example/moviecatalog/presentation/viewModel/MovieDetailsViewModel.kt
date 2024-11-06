@@ -1,27 +1,37 @@
 package com.example.moviecatalog.presentation.viewModel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.moviecatalog.common.Constants.EMPTY_STRING
+import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.kinopoisk.FilmSearchByFiltersResponse_items
+import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
 import com.example.moviecatalog.data.repository.KinopoiskRepositoryImpl
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
+import com.example.moviecatalog.domain.usecase.AddFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.AddFavoriteUseCase
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieByNameUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
 import com.example.moviecatalog.domain.usecase.RemoveFavoriteMovieUseCase
+import kotlinx.coroutines.launch
 
-class MovieDetailsViewModel : ViewModel() {
+class MovieDetailsViewModel(
+    context: Context
+) : ViewModel() {
     private val movieRepository = MovieRepositoryImpl()
     private val favoritesRepository = FavoriteMoviesRepositoryImpl()
     private val kinopoiskRepository = KinopoiskRepositoryImpl()
 
+    private val userDataSource = UserDataSource(context)
     private val movieDetailsUseCase = GetMovieDetailsUseCase(movieRepository)
     private val addFavoriteUseCase = AddFavoriteUseCase(favoritesRepository)
+    private val addFavoriteGenresUseCase = AddFavoriteGenresUseCase(userDataSource)
     private val checkFavoriteMovieUseCase = CheckFavoriteMovieUseCase(favoritesRepository)
     private val removeFavoriteMovieUseCase = RemoveFavoriteMovieUseCase(favoritesRepository)
     private val getMovieByNameUseCase = GetMovieByNameUseCase(kinopoiskRepository)
@@ -40,6 +50,12 @@ class MovieDetailsViewModel : ViewModel() {
 
     fun toggleFavorite() {
         _isFavorite.value = !(_isFavorite.value ?: false)
+    }
+
+    fun addGenreToFavorites(genre: GenreModel) {
+        viewModelScope.launch {
+            addFavoriteGenresUseCase.execute(genre)
+        }
     }
 
     private fun checkFavorite(movieId: String) {
