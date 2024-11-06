@@ -2,12 +2,13 @@ package com.example.moviecatalog.domain.utils
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.os.Build
 import android.widget.DatePicker
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import com.example.moviecatalog.R
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
@@ -54,6 +55,7 @@ class DateHelper {
         datePickerDialog.show()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun convertToDateTimezones(inputDate: String): String {
         val formatter = DateTimeFormatterBuilder()
             .parseDefaulting(java.time.temporal.ChronoField.HOUR_OF_DAY, 0)
@@ -69,8 +71,23 @@ class DateHelper {
             .toString()
     }
 
-    fun formatDateString(input: String): String {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun convertFromDateTimezones(input: String): String {
         val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+        val dateTime = LocalDateTime.parse(input, inputFormatter)
+
+        val outputFormatter = DateTimeFormatterBuilder()
+            .appendPattern("d MMMM yyyy")
+            .toFormatter(Locale("ru"))
+
+        return dateTime.format(outputFormatter)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun convertFromDateTimezonesSeconds(input: String): String {
+        println(input)
+
+        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS")
         val dateTime = LocalDateTime.parse(input, inputFormatter)
 
         val outputFormatter = DateTimeFormatterBuilder()

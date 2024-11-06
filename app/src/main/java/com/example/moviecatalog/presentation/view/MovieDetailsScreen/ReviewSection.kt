@@ -1,8 +1,9 @@
 package com.example.moviecatalog.presentation.view.MovieDetailsScreen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -35,9 +36,27 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviecatalog.R
+import androidx.compose.runtime.*
+import com.example.moviecatalog.data.model.ReviewModel
+import com.example.moviecatalog.data.model.UserShortModel
+import com.example.moviecatalog.domain.utils.DateHelper
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.util.Locale
+import kotlin.math.min
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ReviewSection() {
+fun ReviewSection(reviews: List<ReviewModel>) {
+    var currentReviewIndex by remember { mutableIntStateOf(0) }
+
+    val currentReview =
+        if (reviews.isNotEmpty())
+            reviews[min(currentReviewIndex, reviews.size - 1)]
+        else
+            null
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,6 +65,7 @@ fun ReviewSection() {
                 shape = RoundedCornerShape(16.dp)
             )
     ) {
+        // Header
         Row (
             modifier = Modifier
                 .fillMaxWidth()
@@ -71,17 +91,17 @@ fun ReviewSection() {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Review()
+        // Display Review
+        currentReview?.let {
+            Review(it)
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row (
+        // Navigation Buttons
+        Row(
             modifier = Modifier
-                .padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = 16.dp
-                )
+                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
         ) {
             // Add review
             Button(
@@ -103,7 +123,7 @@ fun ReviewSection() {
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(),
                 onClick = {
-                    println("типо ща добавим отзыв")
+                    println("Adding review")
                 }
             ) {
                 Text(
@@ -117,27 +137,26 @@ fun ReviewSection() {
 
             // Button previous
             Button(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(
-                        color = colorResource(id = R.color.dark),
-                        shape = RoundedCornerShape(8.dp)
-                    ),
+                modifier = Modifier.size(40.dp),
                 colors = ButtonDefaults.buttonColors(
-                    Color.Transparent
+                    if (currentReviewIndex > 0)
+                        colorResource(R.color.dark)
+                    else
+                        Color.Transparent
                 ),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(),
                 onClick = {
-                    println("типо назад")
+                    if (currentReviewIndex > 0) {
+                        currentReviewIndex--
+                    }
                 }
             ) {
                 Icon(
-                    modifier = Modifier
-                        .fillMaxHeight(),
+                    modifier = Modifier.fillMaxHeight(),
                     painter = painterResource(id = R.drawable.ic_back),
                     tint = Color.White,
-                    contentDescription = "Icon back",
+                    contentDescription = "Icon back"
                 )
             }
 
@@ -145,35 +164,35 @@ fun ReviewSection() {
 
             // Button next
             Button(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(
-                        color = colorResource(id = R.color.dark),
-                        shape = RoundedCornerShape(8.dp)
-                    ),
+                modifier = Modifier.size(40.dp),
                 colors = ButtonDefaults.buttonColors(
-                    Color.Transparent
+                    if (currentReviewIndex < reviews.size - 1)
+                        colorResource(R.color.dark)
+                    else
+                        Color.Transparent
                 ),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(),
                 onClick = {
-                    println("типо вперед")
+                    if (currentReviewIndex < reviews.size - 1) {
+                        currentReviewIndex++
+                    }
                 }
             ) {
                 Icon(
-                    modifier = Modifier
-                        .fillMaxHeight(),
+                    modifier = Modifier.fillMaxHeight(),
                     painter = painterResource(id = R.drawable.ic_next),
                     tint = Color.White,
-                    contentDescription = "Icon next",
+                    contentDescription = "Icon next"
                 )
             }
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun Review() {
+fun Review(review: ReviewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -183,7 +202,7 @@ fun Review() {
                 shape = RoundedCornerShape(8.dp)
             )
     ) {
-        User()
+        User(review, review.author)
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -194,15 +213,19 @@ fun Review() {
                     bottom = 8.dp,
                     end = 8.dp
                 ),
-            text = "Смотрите этот фильм он имба",
+            text = review.reviewText ?: "No review text available",
             color = Color.White,
             style = MaterialTheme.typography.bodyMedium
         )
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun User() {
+fun User(review: ReviewModel, author: UserShortModel) {
+
+    val dateHelper = remember { DateHelper() }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -229,7 +252,7 @@ fun User() {
                 .weight(1f)
         ) {
             Text(
-                text = "Елена Летучая",
+                text = author.nickName ?: stringResource(id = R.string.nick_name_default),
                 color = Color.White,
                 style = MaterialTheme.typography.bodyMedium,
                 fontSize = 12.sp,
@@ -237,7 +260,7 @@ fun User() {
             )
 
             Text(
-                text = "17 октября 2024",
+                text = dateHelper.convertFromDateTimezonesSeconds(review.createDateTime),
                 color = colorResource(id = R.color.gray),
                 style = MaterialTheme.typography.bodyMedium,
                 fontSize = 12.sp,
@@ -245,12 +268,26 @@ fun User() {
             )
         }
 
+        val backgroundColor = when (review.rating) {
+            1 -> colorResource(id = R.color.one_star)
+            2 -> colorResource(id = R.color.two_stars)
+            3 -> colorResource(id = R.color.three_stars)
+            4 -> colorResource(id = R.color.four_stars)
+            5 -> colorResource(id = R.color.five_stars)
+            6 -> colorResource(id = R.color.six_stars)
+            7 -> colorResource(id = R.color.seven_stars)
+            8 -> colorResource(id = R.color.eight_stars)
+            9 -> colorResource(id = R.color.nine_stars)
+            10 -> colorResource(id = R.color.nine_stars)
+            else -> colorResource(id = R.color.dark_faded)
+        }
+
         Row(
             modifier = Modifier
                 .height(32.dp)
                 .wrapContentSize()
                 .background(
-                    color = colorResource(id = R.color.nine_stars),
+                    color = backgroundColor,
                     shape = RoundedCornerShape(8.dp)
                 ),
             verticalAlignment = Alignment.CenterVertically
@@ -275,7 +312,7 @@ fun User() {
                         bottom = 6.dp,
                         end = 8.dp
                     ),
-                text = "9.9",
+                text = review.rating.toString(),
                 color = Color.White,
                 style = MaterialTheme.typography.bodyMedium
             )

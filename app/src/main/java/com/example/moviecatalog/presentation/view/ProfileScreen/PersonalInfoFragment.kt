@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.data.model.ProfileModel
 import com.example.moviecatalog.databinding.FragmentPersonalInfoBinding
 import com.example.moviecatalog.domain.utils.DateHelper
-import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 import com.example.moviecatalog.presentation.viewModel.ProfileViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.ProfileViewModelFactory
 
@@ -41,7 +39,7 @@ class PersonalInfoFragment : Fragment() {
         binding.textLogin.setText(profile.nickName)
         binding.textEmail.setText(profile.email)
         binding.textName.setText(profile.name)
-        binding.textDateOfBirth.setText(dateHelper.formatDateString(profile.birthDate))
+        binding.textDateOfBirth.setText(dateHelper.convertFromDateTimezones(profile.birthDate))
         fillToggles(profile)
     }
 

@@ -1,5 +1,6 @@
 package com.example.moviecatalog.presentation.view.MovieDetailsScreen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,7 @@ import com.example.moviecatalog.data.model.MovieDetailsModel
 import com.example.moviecatalog.data.model.MovieElementModel
 
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun RatingSection(movie: MovieDetailsModel) {
     Column(
