@@ -12,6 +12,7 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
+import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Locale
 
@@ -87,8 +88,14 @@ class DateHelper {
     fun convertFromDateTimezonesSeconds(input: String): String {
         println(input)
 
-        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS")
-        val dateTime = LocalDateTime.parse(input, inputFormatter)
+        val inputFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS")
+        val inputFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+
+        val dateTime = try {
+            LocalDateTime.parse(input, inputFormatter1)
+        } catch (e: DateTimeParseException) {
+            LocalDateTime.parse(input, inputFormatter2)
+        }
 
         val outputFormatter = DateTimeFormatterBuilder()
             .appendPattern("d MMMM yyyy")
