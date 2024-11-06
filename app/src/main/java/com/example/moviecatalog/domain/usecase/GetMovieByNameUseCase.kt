@@ -4,7 +4,7 @@ import com.example.moviecatalog.data.model.kinopoisk.FilmSearchByFiltersResponse
 import com.example.moviecatalog.data.repository.KinopoiskRepositoryImpl
 import com.example.moviecatalog.domain.repository.KinopoiskRepository
 
-class GetMovieByNameUseCaseImpl(private val kinopoiskRepository: KinopoiskRepository) {
+class GetMovieByNameUseCase(private val kinopoiskRepository: KinopoiskRepository) {
     fun execute(
         movieName: String,
         callback: (FilmSearchByFiltersResponse_items?, String?) -> Unit
