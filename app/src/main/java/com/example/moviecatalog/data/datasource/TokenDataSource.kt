@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.example.moviecatalog.common.Constants
+import com.example.moviecatalog.common.Constants.TOKEN_PREFERENCE_KEY
 import com.example.moviecatalog.common.Constants.USER_TOKEN_KEY
 
 class TokenDataSource(context: Context) {
@@ -13,7 +14,7 @@ class TokenDataSource(context: Context) {
 
     private val sharedPreferences = EncryptedSharedPreferences.create(
         context,
-        "token_preferences_key",
+        TOKEN_PREFERENCE_KEY,
         masterKeyAlias,
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
