@@ -22,9 +22,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.R
+import com.example.moviecatalog.presentation.viewModel.FavoritesViewModel
 
 @Composable
-fun GenreSection(favoritesGenres: List<GenreModel>) {
+fun GenreSection(viewModel: FavoritesViewModel, favoritesGenres: List<GenreModel>) {
     Text(
         modifier = getGradientTextModifier(),
         text = stringResource(id = R.string.favorite_genres),
@@ -35,14 +36,14 @@ fun GenreSection(favoritesGenres: List<GenreModel>) {
 
     LazyColumn {
         items(favoritesGenres) { genre ->
-            GenreItem(genre.name.replaceFirstChar(Char::uppercaseChar))
+            GenreItem(viewModel, genre)
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
 
 @Composable
-fun GenreItem(genre: String) {
+fun GenreItem(viewModel: FavoritesViewModel, genre: GenreModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,7 +55,7 @@ fun GenreItem(genre: String) {
 
         Text(
             modifier = Modifier.padding(start = 16.dp).weight(1f),
-            text = genre,
+            text = genre.name.replaceFirstChar(Char::uppercaseChar),
             style = MaterialTheme.typography.bodyMedium
         )
 
@@ -66,7 +67,8 @@ fun GenreItem(genre: String) {
             shape = RoundedCornerShape(8.dp),
             contentPadding = PaddingValues(0.dp),
             onClick = {
-                /* Логика удаления из избранного */
+                viewModel.removeGenre(genre)
+                // Нужно обновить список
             }
         ) {
             Icon(
@@ -77,5 +79,4 @@ fun GenreItem(genre: String) {
             )
         }
     }
-
 }

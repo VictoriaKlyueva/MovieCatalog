@@ -14,6 +14,7 @@ import com.example.moviecatalog.domain.usecase.AddFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.FetchFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.FetchFavoriteMoviesUseCase
 import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
+import com.example.moviecatalog.domain.usecase.RemoveGenreUseCase
 import kotlinx.coroutines.launch
 
 class FavoritesViewModel(
@@ -23,6 +24,7 @@ class FavoritesViewModel(
     private val userDataSource = UserDataSource(context)
 
     private val fetchFavoriteGenresUseCase = FetchFavoriteGenresUseCase(userDataSource)
+    private val removeGenreUseCase = RemoveGenreUseCase(userDataSource)
     private val fetchFavoriteMoviesUseCase = FetchFavoriteMoviesUseCase(favoritesMoviesRepository)
 
     private val _favoritesGenres = MutableLiveData<List<GenreModel>>()
@@ -35,6 +37,13 @@ class FavoritesViewModel(
         viewModelScope.launch {
             val genres = fetchFavoriteGenresUseCase.execute()
             _favoritesGenres.postValue(genres)
+        }
+    }
+
+    fun removeGenre(genre: GenreModel) {
+        viewModelScope.launch {
+            removeGenreUseCase(genre)
+            fetchFavoritesGenres()
         }
     }
 

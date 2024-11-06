@@ -112,7 +112,7 @@ fun GenresSection(viewModel: MovieDetailsViewModel, movie: MovieDetailsModel) {
         ) {
             movie.genres.forEachIndexed { index, genre ->
                 if (index < 3) {
-                    Genre(viewModel, genre, index == 0)
+                    Genre(viewModel, genre)
                 }
             }
         }

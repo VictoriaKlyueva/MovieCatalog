@@ -97,7 +97,7 @@ class FavoritesFragment : Fragment() {
                 modifier = Modifier.height(32.dp)
             )
 
-            GenreSection(favoritesGenres)
+            GenreSection(viewModel, favoritesGenres)
 
             Spacer(
                 modifier = Modifier.height(32.dp)

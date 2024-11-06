@@ -18,6 +18,7 @@ import com.example.moviecatalog.domain.usecase.AddFavoriteUseCase
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieByNameUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
+import com.example.moviecatalog.domain.usecase.IsFavoriteGenreUseCase
 import com.example.moviecatalog.domain.usecase.RemoveFavoriteMovieUseCase
 import kotlinx.coroutines.launch
 
@@ -29,6 +30,8 @@ class MovieDetailsViewModel(
     private val kinopoiskRepository = KinopoiskRepositoryImpl()
 
     private val userDataSource = UserDataSource(context)
+
+    private val isFavoriteGenreUseCase = IsFavoriteGenreUseCase(userDataSource)
     private val movieDetailsUseCase = GetMovieDetailsUseCase(movieRepository)
     private val addFavoriteUseCase = AddFavoriteUseCase(favoritesRepository)
     private val addFavoriteGenresUseCase = AddFavoriteGenresUseCase(userDataSource)
