@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.databinding.FragmentWelcomeBinding // Импортируйте сгенерированный класс binding
 import com.example.moviecatalog.presentation.view.SignInScreen.SignInActivity
 import com.example.moviecatalog.presentation.view.SignUpScreen.SignUpActivity
+import com.example.moviecatalog.presentation.viewModel.factory.WelcomeViewModelFactory
 import com.example.moviecatalog.presentation.viewmodels.WelcomeViewModel
 
 class WelcomeFragment : Fragment() {
@@ -19,7 +20,7 @@ class WelcomeFragment : Fragment() {
     private val binding get() = _binding ?:
         throw IllegalStateException("Binding is not initialized")
 
-    private lateinit var welcomeViewModel: WelcomeViewModel
+    private lateinit var viewModel: WelcomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,31 +29,38 @@ class WelcomeFragment : Fragment() {
     ): View {
         _binding = FragmentWelcomeBinding.inflate(inflater, container, false)
 
-        welcomeViewModel = ViewModelProvider(this)[WelcomeViewModel::class.java]
+        setupViewModel()
 
         binding.loginButton.setOnClickListener {
-            welcomeViewModel.onLoginButtonClicked()
+            viewModel.onLoginButtonClicked()
         }
 
         binding.registerButton.setOnClickListener {
-            welcomeViewModel.onRegisterButtonClicked()
+            viewModel.onRegisterButtonClicked()
         }
 
-        welcomeViewModel.goToSignIn.observe(viewLifecycleOwner, Observer { shouldNavigate ->
+        viewModel.goToSignIn.observe(viewLifecycleOwner, Observer { shouldNavigate ->
             if (shouldNavigate == true) {
                 startActivity(Intent(activity, SignInActivity::class.java))
-                welcomeViewModel.resetSignInNavigation()
+                viewModel.resetSignInNavigation()
             }
         })
 
-        welcomeViewModel.goToSignUp.observe(viewLifecycleOwner, Observer { shouldNavigate ->
+        viewModel.goToSignUp.observe(viewLifecycleOwner, Observer { shouldNavigate ->
             if (shouldNavigate == true) {
                 startActivity(Intent(activity, SignUpActivity::class.java))
-                welcomeViewModel.resetSignUpNavigation()
+                viewModel.resetSignUpNavigation()
             }
         })
 
         return binding.root
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            WelcomeViewModelFactory(requireContext())
+        )[WelcomeViewModel::class.java]
     }
 
     override fun onDestroyView() {

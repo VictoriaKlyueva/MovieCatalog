@@ -75,4 +75,8 @@ class AuthRepositoryImpl(
             }
         })
     }
+
+    override fun isAuthenticated(): Boolean {
+        return tokenDataSource.getToken() != null
+    }
 }

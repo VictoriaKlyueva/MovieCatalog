@@ -8,7 +8,6 @@ import kotlin.random.Random
 class GetRandomMovieUseCase(private val movieRepository: MovieResponseRepository) {
     fun execute(callback: (MovieElementModel?, String?) -> Unit) {
         val randomPage = Random.nextInt(1, TOTAL_PAGES)
-        println(randomPage)
 
         movieRepository.getMovies(randomPage) { movies, error ->
             if (error != null) {

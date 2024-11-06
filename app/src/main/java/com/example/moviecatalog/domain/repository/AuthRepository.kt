@@ -9,4 +9,6 @@ interface AuthRepository {
     fun loginUser(user: LoginCredentials, callback: (Boolean) -> Unit)
 
     fun logout(callback: (Boolean) -> Unit)
+
+    fun isAuthenticated(): Boolean
 }
