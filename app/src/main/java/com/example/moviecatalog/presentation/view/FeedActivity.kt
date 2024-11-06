@@ -6,15 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.interceptor.AuthInterceptor
 import com.example.moviecatalog.databinding.ActivityFeedBinding
-import com.example.moviecatalog.domain.utils.NavigationManager
 import com.example.moviecatalog.presentation.view.FavoritesScreen.FavoritesFragment
 import com.example.moviecatalog.presentation.view.FeedScreen.FeedFragment
 import com.example.moviecatalog.presentation.view.MoviesScreen.MoviesFragment
 import com.example.moviecatalog.presentation.view.ProfileScreen.ProfileFragment
 import com.example.moviecatalog.presentation.view.WelcomeScreen.WelcomeActivity
 
-class FeedActivity : AppCompatActivity() {
+class FeedActivity : AppCompatActivity(), AuthInterceptor.AuthFailureHandler {
 
     private var _binding: ActivityFeedBinding? = null
     private val binding get() = _binding ?:
@@ -31,8 +31,6 @@ class FeedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityFeedBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        observeNavigationManager()
 
         initialFragment = intent.getSerializableExtra(EXTRA_INITIAL_FRAGMENT) as? Fragment
         setCurrentFragment(initialFragment ?: feedFragment)
@@ -67,13 +65,10 @@ class FeedActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeNavigationManager() {
-        NavigationManager.navigateToWelcomeScreen.observe(this) { navigate ->
-            if (navigate) {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
-            }
-        }
+    override fun onAuthFailure() {
+        val intent = Intent(this, WelcomeActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     private fun updateBottomNavigation() {

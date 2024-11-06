@@ -12,13 +12,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
     private lateinit var tokenDataSource: TokenDataSource
+    private lateinit var authFailureHandler: AuthInterceptor.AuthFailureHandler
 
     private val interceptor by lazy {
-        AuthInterceptor(tokenDataSource)
+        AuthInterceptor(tokenDataSource, authFailureHandler)
     }
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        setLevel(HttpLoggingInterceptor.Level.BODY)
+        level = HttpLoggingInterceptor.Level.BODY
     }
 
     private val client by lazy {
@@ -40,7 +41,8 @@ object ApiClient {
         retrofit.create(ApiService::class.java)
     }
 
-    fun init(context: Context) {
+    fun init(context: Context, handler: AuthInterceptor.AuthFailureHandler) {
         tokenDataSource = TokenDataSource(context)
+        authFailureHandler = handler
     }
 }

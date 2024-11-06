@@ -12,6 +12,8 @@ object Constants {
     const val USER_ID = "userId"
     const val USER_DATASTORE = "user_datastore"
 
+    const val TOKEN_PREFERENCE_KEY = "token_preferences_key"
+
     const val AUTHORIZATION_HEADER = "Authorization"
     const val BEARER = "Bearer"
 
