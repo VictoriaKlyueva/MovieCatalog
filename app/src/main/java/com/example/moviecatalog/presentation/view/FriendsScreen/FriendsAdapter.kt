@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.example.moviecatalog.data.model.main.ProfileModel
+import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.databinding.ItemFriendBinding
+import com.example.moviecatalog.presentation.viewModel.FriendsViewModel
 
 class FriendsAdapter(
-    private var profiles: MutableList<ProfileModel>
+    private val viewModel: FriendsViewModel,
+    private var friends: List<UserShortModel>
 ) : RecyclerView.Adapter<FriendsAdapter.FriendViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
@@ -20,38 +22,35 @@ class FriendsAdapter(
     }
 
     override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
-        val profile = profiles[position]
+        val profile = friends[position]
         holder.bind(profile, position)
     }
 
-    override fun getItemCount(): Int = profiles.size
+    override fun getItemCount(): Int = friends.size
 
     inner class FriendViewHolder(private val binding: ItemFriendBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("DefaultLocale")
-        fun bind(profile: ProfileModel, position: Int) {
-            // Avatar
-            if (profile.avatarLink != null) {
+        fun bind(profile: UserShortModel, position: Int) {
+            if (profile.avatar != null) {
                 Glide.with(binding.root.context)
-                    .load(profile.avatarLink)
+                    .load(profile.avatar)
                     .transform(CircleCrop())
                     .into(binding.friendAvatar)
             }
 
-            // Name
-            binding.friendName.text = profile.name
+            binding.friendName.text = profile.nickName
 
-            // Минус друг
             binding.deleteFriendButton.setOnClickListener {
-                removeFriend(position)
+                viewModel.removeFriend(friends[position])
+                notifyDataSetChanged()
             }
         }
     }
 
-    private fun removeFriend(position: Int) {
-        profiles.removeAt(position)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, profiles.size)
+    fun updateFriends(friendList: List<UserShortModel>) {
+        this.friends = friendList
+        notifyDataSetChanged()
     }
 }

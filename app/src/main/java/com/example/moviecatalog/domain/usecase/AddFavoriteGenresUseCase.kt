@@ -11,10 +11,4 @@ class AddFavoriteGenresUseCase(
     suspend fun execute(genre: GenreModel) {
         userDataSource.addGenre(genre)
     }
-
-    fun executeBlocking(genre: GenreModel) {
-        runBlocking {
-            execute(genre)
-        }
-    }
 }

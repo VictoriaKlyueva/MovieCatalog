@@ -10,11 +10,13 @@ import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.kinopoisk.FilmSearchByFiltersResponse_items
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
+import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
 import com.example.moviecatalog.data.repository.KinopoiskRepositoryImpl
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 import com.example.moviecatalog.domain.usecase.AddFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.AddFavoriteUseCase
+import com.example.moviecatalog.domain.usecase.AddFriendUseCase
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieByNameUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
@@ -32,6 +34,7 @@ class MovieDetailsViewModel(
     private val userDataSource = UserDataSource(context)
 
     private val isFavoriteGenreUseCase = IsFavoriteGenreUseCase(userDataSource)
+    private val addFriendUseCase = AddFriendUseCase(userDataSource)
     private val movieDetailsUseCase = GetMovieDetailsUseCase(movieRepository)
     private val addFavoriteUseCase = AddFavoriteUseCase(favoritesRepository)
     private val addFavoriteGenresUseCase = AddFavoriteGenresUseCase(userDataSource)
@@ -58,6 +61,12 @@ class MovieDetailsViewModel(
     fun addGenreToFavorites(genre: GenreModel) {
         viewModelScope.launch {
             addFavoriteGenresUseCase.execute(genre)
+        }
+    }
+
+    fun addFriend(friend: UserShortModel) {
+        viewModelScope.launch {
+            addFriendUseCase.execute(friend)
         }
     }
 

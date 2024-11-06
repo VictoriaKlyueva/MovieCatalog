@@ -228,7 +228,7 @@ fun MovieDetailsScreen(
             }
 
             item {
-                ReviewSection(movie.reviews)
+                ReviewSection(viewModel, movie.reviews)
             }
         }
     }

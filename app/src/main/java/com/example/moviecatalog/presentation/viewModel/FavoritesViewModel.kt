@@ -9,11 +9,8 @@ import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
-import com.example.moviecatalog.data.repository.MovieRepositoryImpl
-import com.example.moviecatalog.domain.usecase.AddFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.FetchFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.FetchFavoriteMoviesUseCase
-import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
 import com.example.moviecatalog.domain.usecase.RemoveGenreUseCase
 import kotlinx.coroutines.launch
 

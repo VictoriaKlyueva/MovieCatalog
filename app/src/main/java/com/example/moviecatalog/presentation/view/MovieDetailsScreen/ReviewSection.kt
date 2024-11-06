@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -40,11 +41,12 @@ import androidx.compose.runtime.*
 import com.example.moviecatalog.data.model.main.ReviewModel
 import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.domain.utils.DateHelper
+import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
 import kotlin.math.min
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun ReviewSection(reviews: List<ReviewModel>) {
+fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) {
     var currentReviewIndex by remember { mutableIntStateOf(0) }
 
     val currentReview =
@@ -89,7 +91,7 @@ fun ReviewSection(reviews: List<ReviewModel>) {
 
         // Display Review
         currentReview?.let {
-            Review(it)
+            Review(viewModel, it)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -188,7 +190,7 @@ fun ReviewSection(reviews: List<ReviewModel>) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun Review(review: ReviewModel) {
+fun Review(viewModel: MovieDetailsViewModel, review: ReviewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -198,7 +200,7 @@ fun Review(review: ReviewModel) {
                 shape = RoundedCornerShape(8.dp)
             )
     ) {
-        User(review, review.author)
+        User(viewModel, review, review.author)
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -218,7 +220,7 @@ fun Review(review: ReviewModel) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun User(review: ReviewModel, author: UserShortModel?) {
+fun User(viewModel: MovieDetailsViewModel, review: ReviewModel, author: UserShortModel?) {
 
     val dateHelper = remember { DateHelper() }
 
@@ -235,7 +237,10 @@ fun User(review: ReviewModel, author: UserShortModel?) {
             modifier = Modifier
                 .size(32.dp)
                 .clip(CircleShape)
-                .background(Color.Transparent),
+                .background(Color.Transparent)
+                .clickable {
+                    viewModel.addFriend(author!!)
+                },
             painter = painterResource(id = R.drawable.avatar_default),
             contentDescription = "User avatar",
             contentScale = ContentScale.Crop
