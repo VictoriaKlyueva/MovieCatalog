@@ -28,8 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.MovieDetailsModel
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieDetailsModel
 
 @Composable
 fun DirectorSection(movie: MovieDetailsModel) {

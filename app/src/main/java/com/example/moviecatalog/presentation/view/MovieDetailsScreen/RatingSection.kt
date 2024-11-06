@@ -26,8 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.MovieDetailsModel
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieDetailsModel
 
 
 @SuppressLint("DefaultLocale")

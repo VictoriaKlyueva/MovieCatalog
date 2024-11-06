@@ -37,13 +37,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviecatalog.R
 import androidx.compose.runtime.*
-import com.example.moviecatalog.data.model.ReviewModel
-import com.example.moviecatalog.data.model.UserShortModel
+import com.example.moviecatalog.data.model.main.ReviewModel
+import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.domain.utils.DateHelper
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeFormatterBuilder
-import java.util.Locale
 import kotlin.math.min
 
 @RequiresApi(Build.VERSION_CODES.O)

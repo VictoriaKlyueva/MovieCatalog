@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.GenreModel
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.GenreModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.presentation.ui.*
 import com.example.moviecatalog.presentation.viewModel.FavoritesViewModel
 

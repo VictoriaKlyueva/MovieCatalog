@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.databinding.ItemMyFavoriteMovieBinding
 
 class MyFavoriteMoviesAdapter(

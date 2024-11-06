@@ -3,7 +3,6 @@ package com.example.moviecatalog.presentation.view.MovieDetailsScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.MovieDetailsModel
+import com.example.moviecatalog.data.model.main.MovieDetailsModel
 
 @Composable
 fun FinanceSection(movie: MovieDetailsModel) {

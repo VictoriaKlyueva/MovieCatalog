@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentAllMoviesBinding
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 

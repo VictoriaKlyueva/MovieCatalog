@@ -1,13 +1,13 @@
 package com.example.moviecatalog.data.api.service
 
-import com.example.moviecatalog.data.model.LoginCredentials
-import com.example.moviecatalog.data.model.MovieDetailsModel
-import com.example.moviecatalog.data.model.MovieResponse
-import com.example.moviecatalog.data.model.MoviesListModel
-import com.example.moviecatalog.data.model.ProfileModel
-import com.example.moviecatalog.data.model.ReviewModifyModel
+import com.example.moviecatalog.data.model.main.LoginCredentials
+import com.example.moviecatalog.data.model.main.MovieDetailsModel
+import com.example.moviecatalog.data.model.main.MovieResponse
+import com.example.moviecatalog.data.model.main.MoviesListModel
+import com.example.moviecatalog.data.model.main.ProfileModel
+import com.example.moviecatalog.data.model.main.ReviewModifyModel
 import com.example.moviecatalog.domain.token.Token
-import com.example.moviecatalog.data.model.UserRegisterModel
+import com.example.moviecatalog.data.model.main.UserRegisterModel
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -26,7 +26,6 @@ interface ApiService {
     @POST("api/account/logout")
     fun logout(): Call<Void>
 
-
     @GET("api/favorites")
     fun getFavorites(): Call<MoviesListModel>
 
@@ -36,13 +35,11 @@ interface ApiService {
     @DELETE("api/favorites/{id}/delete")
     fun deleteFavorite(@Path("id") id: String): Call<Void>
 
-
     @GET("api/movies/{page}")
     fun getMovies(@Path("page") page: Int): Call<MovieResponse>
 
     @GET("api/movies/details/{id}")
     fun getMoviesDetails(@Path("id") id: String): Call<MovieDetailsModel>
-
 
     @POST("/api/movie/{movieId}/review/add")
     fun postReview(
@@ -62,7 +59,6 @@ interface ApiService {
         @Path("movieId") movieId: String,
         @Path("id") id: String
     ): Call<Void>
-
 
     @GET("/api/account/profile")
     fun getProfile(): Call<ProfileModel>

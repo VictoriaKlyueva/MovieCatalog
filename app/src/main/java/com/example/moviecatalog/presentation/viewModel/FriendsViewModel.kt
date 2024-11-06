@@ -3,7 +3,7 @@ package com.example.moviecatalog.presentation.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.moviecatalog.data.model.ProfileModel
+import com.example.moviecatalog.data.model.main.ProfileModel
 
 class FriendsViewModel: ViewModel() {
     //private val profileRepository = UserRepository()

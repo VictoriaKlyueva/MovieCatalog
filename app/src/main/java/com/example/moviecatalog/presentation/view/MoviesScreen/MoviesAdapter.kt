@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.databinding.ItemMovieEnhancedBinding
 import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
 

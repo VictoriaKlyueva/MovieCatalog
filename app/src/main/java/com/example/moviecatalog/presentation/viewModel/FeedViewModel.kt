@@ -3,10 +3,8 @@ package com.example.moviecatalog.presentation.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.moviecatalog.data.model.MovieElementModel
-import com.example.moviecatalog.data.model.ProfileModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
-import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
 import com.example.moviecatalog.domain.usecase.GetRandomMovieUseCase
 
 class FeedViewModel : ViewModel() {

@@ -1,6 +1,6 @@
 package com.example.moviecatalog.domain.usecase
 
-import com.example.moviecatalog.data.model.ProfileModel
+import com.example.moviecatalog.data.model.main.ProfileModel
 import com.example.moviecatalog.data.repository.UserRepositoryImpl
 
 class GetProfileUseCase(private val userRepository: UserRepositoryImpl) {

@@ -3,14 +3,12 @@ package com.example.moviecatalog.presentation.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.moviecatalog.data.model.MovieDetailsModel
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieDetailsModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 import com.example.moviecatalog.domain.usecase.AddFavoriteUseCase
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
-import com.example.moviecatalog.domain.usecase.GetRandomMovieUseCase
 import com.example.moviecatalog.domain.usecase.RemoveFavoriteMovieUseCase
 
 class MovieDetailsViewModel : ViewModel() {

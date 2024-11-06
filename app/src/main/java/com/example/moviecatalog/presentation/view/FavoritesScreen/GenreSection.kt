@@ -1,7 +1,6 @@
 package com.example.moviecatalog.presentation.view.FavoritesScreen
 
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,7 +20,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.moviecatalog.data.model.GenreModel
+import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.R
 
 @Composable

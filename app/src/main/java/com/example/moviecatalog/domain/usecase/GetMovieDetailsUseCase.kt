@@ -1,6 +1,6 @@
 package com.example.moviecatalog.domain.usecase
 
-import com.example.moviecatalog.data.model.MovieDetailsModel
+import com.example.moviecatalog.data.model.main.MovieDetailsModel
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 
 class GetMovieDetailsUseCase(

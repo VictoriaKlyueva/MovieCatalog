@@ -1,9 +1,9 @@
 package com.example.moviecatalog.data.repository
 
 import com.example.moviecatalog.data.api.client.ApiClient
-import com.example.moviecatalog.data.model.MovieDetailsModel
-import com.example.moviecatalog.data.model.MovieElementModel
-import com.example.moviecatalog.data.model.MovieResponse
+import com.example.moviecatalog.data.model.main.MovieDetailsModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieResponse
 import com.example.moviecatalog.domain.repository.MovieResponseRepository
 import retrofit2.Call
 import retrofit2.Callback

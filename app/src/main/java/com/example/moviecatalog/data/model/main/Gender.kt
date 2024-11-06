@@ -1,4 +1,4 @@
-package com.example.moviecatalog.data.model
+package com.example.moviecatalog.data.model.main
 
 enum class Gender(val value: Int) {
     MALE(1),

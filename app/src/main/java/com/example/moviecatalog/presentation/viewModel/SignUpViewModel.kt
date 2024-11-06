@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.datasource.TokenDataSource
-import com.example.moviecatalog.data.model.UserRegisterModel
+import com.example.moviecatalog.data.model.main.UserRegisterModel
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.domain.usecase.RegisterUseCase
 import com.example.moviecatalog.domain.utils.ValidationUtils

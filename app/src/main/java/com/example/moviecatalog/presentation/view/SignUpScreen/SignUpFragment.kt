@@ -13,7 +13,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.UserRegisterModel
+import com.example.moviecatalog.data.model.main.UserRegisterModel
 import com.example.moviecatalog.databinding.FragmentSignUpBinding
 import com.example.moviecatalog.domain.utils.DateHelper
 import com.example.moviecatalog.domain.utils.GenderToggleHandler

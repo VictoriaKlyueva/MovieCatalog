@@ -1,6 +1,6 @@
 package com.example.moviecatalog.domain.usecase
 
-import com.example.moviecatalog.data.model.LoginCredentials
+import com.example.moviecatalog.data.model.main.LoginCredentials
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 
 class LoginUseCase(

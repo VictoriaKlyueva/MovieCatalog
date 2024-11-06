@@ -2,13 +2,10 @@ package com.example.moviecatalog.data.repository
 
 import com.example.moviecatalog.data.api.client.ApiClient
 import com.example.moviecatalog.data.datasource.UserDataSource
-import com.example.moviecatalog.data.model.ProfileModel
+import com.example.moviecatalog.data.model.main.ProfileModel
 import com.example.moviecatalog.domain.repository.UserRepository
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

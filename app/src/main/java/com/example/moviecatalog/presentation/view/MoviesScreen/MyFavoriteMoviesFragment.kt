@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMyFavoritesBinding
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
 

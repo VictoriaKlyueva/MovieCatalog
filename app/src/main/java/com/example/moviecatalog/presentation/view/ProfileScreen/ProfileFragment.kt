@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.ProfileModel
+import com.example.moviecatalog.data.model.main.ProfileModel
 import com.example.moviecatalog.databinding.FragmentProfileBinding
 import com.example.moviecatalog.domain.utils.DateHelper
 import com.example.moviecatalog.presentation.view.FriendsScreen.FriendsActivity

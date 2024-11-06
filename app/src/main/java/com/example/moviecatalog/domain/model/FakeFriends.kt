@@ -1,7 +1,6 @@
 package com.example.moviecatalog.domain.model
 
-import com.example.moviecatalog.data.model.Gender
-import com.example.moviecatalog.data.model.ProfileModel
+import com.example.moviecatalog.data.model.main.ProfileModel
 
 object FakeFriends {
     val friends = mutableListOf(

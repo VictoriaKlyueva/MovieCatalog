@@ -1,6 +1,6 @@
 package com.example.moviecatalog.domain.usecase
 
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.domain.repository.MovieResponseRepository
 
 class GetAllMoviesUseCase(private val movieRepository: MovieResponseRepository) {

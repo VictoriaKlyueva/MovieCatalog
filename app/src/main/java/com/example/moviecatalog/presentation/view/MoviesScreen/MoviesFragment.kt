@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMoviesBinding
 import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel

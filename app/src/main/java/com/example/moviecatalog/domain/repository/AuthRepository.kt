@@ -1,7 +1,7 @@
 package com.example.moviecatalog.domain.repository
 
-import com.example.moviecatalog.data.model.LoginCredentials
-import com.example.moviecatalog.data.model.UserRegisterModel
+import com.example.moviecatalog.data.model.main.LoginCredentials
+import com.example.moviecatalog.data.model.main.UserRegisterModel
 
 interface AuthRepository {
     fun registerUser(user: UserRegisterModel, callback: (Boolean) -> Unit)

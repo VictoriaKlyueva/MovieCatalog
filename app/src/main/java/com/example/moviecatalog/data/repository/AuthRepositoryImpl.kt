@@ -2,9 +2,9 @@ package com.example.moviecatalog.data.repository
 
 import com.example.moviecatalog.data.api.client.ApiClient
 import com.example.moviecatalog.data.datasource.TokenDataSource
-import com.example.moviecatalog.data.model.LoginCredentials
+import com.example.moviecatalog.data.model.main.LoginCredentials
 import com.example.moviecatalog.domain.token.Token
-import com.example.moviecatalog.data.model.UserRegisterModel
+import com.example.moviecatalog.data.model.main.UserRegisterModel
 import com.example.moviecatalog.domain.repository.AuthRepository
 import retrofit2.Call
 import retrofit2.Callback

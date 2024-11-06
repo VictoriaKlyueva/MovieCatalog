@@ -24,8 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.MovieDetailsModel
-import com.example.moviecatalog.domain.utils.DateHelper
+import com.example.moviecatalog.data.model.main.MovieDetailsModel
 
 @Composable
 fun InfoSection(movie: MovieDetailsModel) {

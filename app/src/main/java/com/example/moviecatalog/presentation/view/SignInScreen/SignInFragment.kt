@@ -6,13 +6,12 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.LoginCredentials
+import com.example.moviecatalog.data.model.main.LoginCredentials
 import com.example.moviecatalog.databinding.FragmentSignInBinding
 import com.example.moviecatalog.presentation.view.FeedActivity
 import com.example.moviecatalog.presentation.view.utils.AlertHelper

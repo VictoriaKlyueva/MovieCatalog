@@ -14,7 +14,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,12 +27,9 @@ import androidx.compose.ui.unit.*
 import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.model.MovieDetailsModel
-import com.example.moviecatalog.data.model.MovieElementModel
-import com.example.moviecatalog.domain.utils.DateHelper
+import com.example.moviecatalog.data.model.main.MovieDetailsModel
 import com.example.moviecatalog.presentation.ui.Theme
 import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
-import java.util.Date
 
 class MovieDetailsActivity : ComponentActivity() {
 

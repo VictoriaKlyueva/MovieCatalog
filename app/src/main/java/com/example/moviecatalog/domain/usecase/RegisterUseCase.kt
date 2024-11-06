@@ -1,6 +1,6 @@
 package com.example.moviecatalog.domain.usecase
 
-import com.example.moviecatalog.data.model.UserRegisterModel
+import com.example.moviecatalog.data.model.main.UserRegisterModel
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 
 class RegisterUseCase(

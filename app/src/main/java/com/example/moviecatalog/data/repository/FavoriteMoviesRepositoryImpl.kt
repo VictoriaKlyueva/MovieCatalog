@@ -1,8 +1,8 @@
 package com.example.moviecatalog.data.repository
 
 import com.example.moviecatalog.data.api.client.ApiClient
-import com.example.moviecatalog.data.model.MovieElementModel
-import com.example.moviecatalog.data.model.MoviesListModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
+import com.example.moviecatalog.data.model.main.MoviesListModel
 import com.example.moviecatalog.domain.repository.FavoritesMoviesRepository
 import retrofit2.Call
 import retrofit2.Callback

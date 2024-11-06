@@ -1,7 +1,7 @@
 package com.example.moviecatalog.domain.usecase
 
-import com.example.moviecatalog.data.model.GenreModel
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.GenreModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 
 class FetchFavoriteGenresUseCase(private val movieRepository: MovieRepositoryImpl) {

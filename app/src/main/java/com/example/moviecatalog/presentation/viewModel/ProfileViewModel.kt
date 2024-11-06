@@ -6,8 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.datasource.UserDataSource
-import com.example.moviecatalog.data.model.MovieElementModel
-import com.example.moviecatalog.data.model.ProfileModel
+import com.example.moviecatalog.data.model.main.ProfileModel
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.data.repository.UserRepositoryImpl
 import com.example.moviecatalog.domain.model.EmptyProfile

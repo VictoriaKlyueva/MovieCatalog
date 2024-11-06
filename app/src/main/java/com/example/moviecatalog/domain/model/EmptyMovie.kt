@@ -1,6 +1,6 @@
 package com.example.moviecatalog.domain.model
 
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 
 object EmptyMovie {
     val movie = MovieElementModel (

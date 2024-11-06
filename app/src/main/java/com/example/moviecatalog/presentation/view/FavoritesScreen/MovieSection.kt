@@ -23,7 +23,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.example.moviecatalog.data.model.MovieElementModel
+import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.R
 import com.example.moviecatalog.presentation.common.Constants.MOVIE_ID
 import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
