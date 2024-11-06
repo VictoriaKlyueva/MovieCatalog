@@ -15,7 +15,6 @@ class GetMovieByNameUseCase(private val kinopoiskRepository: KinopoiskRepository
             }
 
             val movie = items?.find { it.nameRu?.let { nameRu ->
-                println("Comparing: $nameRu with $movieName")
                 nameRu.equals(movieName, ignoreCase = true)
             } == true }
             callback(movie, null)
