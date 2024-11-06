@@ -47,10 +47,15 @@ class MoviesViewModel : ViewModel() {
         }
     }
 
-    fun fetchMovies(page: Int = (1..TOTAL_PAGES).random()) {
+    fun fetchMovies(page: Int = (1..TOTAL_PAGES).random(), isExcludeFirstFive: Boolean = false) {
         movieResponseUseCase.execute(page) { movies, error ->
             if (error == null) {
-                _movies.postValue(movies ?: emptyList())
+                _movies.postValue(
+                    if (isExcludeFirstFive)
+                        movies?.slice(5..5) ?: emptyList()
+                    else
+                        movies ?: emptyList()
+                )
             } else {
                 println("Ошибка получения данных: $error")
                 _movies.postValue(emptyList())

@@ -22,7 +22,7 @@ class AllMoviesFragment : Fragment() {
     private var allMovies: List<MovieElementModel> = emptyList()
     private lateinit var allMoviesAdapter: AllMoviesAdapter
 
-    private var currentPage = 2
+    private var currentPage = 1
     private var isLoading = false
 
     override fun onCreateView(
@@ -69,7 +69,7 @@ class AllMoviesFragment : Fragment() {
         setupRecyclerView()
         observeMovies()
 
-        viewModel.fetchMovies(currentPage)
+        viewModel.fetchMovies(currentPage, true)
     }
 
     private fun observeMovies() {
