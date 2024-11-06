@@ -14,6 +14,8 @@ object Constants {
 
     const val TOKEN_PREFERENCE_KEY = "token_preferences_key"
 
+    const val GENRES = "genres"
+
     const val AUTHORIZATION_HEADER = "Authorization"
     const val BEARER = "Bearer"
 

@@ -17,15 +17,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.presentation.ui.*
 import com.example.moviecatalog.presentation.viewModel.FavoritesViewModel
+import com.example.moviecatalog.presentation.viewModel.SignInViewModel
+import com.example.moviecatalog.presentation.viewModel.factory.FavoritesViewModelFactory
+import com.example.moviecatalog.presentation.viewModel.factory.SignInViewModelFactory
 
 class FavoritesFragment : Fragment() {
 
-    private val favoritesViewModel: FavoritesViewModel by viewModels()
+    private lateinit var viewModel: FavoritesViewModel
 
     private var favoritesGenres: List<GenreModel> by mutableStateOf(emptyList())
     private var favoriteMovies: List<MovieElementModel> by mutableStateOf(emptyList())
@@ -35,6 +39,8 @@ class FavoritesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setupViewModel()
+
         return ComposeView(requireContext()).apply {
             setContent {
                 Theme {
@@ -42,6 +48,13 @@ class FavoritesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            FavoritesViewModelFactory(requireContext())
+        )[FavoritesViewModel::class.java]
     }
 
     override fun onViewCreated(
@@ -52,15 +65,15 @@ class FavoritesFragment : Fragment() {
 
         observeData()
 
-        favoritesViewModel.fetchFavoritesGenres()
-        favoritesViewModel.fetchFavoritesMovies()
+        viewModel.fetchFavoritesGenres()
+        viewModel.fetchFavoritesMovies()
     }
 
     private fun observeData() {
-        favoritesViewModel.favoritesGenres.observe(viewLifecycleOwner) {
+        viewModel.favoritesGenres.observe(viewLifecycleOwner) {
             favoritesGenres = it ?: emptyList()
         }
-        favoritesViewModel.favoritesMovies.observe(viewLifecycleOwner) {
+        viewModel.favoritesMovies.observe(viewLifecycleOwner) {
             favoriteMovies = it ?: emptyList()
         }
     }
