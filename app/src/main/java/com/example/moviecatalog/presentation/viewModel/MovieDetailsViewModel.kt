@@ -3,27 +3,36 @@ package com.example.moviecatalog.presentation.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecatalog.common.Constants.EMPTY_STRING
+import com.example.moviecatalog.data.model.kinopoisk.FilmSearchByFiltersResponse_items
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
+import com.example.moviecatalog.data.repository.KinopoiskRepositoryImpl
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 import com.example.moviecatalog.domain.usecase.AddFavoriteUseCase
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
+import com.example.moviecatalog.domain.usecase.GetMovieByNameUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
 import com.example.moviecatalog.domain.usecase.RemoveFavoriteMovieUseCase
 
 class MovieDetailsViewModel : ViewModel() {
     private val movieRepository = MovieRepositoryImpl()
     private val favoritesRepository = FavoriteMoviesRepositoryImpl()
+    private val kinopoiskRepository = KinopoiskRepositoryImpl()
 
     private val movieDetailsUseCase = GetMovieDetailsUseCase(movieRepository)
     private val addFavoriteUseCase = AddFavoriteUseCase(favoritesRepository)
     private val checkFavoriteMovieUseCase = CheckFavoriteMovieUseCase(favoritesRepository)
     private val removeFavoriteMovieUseCase = RemoveFavoriteMovieUseCase(favoritesRepository)
+    private val getMovieByNameUseCase = GetMovieByNameUseCase(kinopoiskRepository)
 
     private val _movie = MutableLiveData<MovieDetailsModel?>()
     val movie: LiveData<MovieDetailsModel?> get() = _movie
 
-    private val _isFavorite = MutableLiveData<Boolean>(false)
+    private val _movieEnhanced = MutableLiveData<FilmSearchByFiltersResponse_items?>()
+    val movieEnhanced: LiveData<FilmSearchByFiltersResponse_items?> get() = _movieEnhanced
+
+    private val _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean> get() = _isFavorite
 
     private val _errorMessage = MutableLiveData<String?>()
@@ -43,11 +52,30 @@ class MovieDetailsViewModel : ViewModel() {
         }
     }
 
+    private fun getMovieByName() {
+        _movie.value?.let { movieDetails ->
+            val movieName = movieDetails.name ?: EMPTY_STRING
+            getMovieByNameUseCase.execute(movieName) { movie, error ->
+
+                if (error != null) {
+                    println("Ошибка: $error")
+                    _errorMessage.postValue(error)
+                } else {
+                    println("Найденный фильм: $movie")
+                    _movieEnhanced.postValue(movie)
+                }
+            }
+        } ?: run {
+            println("Фильм не доступен")
+        }
+    }
+
     fun fetchMovie(movieId: String) {
         movieDetailsUseCase.execute(movieId) { details, error ->
             if (details != null) {
                 _movie.value = details
                 _errorMessage.value = null
+                getMovieByName()
             } else {
                 _movie.value = null
                 _errorMessage.value = error

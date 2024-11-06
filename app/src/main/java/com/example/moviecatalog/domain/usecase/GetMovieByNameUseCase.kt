@@ -14,7 +14,10 @@ class GetMovieByNameUseCase(private val kinopoiskRepository: KinopoiskRepository
                 callback(null, error)
             }
 
-            val movie = items?.find { it.nameRu?.equals(movieName, ignoreCase = true) == true }
+            val movie = items?.find { it.nameRu?.let { nameRu ->
+                println("Comparing: $nameRu with $movieName")
+                nameRu.equals(movieName, ignoreCase = true)
+            } == true }
             callback(movie, null)
         }
     }

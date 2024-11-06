@@ -1,7 +1,7 @@
 package com.example.moviecatalog.domain.usecase
 
 import com.example.moviecatalog.data.model.main.MovieElementModel
-import com.example.moviecatalog.domain.conmmon.Constants.TOTAL_PAGES
+import com.example.moviecatalog.domain.common.Constants.TOTAL_PAGES
 import com.example.moviecatalog.domain.repository.MovieResponseRepository
 import kotlin.random.Random
 

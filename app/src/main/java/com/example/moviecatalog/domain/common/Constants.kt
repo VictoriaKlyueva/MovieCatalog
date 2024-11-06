@@ -1,4 +1,4 @@
-package com.example.moviecatalog.domain.conmmon
+package com.example.moviecatalog.domain.common
 
 object Constants {
 

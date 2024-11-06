@@ -218,7 +218,7 @@ fun Review(review: ReviewModel) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun User(review: ReviewModel, author: UserShortModel) {
+fun User(review: ReviewModel, author: UserShortModel?) {
 
     val dateHelper = remember { DateHelper() }
 
@@ -248,7 +248,7 @@ fun User(review: ReviewModel, author: UserShortModel) {
                 .weight(1f)
         ) {
             Text(
-                text = author.nickName ?: stringResource(id = R.string.nick_name_default),
+                text = author?.nickName ?: stringResource(id = R.string.nick_name_default),
                 color = Color.White,
                 style = MaterialTheme.typography.bodyMedium,
                 fontSize = 12.sp,

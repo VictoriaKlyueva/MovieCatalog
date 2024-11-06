@@ -26,12 +26,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.moviecatalog.R
+import com.example.moviecatalog.common.Constants.EMPTY_STRING
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
 
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun RatingSection(movie: MovieDetailsModel) {
+fun RatingSection(
+    movie: MovieDetailsModel,
+    ratingKinopoisk: Float?,
+    ratingImdb: Float?
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -89,7 +94,7 @@ fun RatingSection(movie: MovieDetailsModel) {
 
             MovieServiceRating(
                 painterResource(id = R.drawable.ic_kinopoisk),
-                "10",
+                ratingKinopoisk?.toString() ?: EMPTY_STRING,
                 modifier = Modifier
                     .width(IntrinsicSize.Min)
                     .background(
@@ -102,7 +107,7 @@ fun RatingSection(movie: MovieDetailsModel) {
 
             MovieServiceRating(
                 painterResource(id = R.drawable.ic_imdb),
-                "10",
+                ratingImdb?.toString() ?: EMPTY_STRING,
                 modifier = Modifier
                     .width(IntrinsicSize.Min)
                     .background(

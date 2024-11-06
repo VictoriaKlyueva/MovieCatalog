@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
-import com.example.moviecatalog.domain.conmmon.Constants.TOTAL_PAGES
+import com.example.moviecatalog.domain.common.Constants.TOTAL_PAGES
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
 import com.example.moviecatalog.domain.usecase.GetFavoritesMoviesUseCase
 import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
