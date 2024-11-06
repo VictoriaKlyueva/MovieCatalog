@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieElementModel
@@ -40,6 +41,16 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         setupViewModel()
+
+        viewModel.navigateToPlaceholder.observe(viewLifecycleOwner) { navigate ->
+            if (navigate) {
+                val navController = findNavController()
+
+                navController.navigate(R.id.favoritesPlaceholderFragment)
+
+                viewModel.resetNavigation()
+            }
+        }
 
         return ComposeView(requireContext()).apply {
             setContent {

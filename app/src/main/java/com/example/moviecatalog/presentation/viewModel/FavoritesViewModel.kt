@@ -33,10 +33,26 @@ class FavoritesViewModel(
     private val _favoritesMovies = MutableLiveData<List<MovieElementModel>>()
     val favoritesMovies: LiveData<List<MovieElementModel>> get() = _favoritesMovies
 
+    private val _navigateToPlaceholder = MutableLiveData<Boolean>()
+    val navigateToPlaceholder: LiveData<Boolean> get() = _navigateToPlaceholder
+
+    private fun checkIfEmpty() {
+        if (_favoritesGenres.value.isNullOrEmpty() && _favoritesMovies.value.isNullOrEmpty()) {
+            _navigateToPlaceholder.postValue(true)
+        } else {
+            _navigateToPlaceholder.postValue(false)
+        }
+    }
+
+    fun resetNavigation() {
+        _navigateToPlaceholder.postValue(false)
+    }
+
     fun fetchFavoritesGenres() {
         viewModelScope.launch {
             val genres = fetchFavoriteGenresUseCase.execute()
             _favoritesGenres.postValue(genres)
+            checkIfEmpty()
         }
     }
 
@@ -44,6 +60,7 @@ class FavoritesViewModel(
         viewModelScope.launch {
             removeGenreUseCase(genre)
             fetchFavoritesGenres()
+            checkIfEmpty()
         }
     }
 
@@ -59,6 +76,7 @@ class FavoritesViewModel(
                 println("Ошибка получения данных: $error")
                 _favoritesMovies.postValue(emptyList())
             }
+            checkIfEmpty()
         }
     }
 }
