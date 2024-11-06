@@ -74,7 +74,10 @@ fun RatingSection(movie: MovieDetailsModel) {
         ) {
             MovieServiceRating(
                 painterResource(id = R.drawable.ic_logo_simple),
-                String.format("%.1f", movie.reviews.map { it.rating }.average()),
+                String.format(
+                    "%.1f",
+                    movie.reviews.map { it.rating }.average()
+                ).replace(',', '.'),
                 modifier = Modifier
                     .weight(1f)
                     .background(
