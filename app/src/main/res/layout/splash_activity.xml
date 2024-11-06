@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="@color/dark">
 
     <ImageView
-        android:id="@+id/splash_image"
-        android:layout_width="335dp"
-        android:layout_height="369dp"
-        android:src="@drawable/ic_launcher" />
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_full"
+        android:layout_centerInParent="true" />
 </RelativeLayout>
