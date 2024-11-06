@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -70,7 +71,8 @@ class FavoritesFragment : Fragment() {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(colorResource(id = R.color.dark))
-                .padding(24.dp),
+                .padding(24.dp)
+                .clickable {  },
             horizontalAlignment = Alignment.Start
         ) {
             Text(
