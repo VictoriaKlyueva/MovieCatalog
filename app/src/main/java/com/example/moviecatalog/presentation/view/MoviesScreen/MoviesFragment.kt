@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.moviecatalog.R
+import com.example.moviecatalog.common.Constants.MOVIES_NOT_FOUND
+import com.example.moviecatalog.common.Constants.MOVIE_ID
+import com.example.moviecatalog.common.Constants.MOVIE_RECEIVING_ERROR
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMoviesBinding
 import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
@@ -107,7 +110,7 @@ class MoviesFragment : Fragment() {
         moviesViewModel.movies.observe(viewLifecycleOwner) { result ->
             when {
                 result.isNullOrEmpty() -> {
-                    println("No movies found")
+                    println(MOVIES_NOT_FOUND)
                 }
                 else -> {
                     moviesAdapter.updateMovies(result.take(5))
@@ -119,17 +122,16 @@ class MoviesFragment : Fragment() {
 
     private fun goToMovieScreen(movieId: String) {
         val intent = Intent(requireContext(), MovieDetailsActivity::class.java)
-        intent.putExtra("MOVIE_ID", movieId)
+        intent.putExtra(MOVIE_ID, movieId)
         startActivity(intent)
     }
 
     private fun onRandomMovieButtonClicked() {
         moviesViewModel.getRandomMovie { randomMovie, error ->
             if (error != null || randomMovie == null) {
-                println("Ошибка получения фильма")
+                println(MOVIE_RECEIVING_ERROR)
             }
             else {
-                println("Случайный фильм: ${randomMovie.name}")
                 goToMovieScreen(randomMovie.id)
             }
         }

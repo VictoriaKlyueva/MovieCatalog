@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.moviecatalog.common.Constants.BINDING_IS_NOT_INITIALIZED
 import com.example.moviecatalog.databinding.FragmentWelcomeBinding // Импортируйте сгенерированный класс binding
 import com.example.moviecatalog.presentation.view.SignInScreen.SignInActivity
 import com.example.moviecatalog.presentation.view.SignUpScreen.SignUpActivity
@@ -18,7 +19,7 @@ class WelcomeFragment : Fragment() {
 
     private var _binding: FragmentWelcomeBinding? = null
     private val binding get() = _binding ?:
-        throw IllegalStateException("Binding is not initialized")
+        throw IllegalStateException(BINDING_IS_NOT_INITIALIZED)
 
     private lateinit var viewModel: WelcomeViewModel
 

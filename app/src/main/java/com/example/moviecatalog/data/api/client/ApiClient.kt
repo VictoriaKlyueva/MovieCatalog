@@ -11,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
+
     private lateinit var tokenDataSource: TokenDataSource
     private lateinit var authFailureHandler: AuthInterceptor.AuthFailureHandler
 

@@ -13,7 +13,7 @@ import androidx.compose.ui.res.colorResource
 import com.example.moviecatalog.R
 
 @Composable
-fun GetColorScheme(): ColorScheme {
+fun getColorScheme(): ColorScheme {
     return lightColorScheme(
         primary = colorResource(id = R.color.dark),
         secondary = colorResource(id = R.color.dark_faded),
@@ -25,7 +25,7 @@ fun GetColorScheme(): ColorScheme {
 fun Theme(
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = GetColorScheme()
+    val colorScheme = getColorScheme()
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {

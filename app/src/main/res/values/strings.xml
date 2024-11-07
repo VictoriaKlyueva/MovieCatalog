@@ -60,9 +60,13 @@
     <string name="budget">Бюджет</string>
     <string name="fees">Сборы в мире</string>
     <string name="dot_divider"> • </string>
-    <string name="good_morning">Доброе утро</string>
-    <string name="good_day">Добрый день</string>
-    <string name="good_evening">Добрый вечер</string>
-    <string name="good_night">Доброй ночи</string>
+    <string name="good_morning">Доброе утро,</string>
+    <string name="good_day">Добрый день,</string>
+    <string name="good_evening">Добрый вечер,</string>
+    <string name="good_night">Доброй ночи,</string>
     <string name="nick_name_default">Анонимный пользователь</string>
+    <string name="friends_like_plural">Нравится %d вашим друзьям</string>
+    <string name="friends_like_singular">Нравится %d вашему другу</string>
+    <string name="error">Ошибка</string>
+    <string name="incorrect_login_and_password">Неверные логин и пароль</string>
 </resources>

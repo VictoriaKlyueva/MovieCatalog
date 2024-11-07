@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.R
+import com.example.moviecatalog.common.Constants.BINDING_IS_NOT_INITIALIZED
 import com.example.moviecatalog.data.model.main.LoginCredentials
 import com.example.moviecatalog.databinding.FragmentSignInBinding
 import com.example.moviecatalog.presentation.view.FeedActivity
@@ -23,7 +24,7 @@ class SignInFragment : Fragment() {
 
     private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding ?:
-    throw IllegalStateException("Binding is not initialized")
+    throw IllegalStateException(BINDING_IS_NOT_INITIALIZED)
 
     private lateinit var viewModel: SignInViewModel
 
@@ -64,7 +65,10 @@ class SignInFragment : Fragment() {
         EditTextHelper.setClearTextOnIconTouch(binding.editTextLogin)
 
         EditTextHelper.hideIcon(binding.editTextPassword)
-        val passwordIcon = if (binding.editTextPassword.transformationMethod == PasswordTransformationMethod.getInstance())
+        val passwordIcon = if (
+            binding.editTextPassword.transformationMethod ==
+            PasswordTransformationMethod.getInstance()
+            )
             R.drawable.ic_show_password
         else
             R.drawable.ic_hide_password
@@ -104,8 +108,8 @@ class SignInFragment : Fragment() {
             }, {
                 alertHelper.showAlert(
                     requireContext(),
-                    "Ошибка",
-                    "Неверные логин или пароль"
+                    getString(R.string.error),
+                    getString(R.string.incorrect_login_and_password)
                 )
             })
         }

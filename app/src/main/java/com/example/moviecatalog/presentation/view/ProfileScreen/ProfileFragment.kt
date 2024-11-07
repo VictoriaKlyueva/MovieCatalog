@@ -21,13 +21,14 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
+import com.example.moviecatalog.common.Constants.BINDING_IS_NOT_INITIALIZED
 import com.example.moviecatalog.common.Constants.PICK_IMAGE_REQUEST
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() =
-        _binding ?: throw IllegalStateException("Binding is not initialized")
+        _binding ?: throw IllegalStateException(BINDING_IS_NOT_INITIALIZED)
 
     private lateinit var viewModel: ProfileViewModel
     private val dateHelper = DateHelper()
@@ -79,10 +80,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         val hour = dateHelper.getCurrentTime()
 
         val greetingText = when (hour) {
-            in 6..11 -> getString(R.string.good_morning) + ","
-            in 12..17 -> getString(R.string.good_day) + ","
-            in 18..23 -> getString(R.string.good_evening) + ","
-            else -> getString(R.string.good_night) + ","
+            in 6..11 -> getString(R.string.good_morning)
+            in 12..17 -> getString(R.string.good_day)
+            in 18..23 -> getString(R.string.good_evening)
+            else -> getString(R.string.good_night)
         }
 
         binding.greetingText.text = greetingText

@@ -11,6 +11,7 @@ import androidx.annotation.DrawableRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviecatalog.R
+import com.example.moviecatalog.common.Constants.EMPTY_STRING
 
 object EditTextHelper {
 
@@ -27,12 +28,21 @@ object EditTextHelper {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.isNullOrEmpty()) {
-                    editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+                    editText.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        0,
+                        0
+                    )
                 } else {
-                    editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, clearIcon, 0)
+                    editText.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        clearIcon,
+                        0
+                    )
                 }
 
-                // Вызываем функцию для обработки введенных данных
                 onTextChanged(editText.text.toString())
             }
 
@@ -45,8 +55,9 @@ object EditTextHelper {
         editText.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 if (editText.compoundDrawables[2] != null) {
-                    if (event.rawX >= (editText.right - editText.compoundDrawables[2].bounds.width())) {
-                        editText.setText("")
+                    if (event.rawX >=
+                        (editText.right - editText.compoundDrawables[2].bounds.width())) {
+                        editText.setText(EMPTY_STRING)
                         return@setOnTouchListener true
                     }
                 }
@@ -60,9 +71,11 @@ object EditTextHelper {
         editText.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 if (editText.compoundDrawables[2] != null) {
-                    if (event.rawX >= (editText.right - editText.compoundDrawables[2].bounds.width())) {
+                    if (event.rawX >=
+                        (editText.right - editText.compoundDrawables[2].bounds.width())) {
                         if (editText.transformationMethod is HideReturnsTransformationMethod) {
-                            editText.transformationMethod = PasswordTransformationMethod.getInstance()
+                            editText.transformationMethod =
+                                PasswordTransformationMethod.getInstance()
                             editText.setCompoundDrawablesWithIntrinsicBounds(
                                 0,
                                 0,
@@ -70,7 +83,8 @@ object EditTextHelper {
                                 0
                             )
                         } else {
-                            editText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                            editText.transformationMethod =
+                                HideReturnsTransformationMethod.getInstance()
                             editText.setCompoundDrawablesWithIntrinsicBounds(
                                 0,
                                 0,
@@ -88,7 +102,12 @@ object EditTextHelper {
     }
 
     fun hideIcon(editText: EditText) {
-        editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        editText.setCompoundDrawablesWithIntrinsicBounds(
+            0,
+            0,
+            0,
+            0
+        )
     }
 
     fun updateButtonStatus(isEnabled: Boolean) {

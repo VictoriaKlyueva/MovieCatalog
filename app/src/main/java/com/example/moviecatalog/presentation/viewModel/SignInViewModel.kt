@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecatalog.common.Constants.LOGIN_ERROR
+import com.example.moviecatalog.common.Constants.SUCCESSFUL_LOGIN
 import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.model.main.LoginCredentials
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
@@ -35,10 +37,10 @@ class SignInViewModel(
     ) {
         loginUseCase.execute(user) { success ->
             if (success) {
-                println("Успешный вход в аккаунт")
+                println(SUCCESSFUL_LOGIN)
                 onSuccess()
             } else {
-                println("Ошибка входа")
+                println(LOGIN_ERROR)
                 onError()
             }
         }

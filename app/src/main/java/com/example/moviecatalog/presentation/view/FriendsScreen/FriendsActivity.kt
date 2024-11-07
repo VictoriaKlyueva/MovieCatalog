@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.moviecatalog.common.Constants.EXTRA_INITIAL_FRAGMENT
 import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.databinding.ActivityFriendsBinding
 import com.example.moviecatalog.presentation.view.FeedActivity
@@ -26,7 +27,9 @@ class FriendsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityFriendsBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        _binding = ActivityFriendsBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
 
         setupViewModel()
         observeFriends()
@@ -53,7 +56,7 @@ class FriendsActivity : AppCompatActivity() {
     private fun setupButtons() {
         binding.backButton.setOnClickListener {
             val intent = Intent(this, FeedActivity::class.java).apply {
-                putExtra(FeedActivity.EXTRA_INITIAL_FRAGMENT, "profile")
+                putExtra(EXTRA_INITIAL_FRAGMENT, "profile")
             }
             startActivity(intent)
         }

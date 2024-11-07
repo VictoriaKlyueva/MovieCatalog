@@ -1,5 +1,6 @@
 package com.example.moviecatalog.domain.usecase
 
+import com.example.moviecatalog.common.Constants.MOVIES_NOT_FOUND
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.domain.common.Constants.TOTAL_PAGES
 import com.example.moviecatalog.domain.repository.MovieResponseRepository
@@ -14,7 +15,7 @@ class GetRandomMovieUseCase(private val movieRepository: MovieResponseRepository
                 callback(null, error)
             } else {
                 if (movies.isNullOrEmpty()) {
-                    callback(null, "Фильмы не найдены")
+                    callback(null, MOVIES_NOT_FOUND)
                 } else {
                     val randomMovie = movies.random()
                     callback(randomMovie, null)

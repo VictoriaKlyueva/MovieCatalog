@@ -22,4 +22,17 @@ object Constants {
 
     const val PICK_IMAGE_REQUEST = 1
     const val MOVIE_ID = "MOVIE_ID"
+
+    const val MOVIES_NOT_FOUND = "Фильмы не найдены"
+    const val MOVIE_RECEIVING_ERROR = "Ошибка получения фильма"
+    const val SUCCESSFUL_LOGOUT = "Успешный выход из аккаунта"
+    const val SUCCESSFUL_LOGIN = "Успешный вход в аккаунт"
+    const val SUCCESSFUL_REGISTER = "Успешная регистрация"
+    const val LOGOUT_ERROR = "Ошибка выхода"
+    const val LOGIN_ERROR = "Ошибка входа"
+    const val REGISTER_ERROR = "Ошибка регистрации"
+    const val BINDING_IS_NOT_INITIALIZED = "Binding is not initialized"
+    const val EXTRA_INITIAL_FRAGMENT = "initial_fragment"
+
+    const val OK = "OK"
 }

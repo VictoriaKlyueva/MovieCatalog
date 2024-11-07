@@ -13,6 +13,7 @@ import retrofit2.Response
 class UserRepositoryImpl(
     private val userDataSource: UserDataSource
 ) : UserRepository {
+
     override fun getProfile(callback: (ProfileModel?, String?) -> Unit) {
         val call = ApiClient.apiService.getProfile()
         call.enqueue(object : Callback<ProfileModel> {

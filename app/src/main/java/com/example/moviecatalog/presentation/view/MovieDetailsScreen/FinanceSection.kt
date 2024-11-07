@@ -1,5 +1,6 @@
 package com.example.moviecatalog.presentation.view.MovieDetailsScreen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -90,6 +91,7 @@ fun FinanceSection(movie: MovieDetailsModel) {
     }
 }
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun formatCurrency(input: Int?): String {
     return if (input != null) {

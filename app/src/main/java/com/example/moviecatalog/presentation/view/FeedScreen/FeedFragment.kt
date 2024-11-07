@@ -25,9 +25,11 @@ import com.example.moviecatalog.presentation.viewModel.factory.FeedViewModelFact
 import com.example.moviecatalog.presentation.viewModel.factory.MovieDetailsViewModelFactory
 import kotlinx.coroutines.launch
 
-class FeedFragment : Fragment(R.layout.fragment_feed) {
+class FeedFragment : Fragment() {
+
     private var _binding: FragmentFeedBinding? = null
-    private val binding get() = _binding ?: throw IllegalStateException("Binding is not initialized")
+    private val binding get() =
+        _binding ?: throw IllegalStateException("Binding is not initialized")
 
     private lateinit var viewModel: FeedViewModel
     private var favoritesGenres: List<GenreModel> by mutableStateOf(emptyList())

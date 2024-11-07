@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecatalog.common.Constants.LOGOUT_ERROR
+import com.example.moviecatalog.common.Constants.SUCCESSFUL_LOGOUT
 import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.main.ProfileModel
@@ -32,9 +34,9 @@ class ProfileViewModel(
     fun onLogoutButtonClicked(callback: (Boolean) -> Unit) {
         logoutUseCase.execute { success ->
             if (success) {
-                println("Успешный выход из аккаунта")
+                println(SUCCESSFUL_LOGOUT)
             } else {
-                println("Ошибка выхода")
+                println(LOGOUT_ERROR)
             }
             callback(success)
         }
@@ -43,7 +45,7 @@ class ProfileViewModel(
     fun getProfileData(callback: (ProfileModel?, String?) -> Unit) {
         userUseCase.execute { receivedProfile, error ->
             if (receivedProfile != null) {
-                _profile.postValue(receivedProfile ?: EmptyProfile.emptyProfile)
+                _profile.postValue(receivedProfile)
                 callback(receivedProfile, null)
             } else {
                 callback(null, error)

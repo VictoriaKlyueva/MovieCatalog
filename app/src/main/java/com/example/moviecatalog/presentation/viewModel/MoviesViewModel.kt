@@ -3,6 +3,7 @@ package com.example.moviecatalog.presentation.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecatalog.common.Constants.MOVIE_RECEIVING_ERROR
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
@@ -57,7 +58,7 @@ class MoviesViewModel : ViewModel() {
                         movies ?: emptyList()
                 )
             } else {
-                println("Ошибка получения данных: $error")
+                println("$MOVIE_RECEIVING_ERROR $error")
                 _movies.postValue(emptyList())
             }
         }
@@ -68,7 +69,7 @@ class MoviesViewModel : ViewModel() {
             if (error == null) {
                 _favoritesMovies.postValue(movies ?: emptyList())
             } else {
-                println("Ошибка получения данных: $error")
+                println("$MOVIE_RECEIVING_ERROR $error")
                 _favoritesMovies.postValue(emptyList())
             }
         }

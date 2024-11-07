@@ -10,10 +10,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MovieRepositoryImpl : MovieResponseRepository {
+
     override fun getMovies(page: Int, callback: (List<MovieElementModel>?, String?) -> Unit) {
         val call = ApiClient.apiService.getMovies(page)
         call.enqueue(object : Callback<MovieResponse> {
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+            override fun onResponse(
+                call: Call<MovieResponse>,
+                response: Response<MovieResponse>
+            ) {
                 if (response.isSuccessful) {
                     callback(response.body()?.movies, null)
                 } else {

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.moviecatalog.R
+import com.example.moviecatalog.common.Constants.BINDING_IS_NOT_INITIALIZED
+import com.example.moviecatalog.common.Constants.EXTRA_INITIAL_FRAGMENT
 import com.example.moviecatalog.data.interceptor.AuthInterceptor
 import com.example.moviecatalog.databinding.ActivityFeedBinding
 import com.example.moviecatalog.presentation.view.FavoritesScreen.FavoritesFragment
@@ -18,7 +20,7 @@ class FeedActivity : AppCompatActivity(), AuthInterceptor.AuthFailureHandler {
 
     private var _binding: ActivityFeedBinding? = null
     private val binding get() = _binding ?:
-        throw IllegalStateException("Binding is not initialized")
+        throw IllegalStateException(BINDING_IS_NOT_INITIALIZED)
 
     private val feedFragment = FeedFragment()
     private val moviesFragment = MoviesFragment()
@@ -94,9 +96,5 @@ class FeedActivity : AppCompatActivity(), AuthInterceptor.AuthFailureHandler {
         supportFragmentManager.beginTransaction()
             .replace(R.id.nav_host_fragment, fragment)
             .commit()
-    }
-
-    companion object {
-        const val EXTRA_INITIAL_FRAGMENT = "initial_fragment"
     }
 }

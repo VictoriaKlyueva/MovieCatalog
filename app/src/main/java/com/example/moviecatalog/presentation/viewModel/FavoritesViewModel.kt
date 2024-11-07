@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviecatalog.common.Constants.MOVIE_RECEIVING_ERROR
 import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieElementModel
@@ -70,7 +71,7 @@ class FavoritesViewModel(
                     _favoritesMovies.postValue(emptyList())
                 }
             } else {
-                println("Ошибка получения данных: $error")
+                println(MOVIE_RECEIVING_ERROR + "$error")
                 _favoritesMovies.postValue(emptyList())
             }
             checkIfEmpty()

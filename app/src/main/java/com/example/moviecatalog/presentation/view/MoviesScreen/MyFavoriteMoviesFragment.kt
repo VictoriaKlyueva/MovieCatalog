@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatalog.R
+import com.example.moviecatalog.common.Constants.MOVIES_NOT_FOUND
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.databinding.FragmentMyFavoritesBinding
 import com.example.moviecatalog.presentation.viewModel.MoviesViewModel
@@ -89,7 +90,7 @@ class MyFavoriteMoviesFragment : Fragment() {
             if (movies.isNotEmpty()) {
                 binding.recyclerViewFavorites.scrollToPosition(0)
             } else {
-                println("No movies available")
+                println(MOVIES_NOT_FOUND)
             }
         }
     }

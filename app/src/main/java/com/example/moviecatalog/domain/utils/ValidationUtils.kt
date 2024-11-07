@@ -24,7 +24,6 @@ object ValidationUtils {
     )
 
     fun isDateValid(date: String): Boolean {
-        // Является ли год високосным
         fun isLeapYear(year: Int): Boolean {
             return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
         }
@@ -44,11 +43,8 @@ object ValidationUtils {
                 return false
 
             val daysInMonth = when (monthIndex) {
-                // Январь, март, май, июль, август, сентябрь и декабрь
                 0, 2, 4, 6, 7, 9, 11 -> 31
-                // Апрель, июнь, сентябрь, ноябрь
                 3, 5, 8, 10 -> 30
-                // Февраль
                 1 -> if (isLeapYear(year)) 29 else 28
                 else -> return false
             }

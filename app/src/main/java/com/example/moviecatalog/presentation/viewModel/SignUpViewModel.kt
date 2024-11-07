@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecatalog.common.Constants.REGISTER_ERROR
+import com.example.moviecatalog.common.Constants.SUCCESSFUL_REGISTER
 import com.example.moviecatalog.data.datasource.TokenDataSource
 import com.example.moviecatalog.data.model.main.UserRegisterModel
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
@@ -53,10 +55,10 @@ class SignUpViewModel(
     ) {
         registerUseCase.execute(user) { success ->
             if (success) {
-                println("Успешная регистрация")
+                println(SUCCESSFUL_REGISTER)
                 onSuccess()
             } else {
-                println("Ошибка(")
+                println(REGISTER_ERROR)
                 onError()
             }
         }

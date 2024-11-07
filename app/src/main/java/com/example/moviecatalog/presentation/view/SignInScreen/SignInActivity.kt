@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.moviecatalog.common.Constants.BINDING_IS_NOT_INITIALIZED
 import com.example.moviecatalog.databinding.ActivitySignInBinding
 import com.example.moviecatalog.presentation.view.WelcomeScreen.WelcomeActivity
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
@@ -13,7 +14,7 @@ class SignInActivity : AppCompatActivity() {
 
     private var _binding: ActivitySignInBinding? = null
     private val binding get() = _binding ?:
-        throw IllegalStateException("Binding is not initialized")
+        throw IllegalStateException(BINDING_IS_NOT_INITIALIZED)
 
     private lateinit var viewModel: SignInViewModel
 

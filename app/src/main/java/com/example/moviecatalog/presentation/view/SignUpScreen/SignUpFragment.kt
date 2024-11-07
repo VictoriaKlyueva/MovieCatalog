@@ -13,6 +13,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.moviecatalog.R
+import com.example.moviecatalog.common.Constants.BINDING_IS_NOT_INITIALIZED
 import com.example.moviecatalog.data.model.main.UserRegisterModel
 import com.example.moviecatalog.databinding.FragmentSignUpBinding
 import com.example.moviecatalog.domain.utils.DateHelper
@@ -28,7 +29,7 @@ class SignUpFragment : Fragment() {
 
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding ?:
-        throw IllegalStateException("Binding is not initialized")
+        throw IllegalStateException(BINDING_IS_NOT_INITIALIZED)
 
     private lateinit var viewModel: SignUpViewModel
     
@@ -134,8 +135,8 @@ class SignUpFragment : Fragment() {
             }, {
                 alertHelper.showAlert(
                     requireContext(),
-                    "Ошибка",
-                    "Неверные логин или пароль"
+                    getString(R.string.error),
+                    getString(R.string.incorrect_login_and_password)
                 )
             })
 

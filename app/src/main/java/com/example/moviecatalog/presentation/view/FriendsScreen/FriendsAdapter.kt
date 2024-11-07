@@ -31,7 +31,7 @@ class FriendsAdapter(
     inner class FriendViewHolder(private val binding: ItemFriendBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("DefaultLocale")
+        @SuppressLint("DefaultLocale", "NotifyDataSetChanged")
         fun bind(profile: UserShortModel, position: Int) {
             if (profile.avatar != null) {
                 Glide.with(binding.root.context)
@@ -49,6 +49,7 @@ class FriendsAdapter(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateFriends(friendList: List<UserShortModel>) {
         this.friends = friendList
         notifyDataSetChanged()

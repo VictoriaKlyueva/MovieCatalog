@@ -9,6 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class KinopoiskRepositoryImpl : KinopoiskRepository {
+
     override fun getMovies(callback: (List<FilmSearchByFiltersResponse_items>?, String?) -> Unit) {
         val allMovies = mutableListOf<FilmSearchByFiltersResponse_items>()
         var currentPage = 1

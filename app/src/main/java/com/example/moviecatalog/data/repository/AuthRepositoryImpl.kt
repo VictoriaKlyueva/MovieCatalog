@@ -13,14 +13,13 @@ import retrofit2.Response
 class AuthRepositoryImpl(
     private val tokenDataSource: TokenDataSource
 ): AuthRepository {
+
     override fun registerUser(user: UserRegisterModel, callback: (Boolean) -> Unit) {
         ApiClient.apiService.registerUser(user).enqueue(object : Callback<Token> {
             override fun onResponse(call: Call<Token>, response: Response<Token>) {
                 if (response.isSuccessful) {
                     response.body()?.let { token ->
                         tokenDataSource.save(token.token)
-                        println("Токен: ")
-                        println(token.token)
                         callback(true)
                     } ?: callback(false)
                 } else {

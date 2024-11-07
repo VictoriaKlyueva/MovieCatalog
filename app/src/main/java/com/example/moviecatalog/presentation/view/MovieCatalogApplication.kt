@@ -6,6 +6,7 @@ import com.example.moviecatalog.data.interceptor.AuthInterceptor
 import com.example.moviecatalog.domain.utils.CustomAuthFailureHandler
 
 class MovieCatalogApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
         val authFailureHandler = CustomAuthFailureHandler()
