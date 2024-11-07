@@ -21,4 +21,5 @@ object Constants {
     const val BEARER = "Bearer"
 
     const val PICK_IMAGE_REQUEST = 1
+    const val MOVIE_ID = "MOVIE_ID"
 }

@@ -18,6 +18,7 @@ import com.example.moviecatalog.domain.usecase.AddFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.AddFavoriteUseCase
 import com.example.moviecatalog.domain.usecase.AddFriendUseCase
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
+import com.example.moviecatalog.domain.usecase.FetchFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieByNameUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
 import com.example.moviecatalog.domain.usecase.IsFavoriteGenreUseCase
@@ -33,6 +34,7 @@ class MovieDetailsViewModel(
 
     private val userDataSource = UserDataSource(context)
 
+    private val fetchFavoriteGenresUseCase = FetchFavoriteGenresUseCase(userDataSource)
     private val isFavoriteGenreUseCase = IsFavoriteGenreUseCase(userDataSource)
     private val addFriendUseCase = AddFriendUseCase(userDataSource)
     private val movieDetailsUseCase = GetMovieDetailsUseCase(movieRepository)
@@ -51,6 +53,9 @@ class MovieDetailsViewModel(
     private val _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean> get() = _isFavorite
 
+    private val _favoritesGenres = MutableLiveData<List<GenreModel>>()
+    val favoritesGenres: LiveData<List<GenreModel>> get() = _favoritesGenres
+
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
 
@@ -61,6 +66,13 @@ class MovieDetailsViewModel(
     fun addGenreToFavorites(genre: GenreModel) {
         viewModelScope.launch {
             addFavoriteGenresUseCase.execute(genre)
+        }
+    }
+
+    fun fetchFavoritesGenres() {
+        viewModelScope.launch {
+            val genres = fetchFavoriteGenresUseCase.execute()
+            _favoritesGenres.postValue(genres)
         }
     }
 

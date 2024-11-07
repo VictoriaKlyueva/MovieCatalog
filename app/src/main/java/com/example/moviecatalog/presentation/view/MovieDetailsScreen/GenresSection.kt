@@ -14,6 +14,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -65,8 +67,12 @@ fun Genre(viewModel: MovieDetailsViewModel, genre: GenreModel, isFavorite: Boole
     }
 }
 
+
 @Composable
 fun GenresSection(viewModel: MovieDetailsViewModel, movie: MovieDetailsModel) {
+
+    val favoritesGenres by viewModel.favoritesGenres.observeAsState(emptyList())
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -112,9 +118,11 @@ fun GenresSection(viewModel: MovieDetailsViewModel, movie: MovieDetailsModel) {
         ) {
             movie.genres.forEachIndexed { index, genre ->
                 if (index < 3) {
-                    Genre(viewModel, genre)
+                    val isFavoriteGenre = favoritesGenres.any { it.id == genre.id }
+                    Genre(viewModel, genre, isFavoriteGenre)
                 }
             }
         }
     }
 }
+
