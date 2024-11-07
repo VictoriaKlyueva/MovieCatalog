@@ -10,6 +10,7 @@ import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.kinopoisk.FilmSearchByFiltersResponse_items
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
+import com.example.moviecatalog.data.model.main.ReviewModel
 import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
 import com.example.moviecatalog.data.repository.KinopoiskRepositoryImpl
@@ -19,9 +20,9 @@ import com.example.moviecatalog.domain.usecase.AddFavoriteUseCase
 import com.example.moviecatalog.domain.usecase.AddFriendUseCase
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
 import com.example.moviecatalog.domain.usecase.FetchFavoriteGenresUseCase
+import com.example.moviecatalog.domain.usecase.FetchFriendsUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieByNameUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
-import com.example.moviecatalog.domain.usecase.IsFavoriteGenreUseCase
 import com.example.moviecatalog.domain.usecase.RemoveFavoriteMovieUseCase
 import kotlinx.coroutines.launch
 
@@ -35,7 +36,7 @@ class MovieDetailsViewModel(
     private val userDataSource = UserDataSource(context)
 
     private val fetchFavoriteGenresUseCase = FetchFavoriteGenresUseCase(userDataSource)
-    private val isFavoriteGenreUseCase = IsFavoriteGenreUseCase(userDataSource)
+    private val fetchFriendsUseCase = FetchFriendsUseCase(userDataSource)
     private val addFriendUseCase = AddFriendUseCase(userDataSource)
     private val movieDetailsUseCase = GetMovieDetailsUseCase(movieRepository)
     private val addFavoriteUseCase = AddFavoriteUseCase(favoritesRepository)
@@ -56,12 +57,30 @@ class MovieDetailsViewModel(
     private val _favoritesGenres = MutableLiveData<List<GenreModel>>()
     val favoritesGenres: LiveData<List<GenreModel>> get() = _favoritesGenres
 
+    private val _friends = MutableLiveData<List<UserShortModel>>()
+    val friends: LiveData<List<UserShortModel>> get() = _friends
+
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
 
     fun toggleFavorite() {
         _isFavorite.value = !(_isFavorite.value ?: false)
     }
+
+    fun fetchFriends() {
+        viewModelScope.launch {
+            val friends = fetchFriendsUseCase.execute()
+            _friends.postValue(friends)
+        }
+    }
+
+    fun countFriendsWhoLikedMovie(reviews: List<ReviewModel>): Int {
+        return reviews.count { review ->
+            review.rating > 6 && review.author.userId in (_friends.value?.map { it.userId }
+                ?: emptyList())
+        }
+    }
+
 
     fun addGenreToFavorites(genre: GenreModel) {
         viewModelScope.launch {

@@ -168,7 +168,7 @@ fun MovieDetailsScreen(
             }
 
             item {
-                FriendsSection()
+                FriendsSection(viewModel, movie.reviews)
             }
 
             item {

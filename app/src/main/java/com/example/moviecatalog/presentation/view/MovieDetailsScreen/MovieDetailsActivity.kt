@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.common.Constants.EMPTY_STRING
 import com.example.moviecatalog.common.Constants.MOVIE_ID
 import com.example.moviecatalog.data.model.main.GenreModel
+import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.presentation.ui.Theme
 import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
@@ -21,7 +22,9 @@ import com.example.moviecatalog.presentation.viewModel.factory.SignInViewModelFa
 class MovieDetailsActivity : ComponentActivity() {
 
     private lateinit var viewModel: MovieDetailsViewModel
+
     private var favoritesGenres: List<GenreModel> by mutableStateOf(emptyList())
+    private var friends: List<UserShortModel> by mutableStateOf(mutableListOf())
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +38,8 @@ class MovieDetailsActivity : ComponentActivity() {
         }
 
         observeData()
-
         viewModel.fetchFavoritesGenres()
+        viewModel.fetchFriends()
     }
 
     private fun observeData() {
@@ -66,6 +69,10 @@ class MovieDetailsActivity : ComponentActivity() {
 
         viewModel.favoritesGenres.observe(this) {
             favoritesGenres = it ?: emptyList()
+        }
+
+        viewModel.friends.observe(this) { friendList ->
+            friends = friendList ?: emptyList()
         }
     }
 
