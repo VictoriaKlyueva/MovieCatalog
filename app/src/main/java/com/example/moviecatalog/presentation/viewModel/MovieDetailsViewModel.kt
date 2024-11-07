@@ -75,11 +75,12 @@ class MovieDetailsViewModel(
     }
 
     fun countFriendsWhoLikedMovie(reviews: List<ReviewModel>): Int {
+        val friendUserIds = _friends.value?.mapNotNull { it.userId } ?: emptyList()
         return reviews.count { review ->
-            review.rating > 6 && review.author.userId in (_friends.value?.map { it.userId }
-                ?: emptyList())
+            review.author?.userId?.let { it in friendUserIds } == true && review.rating > 6
         }
     }
+
 
 
     fun addGenreToFavorites(genre: GenreModel) {
