@@ -54,6 +54,7 @@ fun Genre(viewModel: MovieDetailsViewModel, genre: GenreModel, isFavorite: Boole
             )
             .clickable {
                 viewModel.addGenreToFavorites(genre)
+                viewModel.fetchFavoritesGenres()
             }
     ) {
         Text(
