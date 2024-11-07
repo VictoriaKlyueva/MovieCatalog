@@ -1,13 +1,17 @@
 package com.example.moviecatalog.presentation.view.MoviesScreen
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.moviecatalog.common.Constants.MOVIE_ID
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.databinding.ItemMyFavoriteMovieBinding
+import com.example.moviecatalog.presentation.view.MovieDetailsScreen.MovieDetailsActivity
 
 class MyFavoriteMoviesAdapter(
     private var movies: List<MovieElementModel>
@@ -16,14 +20,15 @@ class MyFavoriteMoviesAdapter(
     private var firstVisiblePositions: MutableSet<Int> = mutableSetOf()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setFirstVisiblePosition(position: Int) {
+    fun setFirstVisiblePosition(position: Int, ) {
         firstVisiblePositions.clear()
         firstVisiblePositions.add(position)
         notifyDataSetChanged()
     }
 
     inner class MovieViewHolder(
-        val binding: ItemMyFavoriteMovieBinding
+        val binding: ItemMyFavoriteMovieBinding,
+        private val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: MovieElementModel, isFirstVisible: Boolean) {
@@ -36,6 +41,16 @@ class MyFavoriteMoviesAdapter(
 
             binding.myFavoriteMovieImageView.scaleX = scale
             binding.myFavoriteMovieImageView.scaleY = scale
+
+            binding.myFavoriteMovieImageView.setOnClickListener{
+                goToMovieScreen(movie.id)
+            }
+        }
+
+        private fun goToMovieScreen(movieId: String) {
+            val intent = Intent(context, MovieDetailsActivity::class.java)
+            intent.putExtra(MOVIE_ID, movieId)
+            context.startActivity(intent)
         }
     }
 
@@ -45,7 +60,7 @@ class MyFavoriteMoviesAdapter(
     ): MovieViewHolder {
         val binding = ItemMyFavoriteMovieBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(binding)
+        return MovieViewHolder(binding, parent.context)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -61,5 +76,3 @@ class MyFavoriteMoviesAdapter(
 
     override fun getItemCount(): Int = movies.size
 }
-
-
