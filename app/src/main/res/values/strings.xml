@@ -65,4 +65,7 @@
     <string name="good_evening">Добрый вечер</string>
     <string name="good_night">Доброй ночи</string>
     <string name="nick_name_default">Анонимный пользователь</string>
+    <string name="anonymous_review">Анонимный отзыв</string>
+    <string name="send">Отправить</string>
+    <string name="score">Оценка</string>
 </resources>
