@@ -44,6 +44,7 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.zIndex
 import com.example.moviecatalog.common.Constants
 import com.example.moviecatalog.data.model.main.ReviewModel
+import com.example.moviecatalog.data.model.main.ReviewModifyModel
 import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.domain.utils.DateHelper
 import com.example.moviecatalog.presentation.view.Components.GradientSwitch
@@ -56,6 +57,7 @@ import kotlin.math.min
 fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) {
     var currentReviewIndex by remember { mutableIntStateOf(0) }
 
+    var movieId by remember { mutableStateOf(viewModel.movie) }
     var showDialog by remember { mutableStateOf(false) }
     var sliderValue by remember { mutableFloatStateOf(0f) }
     var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
@@ -331,7 +333,15 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
                             shape = RoundedCornerShape(8.dp),
                             contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
                             onClick = {
-                                showDialog = true
+                                val review = ReviewModifyModel(
+                                    rating = sliderValue.toInt() + 1,
+                                    reviewText = textFieldValue.text,
+                                    isAnonymous = switchState
+                                )
+
+                                viewModel.addReview(review)
+
+                                showDialog = false
                             }
                         ) {
                             Text(

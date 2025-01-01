@@ -10,13 +10,16 @@ import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.kinopoisk.FilmSearchByFiltersResponse_items
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
+import com.example.moviecatalog.data.model.main.ReviewModifyModel
 import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
 import com.example.moviecatalog.data.repository.KinopoiskRepositoryImpl
-import com.example.moviecatalog.data.repository.MovieRepositoryImpl
+import com.example.moviecatalog.data.repository.MovieRepositoryImplImpl
+import com.example.moviecatalog.data.repository.ReviewRepositoryImpl
 import com.example.moviecatalog.domain.usecase.AddFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.AddFavoriteUseCase
 import com.example.moviecatalog.domain.usecase.AddFriendUseCase
+import com.example.moviecatalog.domain.usecase.AddReviewUseCase
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
 import com.example.moviecatalog.domain.usecase.FetchFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieByNameUseCase
@@ -28,9 +31,10 @@ import kotlinx.coroutines.launch
 class MovieDetailsViewModel(
     context: Context
 ) : ViewModel() {
-    private val movieRepository = MovieRepositoryImpl()
+    private val movieRepository = MovieRepositoryImplImpl()
     private val favoritesRepository = FavoriteMoviesRepositoryImpl()
     private val kinopoiskRepository = KinopoiskRepositoryImpl()
+    private val reviewRepository = ReviewRepositoryImpl()
 
     private val userDataSource = UserDataSource(context)
 
@@ -43,6 +47,7 @@ class MovieDetailsViewModel(
     private val checkFavoriteMovieUseCase = CheckFavoriteMovieUseCase(favoritesRepository)
     private val removeFavoriteMovieUseCase = RemoveFavoriteMovieUseCase(favoritesRepository)
     private val getMovieByNameUseCase = GetMovieByNameUseCase(kinopoiskRepository)
+    private val addReviewUseCase = AddReviewUseCase(reviewRepository)
 
     private val _movie = MutableLiveData<MovieDetailsModel?>()
     val movie: LiveData<MovieDetailsModel?> get() = _movie
@@ -148,6 +153,21 @@ class MovieDetailsViewModel(
                     println("Ошибка отправки запроса: $error")
                 } else {
                     println("Успешно добавлено в избранное")
+                }
+            }
+        } ?: run {
+            println("Фильм не доступен")
+        }
+    }
+
+    fun addReview(review: ReviewModifyModel) {
+        _movie.value?.let { movieDetails ->
+            val movieId = movieDetails.id
+            addReviewUseCase.execute(movieId, review) { error ->
+                if (error != null) {
+                    println("Ошибка отправки запроса: $error")
+                } else {
+                    println("Отзыв создан успешно")
                 }
             }
         } ?: run {
