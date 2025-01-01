@@ -35,10 +35,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviecatalog.R
 import androidx.compose.runtime.*
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.zIndex
+import com.example.moviecatalog.common.Constants
 import com.example.moviecatalog.data.model.main.ReviewModel
 import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.domain.utils.DateHelper
@@ -141,58 +145,81 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
             }
 
             if (showDialog) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Black.copy(alpha = 0.5f))
-                        .zIndex(1f)
+                Dialog(
+                    onDismissRequest = { showDialog = false }
                 ) {
-                    Dialog(
-                        onDismissRequest = { showDialog = false }
+                    Column(
+                        modifier = Modifier
+                            .background(
+                                color = colorResource(id = R.color.dark),
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                            .padding(16.dp)
                     ) {
-                        Column(
+                        Text(
+                            text = stringResource(id = R.string.add_review),
+                            color = colorResource(id = R.color.white),
+                            style = MaterialTheme.typography.titleLarge,
+                            fontSize = 20.sp
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
+                            text = stringResource(id = R.string.score),
+                            color = colorResource(id = R.color.gray),
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontSize = 14.sp
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Slider(
                             modifier = Modifier
-                                .background(
-                                    color = colorResource(id = R.color.dark),
-                                    shape = RoundedCornerShape(16.dp)
+                                .fillMaxWidth()
+                                .height(16.dp),
+                            value = sliderValue,
+                            onValueChange = { sliderValue = it },
+                            valueRange = 0f..9f,
+                            steps = 9,
+                            colors = SliderDefaults.colors(
+                                activeTrackColor = colorResource(id = R.color.gradient_end),
+                                inactiveTrackColor = colorResource(id = R.color.dark_faded)
+                            ),
+                            thumb = {
+                                Box(
+                                    Modifier
+                                        .width(2.dp)
+                                        .height(44.dp)
+                                        .background(
+                                            brush = Brush.horizontalGradient(
+                                                listOf(
+                                                    colorResource(id = R.color.gradient_start),
+                                                    colorResource(id = R.color.gradient_end)
+                                                )
+                                            ),
+                                            shape = RoundedCornerShape(2.dp)
+                                        )
                                 )
-                                .padding(16.dp)
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.add_review),
-                                color = colorResource(id = R.color.white),
-                                style = MaterialTheme.typography.titleLarge,
-                                fontSize = 20.sp
-                            )
+                            },
+                            track = { sliderState ->
+                                val fraction by remember {
+                                    derivedStateOf {
+                                        (sliderState.value - sliderState.valueRange.start) /
+                                                (sliderState.valueRange.endInclusive - sliderState.valueRange.start)
+                                    }
+                                }
 
-                            Spacer(modifier = Modifier.height(16.dp))
-
-                            Text(
-                                text = stringResource(id = R.string.score),
-                                color = colorResource(id = R.color.gray),
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontSize = 14.sp
-                            )
-
-                            Spacer(modifier = Modifier.height(8.dp))
-
-                            Slider(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(16.dp),
-                                value = sliderValue,
-                                onValueChange = { sliderValue = it },
-                                valueRange = 0f..9f,
-                                steps = 9,
-                                colors = SliderDefaults.colors(
-                                    activeTrackColor = colorResource(id = R.color.gradient_end),
-                                    inactiveTrackColor = colorResource(id = R.color.dark_faded)
-                                ),
-                                thumb = {
+                                Box(
+                                    Modifier
+                                        .fillMaxWidth()
+                                ) {
                                     Box(
                                         Modifier
-                                            .width(2.dp)
-                                            .height(44.dp)
+                                            .fillMaxWidth(fraction)
+                                            .align(Alignment.CenterStart)
+                                            .height(16.dp)
+                                            .padding(end = 16.dp)
                                             .background(
                                                 brush = Brush.horizontalGradient(
                                                     listOf(
@@ -200,127 +227,119 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
                                                         colorResource(id = R.color.gradient_end)
                                                     )
                                                 ),
-                                                shape = RoundedCornerShape(2.dp)
+                                                shape = RoundedCornerShape(8.dp)
                                             )
                                     )
-                                },
-                                track = { sliderState ->
-                                    val fraction by remember {
-                                        derivedStateOf {
-                                            (sliderState.value - sliderState.valueRange.start) /
-                                                    (sliderState.valueRange.endInclusive - sliderState.valueRange.start)
-                                        }
-                                    }
-
                                     Box(
                                         Modifier
-                                            .fillMaxWidth()
-                                    ) {
-                                        Box(
-                                            Modifier
-                                                .fillMaxWidth(fraction)
-                                                .align(Alignment.CenterStart)
-                                                .height(16.dp)
-                                                .padding(end = 16.dp)
-                                                .background(
-                                                    brush = Brush.horizontalGradient(
-                                                        listOf(
-                                                            colorResource(id = R.color.gradient_start),
-                                                            colorResource(id = R.color.gradient_end)
-                                                        )
-                                                    ),
-                                                    shape = RoundedCornerShape(8.dp)
-                                                )
-                                        )
-                                        Box(
-                                            Modifier
-                                                .fillMaxWidth(1f - fraction)
-                                                .align(Alignment.CenterEnd)
-                                                .height(16.dp)
-                                                .padding(start = 2.dp)
-                                                .background(
-                                                    colorResource(id = R.color.dark_faded),
-                                                    shape = RoundedCornerShape(8.dp)
-                                                )
-                                        )
-                                    }
-                                }
-                            )
-
-                            Spacer(modifier = Modifier.height(16.dp))
-
-                            BasicTextField(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(120.dp),
-                                value = textFieldValue,
-                                onValueChange = { textFieldValue = it },
-                                decorationBox = { innerTextField ->
-                                    Row(
-                                        modifier = Modifier
+                                            .fillMaxWidth(1f - fraction)
+                                            .align(Alignment.CenterEnd)
+                                            .height(16.dp)
+                                            .padding(start = 2.dp)
                                             .background(
                                                 colorResource(id = R.color.dark_faded),
-                                                RoundedCornerShape(8.dp)
+                                                shape = RoundedCornerShape(8.dp)
                                             )
-                                            .padding(8.dp)
-                                    ) {
-                                        innerTextField()
-                                    }
+                                    )
                                 }
+                            }
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+                        var isFocused by remember { mutableStateOf(false) }
+
+                        BasicTextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(120.dp)
+                                .onFocusChanged { focusState ->
+                                    isFocused = focusState.isFocused
+                                    if (isFocused && textFieldValue.text.isEmpty()) {
+                                        textFieldValue = TextFieldValue(Constants.EMPTY_STRING)
+                                    }
+                                },
+                            value = textFieldValue,
+                            onValueChange = { textFieldValue = it },
+                            cursorBrush = SolidColor(colorResource(id = R.color.gray)),
+                            decorationBox = { innerTextField ->
+                                Row(
+                                    modifier = Modifier
+                                        .background(
+                                            colorResource(id = R.color.dark_faded),
+                                            RoundedCornerShape(8.dp)
+                                        )
+                                        .padding(8.dp)
+                                ) {
+                                    if (!isFocused && textFieldValue.text.isEmpty()) {
+                                        Text(
+                                            text = stringResource(id = R.string.review_text),
+                                            color = colorResource(id = R.color.gray_faded),
+                                            fontSize = 16.sp,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                        )
+                                    }
+                                    innerTextField()
+                                }
+                            },
+                            textStyle = MaterialTheme.typography.bodyMedium.copy(
+                                color = colorResource(id = R.color.gray),
+                                fontSize = 16.sp,
+                            )
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.anonymous_review),
+                                color = colorResource(R.color.gray),
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontSize = 16.sp
                             )
 
-                            Spacer(modifier = Modifier.height(8.dp))
+                            Spacer(modifier = Modifier.weight(1f))
 
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = stringResource(id = R.string.anonymous_review),
-                                    color = colorResource(R.color.gray),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    fontSize = 16.sp
-                                )
+                            GradientSwitch(
+                                checked = switchState,
+                                onCheckedChange = { switchState = it }
+                            )
+                        }
 
-                                Spacer(modifier = Modifier.weight(1f))
+                        Spacer(modifier = Modifier.height(24.dp))
 
-                                GradientSwitch(
-                                    checked = switchState,
-                                    onCheckedChange = { switchState = it }
-                                )
-                            }
-
-                            Spacer(modifier = Modifier.height(24.dp))
-
-                            Button(
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .height(40.dp)
-                                    .align(Alignment.End)
-                                    .background(
-                                        brush = Brush.horizontalGradient(
-                                            listOf(
-                                                colorResource(id = R.color.gradient_start),
-                                                colorResource(id = R.color.gradient_end)
-                                            )
-                                        ),
-                                        shape = RoundedCornerShape(8.dp)
+                        Button(
+                            modifier = Modifier
+                                .wrapContentWidth()
+                                .height(40.dp)
+                                .align(Alignment.End)
+                                .background(
+                                    brush = Brush.horizontalGradient(
+                                        listOf(
+                                            colorResource(id = R.color.gradient_start),
+                                            colorResource(id = R.color.gradient_end)
+                                        )
                                     ),
-                                colors = ButtonDefaults.buttonColors(
-                                    Color.Transparent
+                                    shape = RoundedCornerShape(8.dp)
                                 ),
-                                shape = RoundedCornerShape(8.dp),
-                                contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
-                                onClick = {
-                                    showDialog = true
-                                }
-                            ) {
-                                Text(
-                                    text = stringResource(id = R.string.send),
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    textAlign = TextAlign.Center,
-                                    fontSize = 16.sp
-                                )
+                            colors = ButtonDefaults.buttonColors(
+                                Color.Transparent
+                            ),
+                            shape = RoundedCornerShape(8.dp),
+                            contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
+                            onClick = {
+                                showDialog = true
                             }
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.send),
+                                style = MaterialTheme.typography.bodyLarge,
+                                textAlign = TextAlign.Center,
+                                fontSize = 16.sp
+                            )
                         }
                     }
                 }
