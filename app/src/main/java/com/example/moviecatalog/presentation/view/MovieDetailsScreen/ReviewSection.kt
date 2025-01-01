@@ -37,11 +37,9 @@ import com.example.moviecatalog.R
 import androidx.compose.runtime.*
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.Popup
-import androidx.compose.ui.zIndex
 import com.example.moviecatalog.common.Constants
 import com.example.moviecatalog.data.model.main.ReviewModel
 import com.example.moviecatalog.data.model.main.ReviewModifyModel
@@ -57,10 +55,13 @@ import kotlin.math.min
 fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) {
     var currentReviewIndex by remember { mutableIntStateOf(0) }
 
-    var movieId by remember { mutableStateOf(viewModel.movie) }
+    var hasReview by remember { mutableStateOf(false) }
+    viewModel.findUserReview { reviewId ->
+        hasReview = reviewId != null
+    }
+
     var showDialog by remember { mutableStateOf(false) }
     var sliderValue by remember { mutableFloatStateOf(0f) }
-    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
     var switchState by remember { mutableStateOf(false) }
 
     val currentReview =
@@ -117,33 +118,92 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
                 .fillMaxWidth()
         ) {
             // Add review
-            Button(
+            Row (
                 modifier = Modifier
                     .weight(1f)
-                    .height(40.dp)
-                    .background(
-                        brush = Brush.horizontalGradient(
-                            listOf(
-                                colorResource(id = R.color.gradient_start),
-                                colorResource(id = R.color.gradient_end)
-                            )
-                        ),
-                        shape = RoundedCornerShape(8.dp)
-                    ),
-                colors = ButtonDefaults.buttonColors(
-                    Color.Transparent
-                ),
-                shape = RoundedCornerShape(8.dp),
-                contentPadding = PaddingValues(),
-                onClick = {
-                    showDialog = true
-                }
             ) {
-                Text(
-                    text = stringResource(id = R.string.add_review),
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontSize = 16.sp
-                )
+                if (hasReview) {
+                    Button(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(40.dp)
+                            .background(
+                                brush = Brush.horizontalGradient(
+                                    listOf(
+                                        colorResource(id = R.color.gradient_start),
+                                        colorResource(id = R.color.gradient_end)
+                                    )
+                                ),
+                                shape = RoundedCornerShape(8.dp)
+                            ),
+                        colors = ButtonDefaults.buttonColors(
+                            Color.Transparent
+                        ),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(),
+                        onClick = {
+                            showDialog = true
+                        }
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.edit_review),
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = 16.sp
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Button(
+                        modifier = Modifier
+                            .size(40.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.dark)),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(0.dp),
+                        onClick = {
+                            viewModel.deleteReview()
+                            hasReview = false
+                        }
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_trash),
+                            tint = Color.Unspecified,
+                            contentDescription = "Broken Heart",
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                }
+
+                else {
+                    Button(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(40.dp)
+                            .background(
+                                brush = Brush.horizontalGradient(
+                                    listOf(
+                                        colorResource(id = R.color.gradient_start),
+                                        colorResource(id = R.color.gradient_end)
+                                    )
+                                ),
+                                shape = RoundedCornerShape(8.dp)
+                            ),
+                        colors = ButtonDefaults.buttonColors(
+                            Color.Transparent
+                        ),
+                        shape = RoundedCornerShape(8.dp),
+                        contentPadding = PaddingValues(),
+                        onClick = {
+                            showDialog = true
+                        }
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.add_review),
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = 16.sp
+                        )
+                    }
+                }
             }
 
             if (showDialog) {
@@ -159,7 +219,10 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = stringResource(id = R.string.add_review),
+                            text = if (hasReview)
+                                stringResource(id = R.string.add_review)
+                            else
+                                stringResource(id = R.string.edit_review),
                             color = colorResource(id = R.color.white),
                             style = MaterialTheme.typography.titleLarge,
                             fontSize = 20.sp
@@ -339,7 +402,13 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
                                     isAnonymous = switchState
                                 )
 
-                                viewModel.addReview(review)
+                                if (hasReview) {
+                                    viewModel.editReview(review)
+                                }
+                                else {
+                                    viewModel.addReview(review)
+                                    hasReview = true
+                                }
 
                                 showDialog = false
                             }

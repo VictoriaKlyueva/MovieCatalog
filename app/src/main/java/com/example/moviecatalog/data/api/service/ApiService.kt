@@ -54,7 +54,7 @@ interface ApiService {
         @Body reviewModify: ReviewModifyModel
     ): Call<Void>
 
-    @DELETE("/api/movie/{movieId}/review/{id}/edit")
+    @DELETE("/api/movie/{movieId}/review/{id}/delete")
     fun deleteReview(
         @Path("movieId") movieId: String,
         @Path("id") reviewId: String,

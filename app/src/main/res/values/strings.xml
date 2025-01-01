@@ -69,4 +69,5 @@
     <string name="send">Отправить</string>
     <string name="score">Оценка</string>
     <string name="review_text">Текст отзыва</string>
+    <string name="edit_review">Изменить отзыв</string>
 </resources>
