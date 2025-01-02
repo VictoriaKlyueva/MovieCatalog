@@ -536,7 +536,10 @@ fun User(viewModel: MovieDetailsViewModel, review: ReviewModel, author: UserShor
                     author?.let { viewModel.addFriend(it) }
                 },
             painter = rememberImagePainter(
-                data = author?.avatar ?: R.drawable.avatar_default,
+                data = if (review.isAnonymous)
+                    R.drawable.avatar_default
+                else
+                    author?.avatar ?: R.drawable.avatar_default,
                 builder = {
                     error(R.drawable.avatar_default)
                 }
@@ -552,7 +555,10 @@ fun User(viewModel: MovieDetailsViewModel, review: ReviewModel, author: UserShor
                 .weight(1f)
         ) {
             Text(
-                text = author?.nickName ?: stringResource(id = R.string.nick_name_default),
+                text = if (review.isAnonymous || author?.nickName == null)
+                    stringResource(id = R.string.nick_name_default)
+                else
+                    author.nickName,
                 color = Color.White,
                 style = MaterialTheme.typography.bodyMedium,
                 fontSize = 12.sp,
