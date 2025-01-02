@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.common.Constants.MOVIE_RECEIVING_ERROR
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
-import com.example.moviecatalog.data.repository.MovieRepositoryImplImpl
+import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 import com.example.moviecatalog.domain.common.Constants.TOTAL_PAGES
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
 import com.example.moviecatalog.domain.usecase.GetFavoritesMoviesUseCase
@@ -14,7 +14,7 @@ import com.example.moviecatalog.domain.usecase.GetMoviesFromPageUseCase
 import com.example.moviecatalog.domain.usecase.GetRandomMovieUseCase
 
 class MoviesViewModel : ViewModel() {
-    private val movieRepository = MovieRepositoryImplImpl()
+    private val movieRepository = MovieRepositoryImpl()
     private val movieResponseUseCase = GetMoviesFromPageUseCase(movieRepository)
     private val getRandomMovieUseCase = GetRandomMovieUseCase(movieRepository)
 
@@ -28,8 +28,8 @@ class MoviesViewModel : ViewModel() {
     private val _favoritesMovies = MutableLiveData<List<MovieElementModel>>()
     val favoritesMovies: LiveData<List<MovieElementModel>> get() = _favoritesMovies
 
-    private val _movie = MutableLiveData<MovieElementModel>()
-    val movie: LiveData<MovieElementModel> get() = _movie
+    private val _movie = MutableLiveData<MovieElementModel?>()
+    val movie: MutableLiveData<MovieElementModel?> get() = _movie
 
     fun getRandomMovie(callback: (MovieElementModel?, String?) -> Unit) {
         getRandomMovieUseCase.execute { randomMovie, error ->

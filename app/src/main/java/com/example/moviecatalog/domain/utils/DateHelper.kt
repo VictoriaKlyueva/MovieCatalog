@@ -90,11 +90,17 @@ class DateHelper {
 
         val inputFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS")
         val inputFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+        val inputFormatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSS")
 
         val dateTime = try {
             LocalDateTime.parse(input, inputFormatter1)
         } catch (e: DateTimeParseException) {
-            LocalDateTime.parse(input, inputFormatter2)
+            try {
+                LocalDateTime.parse(input, inputFormatter2)
+            }
+            catch (e: DateTimeParseException) {
+                LocalDateTime.parse(input, inputFormatter3)
+            }
         }
 
         val outputFormatter = DateTimeFormatterBuilder()

@@ -1,10 +1,10 @@
 package com.example.moviecatalog.domain.usecase
 
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
-import com.example.moviecatalog.data.repository.MovieRepositoryImplImpl
+import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 
 class GetMovieDetailsUseCase(
-    private val movieRepository: MovieRepositoryImplImpl
+    private val movieRepository: MovieRepositoryImpl
 ) {
     fun execute(movieId: String, callback: (MovieDetailsModel?, String?) -> Unit) {
         movieRepository.getMovieDetails(movieId, callback)
