@@ -37,7 +37,9 @@ import com.example.moviecatalog.R
 import androidx.compose.runtime.*
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.input.pointer.motionEventSpy
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.Dialog
 import coil.compose.rememberImagePainter
@@ -62,7 +64,7 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
     }
 
     var showDialog by remember { mutableStateOf(false) }
-    var sliderValue by remember { mutableFloatStateOf(0f) }
+    var sliderValue by remember { mutableFloatStateOf(5f) }
     var switchState by remember { mutableStateOf(false) }
 
     val currentReview =
@@ -238,54 +240,32 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
                             fontSize = 14.sp
                         )
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(48.dp))
 
-                        Slider(
+                        Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(16.dp),
-                            value = sliderValue,
-                            onValueChange = { sliderValue = it },
-                            valueRange = 0f..9f,
-                            steps = 9,
-                            colors = SliderDefaults.colors(
-                                activeTrackColor = colorResource(id = R.color.gradient_end),
-                                inactiveTrackColor = colorResource(id = R.color.dark_faded)
-                            ),
-                            thumb = {
-                                Box(
-                                    Modifier
-                                        .width(2.dp)
-                                        .height(44.dp)
-                                        .background(
-                                            brush = Brush.horizontalGradient(
-                                                listOf(
-                                                    colorResource(id = R.color.gradient_start),
-                                                    colorResource(id = R.color.gradient_end)
-                                                )
-                                            ),
-                                            shape = RoundedCornerShape(2.dp)
-                                        )
-                                )
-                            },
-                            track = { sliderState ->
-                                val fraction by remember {
-                                    derivedStateOf {
-                                        (sliderState.value - sliderState.valueRange.start) /
-                                                (sliderState.valueRange.endInclusive - sliderState.valueRange.start)
-                                    }
-                                }
-
-                                Box(
-                                    Modifier
-                                        .fillMaxWidth()
-                                ) {
+                                .height(44.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Slider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(44.dp),
+                                value = sliderValue,
+                                onValueChange = { sliderValue = it },
+                                valueRange = 0f..10f,
+                                steps = 9,
+                                colors = SliderDefaults.colors(
+                                    activeTrackColor = colorResource(id = R.color.gradient_end),
+                                    inactiveTrackColor = colorResource(id = R.color.dark_faded)
+                                ),
+                                thumb = {
                                     Box(
                                         Modifier
-                                            .fillMaxWidth(fraction)
-                                            .align(Alignment.CenterStart)
-                                            .height(16.dp)
-                                            .padding(end = 16.dp)
+                                            .width(10.dp)
+                                            .height(44.dp)
+                                            .padding(start = 8.dp)
                                             .background(
                                                 brush = Brush.horizontalGradient(
                                                     listOf(
@@ -293,25 +273,113 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
                                                         colorResource(id = R.color.gradient_end)
                                                     )
                                                 ),
-                                                shape = RoundedCornerShape(8.dp)
+                                                shape = RoundedCornerShape(2.dp)
                                             )
                                     )
+                                },
+                                track = { sliderState ->
+                                    val fraction by remember {
+                                        derivedStateOf {
+                                            (sliderState.value - sliderState.valueRange.start) /
+                                                    (sliderState.valueRange.endInclusive - sliderState.valueRange.start)
+                                        }
+                                    }
+
                                     Box(
                                         Modifier
-                                            .fillMaxWidth(1f - fraction)
-                                            .align(Alignment.CenterEnd)
-                                            .height(16.dp)
-                                            .padding(start = 2.dp)
-                                            .background(
-                                                colorResource(id = R.color.dark_faded),
-                                                shape = RoundedCornerShape(8.dp)
-                                            )
-                                    )
-                                }
-                            }
-                        )
+                                            .fillMaxWidth()
+                                    ) {
+                                        Box(
+                                            Modifier
+                                                .fillMaxWidth(fraction)
+                                                .align(Alignment.CenterStart)
+                                                .height(16.dp)
+                                                .padding(end = 8.dp)
+                                                .background(
+                                                    brush = Brush.horizontalGradient(
+                                                        listOf(
+                                                            colorResource(id = R.color.gradient_start),
+                                                            colorResource(id = R.color.gradient_end)
+                                                        )
+                                                    ),
+                                                    shape = RoundedCornerShape(8.dp)
+                                                )
+                                        )
+                                        Box(
+                                            Modifier
+                                                .fillMaxWidth(1f - fraction)
+                                                .align(Alignment.CenterEnd)
+                                                .height(16.dp)
+                                                .padding(start = 6.dp)
+                                                .background(
+                                                    colorResource(id = R.color.dark_faded),
+                                                    shape = RoundedCornerShape(8.dp)
+                                                )
+                                        )
 
-                        Spacer(modifier = Modifier.height(16.dp))
+                                        // Adding points
+                                        for (i in 0..9) {
+                                            val positionFraction = i / 8.5f
+                                            Box(
+                                                modifier = Modifier
+                                                    .size(3.dp)
+                                                    .offset(x = with(LocalDensity.current) {
+                                                        (positionFraction * 235).dp
+                                                    } - 125.dp)
+                                                    .align(Alignment.Center)
+                                                    .background(
+                                                        brush =
+                                                        if (sliderState.value >= positionFraction * 8.5 && sliderValue != 0f) {
+                                                            Brush.horizontalGradient(
+                                                                listOf(
+                                                                    colorResource(R.color.white),
+                                                                    colorResource(R.color.white)
+                                                                )
+                                                            )
+                                                        } else {
+                                                            Brush.horizontalGradient(
+                                                                listOf(
+                                                                    colorResource(R.color.gradient_start),
+                                                                    colorResource(R.color.gradient_end)
+                                                                )
+                                                            )
+                                                        },
+                                                        shape = CircleShape
+                                                    )
+                                            )
+                                        }
+                                    }
+                                }
+                            )
+
+                            // Indicator
+                            val thumbPosition = with(LocalDensity.current) { (sliderValue / 10f * 265).dp }
+
+                            Box (
+                                modifier = Modifier
+                                    .wrapContentSize()
+                                    .offset(y = (-50).dp)
+                                    .align(Alignment.Center)
+                                    .offset(x = thumbPosition - 132.dp)
+                                    .padding(horizontal = 36.dp, vertical = 4.dp)
+                                    .background(
+                                        colorResource(id = R.color.dark_faded),
+                                        shape = CircleShape
+                                    ),
+                            ) {
+                                Text(
+                                    modifier = Modifier
+                                        .padding(vertical = 8.dp, horizontal = 16.dp),
+                                    text = sliderValue.toInt().toString(),
+                                    color = Color.White,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontSize = 14.sp,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
 
                         var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
                         var isFocused by remember { mutableStateOf(false) }
@@ -398,7 +466,7 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
                             contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
                             onClick = {
                                 val review = ReviewModifyModel(
-                                    rating = sliderValue.toInt() + 1,
+                                    rating = sliderValue.toInt(),
                                     reviewText = textFieldValue.text,
                                     isAnonymous = switchState
                                 )
