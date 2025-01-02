@@ -62,4 +62,7 @@ interface ApiService {
 
     @GET("/api/account/profile")
     fun getProfile(): Call<ProfileModel>
+
+    @PUT("/api/account/profile")
+    fun editProfile(@Body profile: ProfileModel): Call<Void>
 }

@@ -20,7 +20,14 @@ import com.example.moviecatalog.presentation.viewModel.factory.ProfileViewModelF
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatEditText
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.moviecatalog.common.Constants.BINDING_IS_NOT_INITIALIZED
 import com.example.moviecatalog.common.Constants.PICK_IMAGE_REQUEST
 
@@ -50,29 +57,55 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         return binding.root
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == PICK_IMAGE_REQUEST &&
-            resultCode == AppCompatActivity.RESULT_OK &&
-            data != null) {
-            val imageUri: Uri? = data.data
-            imageUri?.let {
-                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(
-                    requireActivity().contentResolver,
-                    imageUri
-                )
-                binding.avatar.setImageBitmap(bitmap)
-            }
-        }
-    }
-
     private fun setupAvatar() {
         binding.avatar.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, PICK_IMAGE_REQUEST)
+            val dialogView = layoutInflater.inflate(R.layout.dialog_avatar, null)
+            val editText = dialogView.findViewById<AppCompatEditText>(R.id.editTextAvatarUrl)
+
+            val dialog = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .create()
+
+            dialog.setOnShowListener {
+                dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_corners_mini)
+
+                // Установка ширины и высоты диалога
+                val layoutParams = dialog.window?.attributes
+                layoutParams?.width = (resources.displayMetrics.widthPixels * 0.9).toInt()
+                layoutParams?.height = WindowManager.LayoutParams.WRAP_CONTENT
+                dialog.window?.attributes = layoutParams
+            }
+
+            dialogView.findViewById<Button>(R.id.buttonConfirm).setOnClickListener {
+                val avatarUrl = editText.text.toString()
+                if (avatarUrl.isNotEmpty()) {
+                    val currentProfile = viewModel.profile.value
+
+                    if (currentProfile != null) {
+                        val newProfile = currentProfile.copy(avatarLink = avatarUrl)
+                        viewModel.editProfileData(newProfile)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Текущий профиль не найден",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Введите значение",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                dialog.dismiss()
+            }
+
+            dialogView.findViewById<Button>(R.id.buttonCancel).setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialog.show()
         }
     }
 
@@ -95,7 +128,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         if (profile.avatarLink != null) {
             Glide.with(binding.root.context)
                 .load(profile.avatarLink)
-                .transform(RoundedCorners(90))
+                .transform(CircleCrop())
                 .into(binding.avatar)
         }
     }

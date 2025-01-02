@@ -37,7 +37,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/transparent_circle"
                 android:src="@drawable/avatar_default"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

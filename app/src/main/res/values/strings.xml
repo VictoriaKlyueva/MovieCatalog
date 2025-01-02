@@ -74,4 +74,9 @@
     <string name="score">Оценка</string>
     <string name="review_text">Текст отзыва</string>
     <string name="edit_review">Изменить отзыв</string>
+    <string name="enter_avatar_link">Введите ссылку на аватар</string>
+    <string name="cancellation">Отмена</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="avatar_url">URL аватарки</string>
+    <string name="prikol">Терпи, юзер, мое приложение с тобой еще не закончило</string>
 </resources>

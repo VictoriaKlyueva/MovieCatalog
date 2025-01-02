@@ -38,6 +38,26 @@ class UserRepositoryImpl(
         })
     }
 
+    override fun editProfile(profile: ProfileModel, callback: (String?) -> Unit) {
+        val call = ApiClient.apiService.editProfile(profile)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    callback(null)
+                } else {
+                    val errorMessage = "Ошибка: ${response.code()}"
+                    callback(errorMessage)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                t.printStackTrace()
+                val errorMessage = "Ошибка: ${t.message}"
+                callback(errorMessage)
+            }
+        })
+    }
+
     override suspend fun isUserExist(): Boolean {
         return userDataSource.userId.first() != null
     }

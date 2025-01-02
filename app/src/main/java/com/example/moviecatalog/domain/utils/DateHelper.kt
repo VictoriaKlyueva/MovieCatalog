@@ -88,19 +88,22 @@ class DateHelper {
     fun convertFromDateTimezonesSeconds(input: String): String {
         println(input)
 
-        val inputFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS")
-        val inputFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
-        val inputFormatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSS")
+        val inputFormatters = listOf(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSS"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSS")
+        )
 
-        val dateTime = try {
-            LocalDateTime.parse(input, inputFormatter1)
-        } catch (e: DateTimeParseException) {
+        var dateTime: LocalDateTime? = null
+        for (format in inputFormatters) {
             try {
-                LocalDateTime.parse(input, inputFormatter2)
-            }
-            catch (e: DateTimeParseException) {
-                LocalDateTime.parse(input, inputFormatter3)
-            }
+                dateTime = LocalDateTime.parse(input, format)
+            } catch (_: DateTimeParseException) { }
+        }
+
+        if (dateTime == null) {
+            throw Exception("Неверный формат даты")
         }
 
         val outputFormatter = DateTimeFormatterBuilder()

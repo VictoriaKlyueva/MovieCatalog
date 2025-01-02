@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_corners"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_avatar_link"
+        android:fontFamily="@font/manrope_bold"
+        android:textColor="@color/white"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prikol"
+        android:fontFamily="@font/manrope_regular"
+        android:textColor="@color/gray_faded"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextAvatarUrl"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+
+        android:autofillHints="username"
+        android:hint="@string/avatar_url"
+        android:fontFamily="@font/manrope_regular"
+        android:textColorHint="@color/gray_faded"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:inputType="text"
+
+        android:background="@drawable/rounded_edit_text"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"
+
+        android:drawableEnd="@drawable/ic_clear"
+        android:drawablePadding="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp">
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="@string/cancellation"
+            android:fontFamily="@font/manrope_bold"
+            android:background="@drawable/button_secondary"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="16dp"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/buttonConfirm"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="@string/confirm"
+            android:fontFamily="@font/manrope_bold"
+            android:background="@drawable/button_primary_default"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+</LinearLayout>
+
