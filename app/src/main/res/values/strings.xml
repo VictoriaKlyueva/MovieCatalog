@@ -69,4 +69,9 @@
     <string name="friends_like_singular">Нравится %d вашему другу</string>
     <string name="error">Ошибка</string>
     <string name="incorrect_login_and_password">Неверные логин и пароль</string>
+    <string name="anonymous_review">Анонимный отзыв</string>
+    <string name="send">Отправить</string>
+    <string name="score">Оценка</string>
+    <string name="review_text">Текст отзыва</string>
+    <string name="edit_review">Изменить отзыв</string>
 </resources>

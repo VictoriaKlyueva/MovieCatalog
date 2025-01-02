@@ -8,13 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieElementModel
-import com.example.moviecatalog.data.repository.MovieRepositoryImpl
+import com.example.moviecatalog.data.repository.MovieRepositoryImplImpl
 import com.example.moviecatalog.domain.usecase.FetchFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.GetRandomMovieUseCase
 import kotlinx.coroutines.launch
 
 class FeedViewModel(context: Context) : ViewModel() {
-    private val movieRepository = MovieRepositoryImpl()
+    private val movieRepository = MovieRepositoryImplImpl()
     private val getRandomMovieUseCase = GetRandomMovieUseCase(movieRepository)
 
     private val userDataSource = UserDataSource(context)

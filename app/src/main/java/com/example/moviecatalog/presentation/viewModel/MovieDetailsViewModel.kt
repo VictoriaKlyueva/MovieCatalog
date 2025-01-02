@@ -11,18 +11,25 @@ import com.example.moviecatalog.data.model.kinopoisk.FilmSearchByFiltersResponse
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
 import com.example.moviecatalog.data.model.main.ReviewModel
+import com.example.moviecatalog.data.model.main.ReviewModifyModel
 import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.data.repository.FavoriteMoviesRepositoryImpl
 import com.example.moviecatalog.data.repository.KinopoiskRepositoryImpl
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
+import com.example.moviecatalog.data.repository.ReviewRepositoryImpl
+import com.example.moviecatalog.data.repository.UserRepositoryImpl
 import com.example.moviecatalog.domain.usecase.AddFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.AddFavoriteUseCase
 import com.example.moviecatalog.domain.usecase.AddFriendUseCase
+import com.example.moviecatalog.domain.usecase.AddReviewUseCase
 import com.example.moviecatalog.domain.usecase.CheckFavoriteMovieUseCase
+import com.example.moviecatalog.domain.usecase.DeleteReviewUseCase
+import com.example.moviecatalog.domain.usecase.EditReviewUseCase
 import com.example.moviecatalog.domain.usecase.FetchFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.FetchFriendsUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieByNameUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
+import com.example.moviecatalog.domain.usecase.GetProfileUseCase
 import com.example.moviecatalog.domain.usecase.RemoveFavoriteMovieUseCase
 import kotlinx.coroutines.launch
 
@@ -32,8 +39,12 @@ class MovieDetailsViewModel(
     private val movieRepository = MovieRepositoryImpl()
     private val favoritesRepository = FavoriteMoviesRepositoryImpl()
     private val kinopoiskRepository = KinopoiskRepositoryImpl()
+    private val reviewRepository = ReviewRepositoryImpl()
+
 
     private val userDataSource = UserDataSource(context)
+
+    private val userRepository = UserRepositoryImpl(userDataSource)
 
     private val fetchFavoriteGenresUseCase = FetchFavoriteGenresUseCase(userDataSource)
     private val fetchFriendsUseCase = FetchFriendsUseCase(userDataSource)
@@ -44,6 +55,10 @@ class MovieDetailsViewModel(
     private val checkFavoriteMovieUseCase = CheckFavoriteMovieUseCase(favoritesRepository)
     private val removeFavoriteMovieUseCase = RemoveFavoriteMovieUseCase(favoritesRepository)
     private val getMovieByNameUseCase = GetMovieByNameUseCase(kinopoiskRepository)
+    private val addReviewUseCase = AddReviewUseCase(reviewRepository)
+    private val editReviewUseCase = EditReviewUseCase(reviewRepository)
+    private val deleteReviewUseCase = DeleteReviewUseCase(reviewRepository)
+    private val getProfileUseCase = GetProfileUseCase(userRepository)
 
     private val _movie = MutableLiveData<MovieDetailsModel?>()
     val movie: LiveData<MovieDetailsModel?> get() = _movie
@@ -172,6 +187,84 @@ class MovieDetailsViewModel(
             }
         } ?: run {
             println("Фильм не доступен")
+        }
+    }
+
+    fun addReview(review: ReviewModifyModel) {
+        _movie.value?.let { movieDetails ->
+            val movieId = movieDetails.id
+            addReviewUseCase.execute(movieId, review) { error ->
+                if (error != null) {
+                    println("Ошибка отправки запроса: $error")
+                } else {
+                    println("Отзыв создан успешно")
+                }
+            }
+        } ?: run {
+            println("Фильм не доступен")
+        }
+    }
+
+    fun findUserReview(callback: (String?) -> Unit) {
+        _movie.value?.let { movieDetails ->
+            getProfileUseCase.execute { receivedProfile, _ ->
+                if (receivedProfile != null) {
+                    var foundReview: String? = null
+                    for (review in movieDetails.reviews) {
+                        if (review.author.userId == receivedProfile.id) {
+                            foundReview = review.id
+                            break
+                        }
+                    }
+                    callback(foundReview)
+                } else {
+                    callback(null)
+                }
+            }
+        } ?: run {
+            callback(null)
+        }
+    }
+
+    fun editReview(review: ReviewModifyModel) {
+        findUserReview { userId ->
+            _movie.value?.let { movieDetails ->
+                val movieId = movieDetails.id
+                if (userId != null) {
+                    editReviewUseCase.execute(movieId, userId, review) { error ->
+                        if (error != null) {
+                            println("Ошибка отправки запроса: $error")
+                        } else {
+                            println("Отзыв изменен успешно")
+                        }
+                    }
+                } else {
+                    println("Отзыв пользователя не найден")
+                }
+            } ?: run {
+                println("Фильм не доступен")
+            }
+        }
+    }
+
+    fun deleteReview() {
+        findUserReview { userId ->
+            _movie.value?.let { movieDetails ->
+                val movieId = movieDetails.id
+                if (userId != null) {
+                    deleteReviewUseCase.execute(movieId, userId) { error ->
+                        if (error != null) {
+                            println("Ошибка отправки запроса: $error")
+                        } else {
+                            println("Отзыв удален успешно")
+                        }
+                    }
+                } else {
+                    println("Отзыв пользователя не найден")
+                }
+            } ?: run {
+                println("Фильм не доступен")
+            }
         }
     }
 }

@@ -3,10 +3,10 @@ package com.example.moviecatalog.domain.usecase
 import com.example.moviecatalog.common.Constants.MOVIES_NOT_FOUND
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.domain.common.Constants.TOTAL_PAGES
-import com.example.moviecatalog.domain.repository.MovieResponseRepository
+import com.example.moviecatalog.domain.repository.MovieResponseRepositoryImpl
 import kotlin.random.Random
 
-class GetRandomMovieUseCase(private val movieRepository: MovieResponseRepository) {
+class GetRandomMovieUseCase(private val movieRepository: MovieResponseRepositoryImpl) {
     fun execute(callback: (MovieElementModel?, String?) -> Unit) {
         val randomPage = Random.nextInt(1, TOTAL_PAGES)
 

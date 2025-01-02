@@ -1,9 +1,9 @@
 package com.example.moviecatalog.domain.usecase
 
 import com.example.moviecatalog.data.model.main.MovieElementModel
-import com.example.moviecatalog.domain.repository.MovieResponseRepository
+import com.example.moviecatalog.domain.repository.MovieResponseRepositoryImpl
 
-class GetAllMoviesUseCase(private val movieRepository: MovieResponseRepository) {
+class GetAllMoviesUseCase(private val movieRepository: MovieResponseRepositoryImpl) {
 
     fun execute(callback: (List<MovieElementModel>?, String?) -> Unit) {
         val allMovies = mutableListOf<MovieElementModel>()

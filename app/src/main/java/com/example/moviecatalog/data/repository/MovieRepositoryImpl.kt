@@ -4,13 +4,17 @@ import com.example.moviecatalog.data.api.client.ApiClient
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
 import com.example.moviecatalog.data.model.main.MovieElementModel
 import com.example.moviecatalog.data.model.main.MovieResponse
-import com.example.moviecatalog.domain.repository.MovieResponseRepository
+import com.example.moviecatalog.domain.repository.MovieResponseRepositoryImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+<<<<<<< HEAD:app/src/main/java/com/example/moviecatalog/data/repository/MovieRepositoryImpl.kt
 class MovieRepositoryImpl : MovieResponseRepository {
 
+=======
+class MovieRepositoryImplImpl : MovieResponseRepositoryImpl {
+>>>>>>> Reviews:app/src/main/java/com/example/moviecatalog/data/repository/MovieRepositoryImplImpl.kt
     override fun getMovies(page: Int, callback: (List<MovieElementModel>?, String?) -> Unit) {
         val call = ApiClient.apiService.getMovies(page)
         call.enqueue(object : Callback<MovieResponse> {

@@ -50,14 +50,14 @@ interface ApiService {
     @PUT("/api/movie/{movieId}/review/{id}/edit")
     fun putReview(
         @Path("movieId") movieId: String,
-        @Path("id") id: String,
+        @Path("id") reviewId: String,
         @Body reviewModify: ReviewModifyModel
     ): Call<Void>
 
-    @DELETE("/api/movie/{movieId}/review/{id}/edit")
+    @DELETE("/api/movie/{movieId}/review/{id}/delete")
     fun deleteReview(
         @Path("movieId") movieId: String,
-        @Path("id") id: String
+        @Path("id") reviewId: String,
     ): Call<Void>
 
     @GET("/api/account/profile")

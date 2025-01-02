@@ -18,7 +18,6 @@ import com.example.moviecatalog.domain.usecase.GetProfileUseCase
 class ProfileViewModel(
     context: Context
 ): ViewModel() {
-
     private val tokenDataSource = TokenDataSource(context)
     private val userDataSource = UserDataSource(context)
 
