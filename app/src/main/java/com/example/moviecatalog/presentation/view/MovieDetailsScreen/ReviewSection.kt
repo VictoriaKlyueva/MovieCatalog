@@ -532,7 +532,7 @@ fun User(viewModel: MovieDetailsViewModel, review: ReviewModel, author: UserShor
                 .clip(CircleShape)
                 .background(Color.Transparent)
                 .clickable {
-                    viewModel.addFriend(author!!)
+                    viewModel.addFriend(author)
                 },
             painter = painterResource(id = R.drawable.avatar_default),
             contentDescription = "User avatar",

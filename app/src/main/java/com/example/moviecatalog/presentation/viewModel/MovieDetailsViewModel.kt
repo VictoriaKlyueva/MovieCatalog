@@ -90,13 +90,11 @@ class MovieDetailsViewModel(
     }
 
     fun countFriendsWhoLikedMovie(reviews: List<ReviewModel>): Int {
-        val friendUserIds = _friends.value?.mapNotNull { it.userId } ?: emptyList()
+        val friendUserIds = _friends.value?.map { it.userId } ?: emptyList()
         return reviews.count { review ->
             review.author?.userId?.let { it in friendUserIds } == true && review.rating > 6
         }
     }
-
-
 
     fun addGenreToFavorites(genre: GenreModel) {
         viewModelScope.launch {
@@ -111,9 +109,11 @@ class MovieDetailsViewModel(
         }
     }
 
-    fun addFriend(friend: UserShortModel) {
-        viewModelScope.launch {
-            addFriendUseCase.execute(friend)
+    fun addFriend(friend: UserShortModel?) {
+        if (friend != null) {
+            viewModelScope.launch {
+                addFriendUseCase.execute(friend)
+            }
         }
     }
 
@@ -211,7 +211,7 @@ class MovieDetailsViewModel(
                 if (receivedProfile != null) {
                     var foundReview: String? = null
                     for (review in movieDetails.reviews) {
-                        if (review.author.userId == receivedProfile.id) {
+                        if (review.author?.userId == receivedProfile.id) {
                             foundReview = review.id
                             break
                         }
