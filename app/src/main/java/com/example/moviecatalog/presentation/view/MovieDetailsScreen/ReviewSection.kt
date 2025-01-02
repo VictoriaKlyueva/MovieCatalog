@@ -220,9 +220,9 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
                     ) {
                         Text(
                             text = if (hasReview)
-                                stringResource(id = R.string.add_review)
+                                stringResource(id = R.string.edit_review)
                             else
-                                stringResource(id = R.string.edit_review),
+                                stringResource(id = R.string.add_review),
                             color = colorResource(id = R.color.white),
                             style = MaterialTheme.typography.titleLarge,
                             fontSize = 20.sp
