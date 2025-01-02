@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.Dialog
+import coil.compose.rememberImagePainter
 import com.example.moviecatalog.common.Constants
 import com.example.moviecatalog.data.model.main.ReviewModel
 import com.example.moviecatalog.data.model.main.ReviewModifyModel
@@ -532,9 +533,14 @@ fun User(viewModel: MovieDetailsViewModel, review: ReviewModel, author: UserShor
                 .clip(CircleShape)
                 .background(Color.Transparent)
                 .clickable {
-                    viewModel.addFriend(author)
+                    author?.let { viewModel.addFriend(it) }
                 },
-            painter = painterResource(id = R.drawable.avatar_default),
+            painter = rememberImagePainter(
+                data = author?.avatar ?: R.drawable.avatar_default,
+                builder = {
+                    error(R.drawable.avatar_default)
+                }
+            ),
             contentDescription = "User avatar",
             contentScale = ContentScale.Crop
         )
