@@ -16,6 +16,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,9 +31,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
+import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
 
 @Composable
-fun DirectorSection(movie: MovieDetailsModel) {
+fun DirectorSection(viewModel: MovieDetailsViewModel, movie: MovieDetailsModel) {
+
+    val director by viewModel.director.observeAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -81,7 +87,9 @@ fun DirectorSection(movie: MovieDetailsModel) {
                     .padding(8.dp)
                     .clip(CircleShape)
                     .background(Color.Transparent),
-                painter = rememberAsyncImagePainter(R.drawable.avatar_default),
+                painter = rememberAsyncImagePainter(
+                    director?.posterUrl ?: R.drawable.avatar_default
+                ),
                 contentDescription = movie.name,
                 contentScale = ContentScale.Crop
             )

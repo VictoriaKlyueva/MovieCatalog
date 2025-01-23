@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviecatalog.common.Constants.EMPTY_STRING
 import com.example.moviecatalog.data.datasource.UserDataSource
 import com.example.moviecatalog.data.model.kinopoisk.FilmSearchByFiltersResponse_items
+import com.example.moviecatalog.data.model.kinopoisk.PersonByNameResponse_items
 import com.example.moviecatalog.data.model.main.GenreModel
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
 import com.example.moviecatalog.data.model.main.ReviewModel
@@ -27,6 +28,7 @@ import com.example.moviecatalog.domain.usecase.DeleteReviewUseCase
 import com.example.moviecatalog.domain.usecase.EditReviewUseCase
 import com.example.moviecatalog.domain.usecase.FetchFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.FetchFriendsUseCase
+import com.example.moviecatalog.domain.usecase.GetDirectorByNameUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieByNameUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
 import com.example.moviecatalog.domain.usecase.GetProfileUseCase
@@ -41,7 +43,6 @@ class MovieDetailsViewModel(
     private val kinopoiskRepository = KinopoiskRepositoryImpl()
     private val reviewRepository = ReviewRepositoryImpl()
 
-
     private val userDataSource = UserDataSource(context)
 
     private val userRepository = UserRepositoryImpl(userDataSource)
@@ -55,6 +56,7 @@ class MovieDetailsViewModel(
     private val checkFavoriteMovieUseCase = CheckFavoriteMovieUseCase(favoritesRepository)
     private val removeFavoriteMovieUseCase = RemoveFavoriteMovieUseCase(favoritesRepository)
     private val getMovieByNameUseCase = GetMovieByNameUseCase(kinopoiskRepository)
+    private val getDirectorByNameUseCase = GetDirectorByNameUseCase(kinopoiskRepository)
     private val addReviewUseCase = AddReviewUseCase(reviewRepository)
     private val editReviewUseCase = EditReviewUseCase(reviewRepository)
     private val deleteReviewUseCase = DeleteReviewUseCase(reviewRepository)
@@ -74,6 +76,9 @@ class MovieDetailsViewModel(
 
     private val _friends = MutableLiveData<List<UserShortModel>>()
     val friends: LiveData<List<UserShortModel>> get() = _friends
+
+    private val _director = MutableLiveData<PersonByNameResponse_items?>(null)
+    val director: LiveData<PersonByNameResponse_items?> get() = _director
 
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
@@ -131,7 +136,6 @@ class MovieDetailsViewModel(
         _movie.value?.let { movieDetails ->
             val movieName = movieDetails.name ?: EMPTY_STRING
             getMovieByNameUseCase.execute(movieName) { movie, error ->
-
                 if (error != null) {
                     println("Ошибка: $error")
                     _errorMessage.postValue(error)
@@ -145,12 +149,29 @@ class MovieDetailsViewModel(
         }
     }
 
+    private fun getDirectorByName() {
+        println("getting director in use case")
+        _movie.value?.let { movieDetails ->
+            val movieDirector = movieDetails.director ?: EMPTY_STRING
+            getDirectorByNameUseCase.execute(movieDirector) { director, error ->
+                if (error != null) {
+                    println("Ошибка получения режиссёра: $error")
+                } else {
+                    _director.value = director
+                }
+            }
+        } ?: run {
+            println("Фильм не доступен")
+        }
+    }
+
     fun fetchMovie(movieId: String) {
         movieDetailsUseCase.execute(movieId) { details, error ->
             if (details != null) {
                 _movie.value = details
                 _errorMessage.value = null
                 getMovieByName()
+                getDirectorByName()
             } else {
                 _movie.value = null
                 _errorMessage.value = error

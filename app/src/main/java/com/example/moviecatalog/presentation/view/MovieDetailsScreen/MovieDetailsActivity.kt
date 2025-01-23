@@ -42,6 +42,7 @@ class MovieDetailsActivity : ComponentActivity() {
         viewModel.fetchFriends()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun observeData() {
         viewModel.movie.observe(this) { movie ->
             if (movie != null) {

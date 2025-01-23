@@ -17,8 +17,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -31,11 +29,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
-import com.example.moviecatalog.common.Constants.EMPTY_STRING
 import com.example.moviecatalog.data.model.kinopoisk.FilmSearchByFiltersResponse_items
 import com.example.moviecatalog.data.model.main.MovieDetailsModel
 import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
@@ -50,7 +46,7 @@ fun MovieDetailsScreen(
 ) {
     val context = LocalContext.current
     val isFavorite by viewModel.isFavorite.observeAsState(initial = false)
-    println(movieEnhanced?.ratingKinopoisk)
+
 
     Box (
         modifier = Modifier
@@ -204,7 +200,7 @@ fun MovieDetailsScreen(
             }
 
             item {
-                DirectorSection(movie)
+                DirectorSection(viewModel,  movie)
             }
 
             item {

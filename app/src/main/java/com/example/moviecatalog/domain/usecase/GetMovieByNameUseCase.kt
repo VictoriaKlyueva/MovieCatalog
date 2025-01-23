@@ -1,7 +1,6 @@
 package com.example.moviecatalog.domain.usecase
 
 import com.example.moviecatalog.data.model.kinopoisk.FilmSearchByFiltersResponse_items
-import com.example.moviecatalog.data.repository.KinopoiskRepositoryImpl
 import com.example.moviecatalog.domain.repository.KinopoiskRepository
 
 class GetMovieByNameUseCase(private val kinopoiskRepository: KinopoiskRepository) {
