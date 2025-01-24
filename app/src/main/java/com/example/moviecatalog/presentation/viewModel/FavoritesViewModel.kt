@@ -34,16 +34,33 @@ class FavoritesViewModel(
     private val _navigateToPlaceholder = MutableLiveData<Boolean>()
     val navigateToPlaceholder: LiveData<Boolean> get() = _navigateToPlaceholder
 
+    private val _showGenres = MutableLiveData<Boolean>()
+    val showGenres: LiveData<Boolean> get() = _showGenres
+
+    private val _showMovies = MutableLiveData<Boolean>()
+    val showMovies: LiveData<Boolean> get() = _showMovies
+
     private fun checkIfEmpty() {
         _navigateToPlaceholder.postValue(
             _favoritesGenres.value.isNullOrEmpty() && _favoritesMovies.value.isNullOrEmpty()
         )
     }
 
+    fun removeGenre(genre: GenreModel) {
+        viewModelScope.launch {
+            removeGenreUseCase(genre)
+            fetchFavoritesGenres()
+            checkIfEmpty()
+        }
+    }
+
     fun fetchFavorites() {
         viewModelScope.launch {
             val genres = fetchFavoriteGenresUseCase.execute()
             _favoritesGenres.postValue(genres)
+            _showGenres.postValue(
+                !_favoritesGenres.value.isNullOrEmpty()
+            )
 
             fetchFavoriteMoviesUseCase.execute { movies, error ->
                 if (error == null) {
@@ -55,6 +72,9 @@ class FavoritesViewModel(
 
                 checkIfEmpty()
             }
+            _showMovies.postValue(
+                !_favoritesMovies.value.isNullOrEmpty()
+            )
         }
     }
 
@@ -62,26 +82,10 @@ class FavoritesViewModel(
         _navigateToPlaceholder.postValue(false)
     }
 
-    fun fetchFavoritesGenres() {
+    private fun fetchFavoritesGenres() {
         viewModelScope.launch {
             val genres = fetchFavoriteGenresUseCase.execute()
             _favoritesGenres.postValue(genres)
-            checkIfEmpty()
-        }
-    }
-
-    fun fetchFavoritesMovies() {
-        fetchFavoriteMoviesUseCase.execute { movies, error ->
-            if (error == null) {
-                if (movies != null) {
-                    _favoritesMovies.postValue(movies)
-                } else {
-                    _favoritesMovies.postValue(emptyList())
-                }
-            } else {
-                println(MOVIE_RECEIVING_ERROR + "$error")
-                _favoritesMovies.postValue(emptyList())
-            }
             checkIfEmpty()
         }
     }

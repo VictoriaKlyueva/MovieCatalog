@@ -105,17 +105,15 @@ class FavoritesFragment : Fragment() {
                 modifier = Modifier.height(32.dp)
             )
 
-            GenreSection(viewModel, favoritesGenres)
+            if (viewModel.showGenres.value == true) {
+                GenreSection(viewModel, favoritesGenres)
+                Spacer(modifier = Modifier.height(32.dp))
+            }
 
-            Spacer(
-                modifier = Modifier.height(32.dp)
-            )
-
-            MovieSection(favoriteMovies)
-
-            Spacer(
-                modifier = Modifier.height(64.dp)
-            )
+            if (viewModel.showMovies.value == true) {
+                MovieSection(favoriteMovies)
+                Spacer(modifier = Modifier.height(64.dp))
+            }
         }
     }
 }
