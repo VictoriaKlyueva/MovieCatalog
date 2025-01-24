@@ -42,16 +42,6 @@ class FavoritesFragment : Fragment() {
     ): View {
         setupViewModel()
 
-        viewModel.navigateToPlaceholder.observe(viewLifecycleOwner) { navigate ->
-            if (navigate) {
-                val navController = findNavController()
-
-                navController.navigate(R.id.favoritesPlaceholderFragment)
-
-                viewModel.resetNavigation()
-            }
-        }
-
         return ComposeView(requireContext()).apply {
             setContent {
                 Theme {
@@ -76,8 +66,15 @@ class FavoritesFragment : Fragment() {
 
         observeData()
 
-        viewModel.fetchFavoritesGenres()
-        viewModel.fetchFavoritesMovies()
+        viewModel.fetchFavorites()
+
+        viewModel.navigateToPlaceholder.observe(viewLifecycleOwner) { navigate ->
+            if (navigate) {
+                val navController = findNavController()
+                navController.navigate(R.id.favoritesPlaceholderFragment)
+                viewModel.resetNavigation()
+            }
+        }
     }
 
     private fun observeData() {

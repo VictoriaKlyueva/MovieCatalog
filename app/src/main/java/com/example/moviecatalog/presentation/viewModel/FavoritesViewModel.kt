@@ -28,17 +28,33 @@ class FavoritesViewModel(
     private val _favoritesGenres = MutableLiveData<List<GenreModel>>()
     val favoritesGenres: LiveData<List<GenreModel>> get() = _favoritesGenres
 
-    private val _favoritesMovies = MutableLiveData<List<MovieElementModel>>()
-    val favoritesMovies: LiveData<List<MovieElementModel>> get() = _favoritesMovies
+    private val _favoritesMovies = MutableLiveData<List<MovieElementModel>?>()
+    val favoritesMovies: LiveData<List<MovieElementModel>?> get() = _favoritesMovies
 
     private val _navigateToPlaceholder = MutableLiveData<Boolean>()
     val navigateToPlaceholder: LiveData<Boolean> get() = _navigateToPlaceholder
 
     private fun checkIfEmpty() {
-        if (_favoritesGenres.value.isNullOrEmpty() && _favoritesMovies.value.isNullOrEmpty()) {
-            _navigateToPlaceholder.postValue(true)
-        } else {
-            _navigateToPlaceholder.postValue(false)
+        _navigateToPlaceholder.postValue(
+            _favoritesGenres.value.isNullOrEmpty() && _favoritesMovies.value.isNullOrEmpty()
+        )
+    }
+
+    fun fetchFavorites() {
+        viewModelScope.launch {
+            val genres = fetchFavoriteGenresUseCase.execute()
+            _favoritesGenres.postValue(genres)
+
+            fetchFavoriteMoviesUseCase.execute { movies, error ->
+                if (error == null) {
+                    _favoritesMovies.postValue(movies ?: emptyList())
+                } else {
+                    println(MOVIE_RECEIVING_ERROR + "$error")
+                    _favoritesMovies.postValue(emptyList())
+                }
+
+                checkIfEmpty()
+            }
         }
     }
 
@@ -50,14 +66,6 @@ class FavoritesViewModel(
         viewModelScope.launch {
             val genres = fetchFavoriteGenresUseCase.execute()
             _favoritesGenres.postValue(genres)
-            checkIfEmpty()
-        }
-    }
-
-    fun removeGenre(genre: GenreModel) {
-        viewModelScope.launch {
-            removeGenreUseCase(genre)
-            fetchFavoritesGenres()
             checkIfEmpty()
         }
     }
