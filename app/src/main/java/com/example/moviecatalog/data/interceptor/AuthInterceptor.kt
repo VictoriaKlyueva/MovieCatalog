@@ -25,6 +25,9 @@ class AuthInterceptor(
 
         val response = chain.proceed(builder.build())
 
+        println("РЕСПОНС КОД")
+        println(response.code)
+
         if (response.code == 401) {
             tokenDataSource.delete()
             authFailureHandler.onAuthFailure()
@@ -33,5 +36,3 @@ class AuthInterceptor(
         return response
     }
 }
-
-

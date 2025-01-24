@@ -68,9 +68,11 @@ class FeedActivity : AppCompatActivity(), AuthInterceptor.AuthFailureHandler {
     }
 
     override fun onAuthFailure() {
-        val intent = Intent(this, WelcomeActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+        runOnUiThread {
+            val intent = Intent(this, WelcomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 
     private fun updateBottomNavigation() {
