@@ -1,4 +1,4 @@
-package com.example.moviecatalog.domain.utils
+package com.example.moviecatalog.presentation.utils
 
 import com.example.moviecatalog.data.interceptor.AuthInterceptor
 

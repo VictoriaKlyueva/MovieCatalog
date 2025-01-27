@@ -8,28 +8,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.main.ProfileModel
 import com.example.moviecatalog.databinding.FragmentProfileBinding
-import com.example.moviecatalog.domain.utils.DateHelper
+import com.example.moviecatalog.presentation.utils.DateHelper
 import com.example.moviecatalog.presentation.view.FriendsScreen.FriendsActivity
 import com.example.moviecatalog.presentation.view.WelcomeScreen.WelcomeActivity
 import com.example.moviecatalog.presentation.viewModel.ProfileViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.ProfileViewModelFactory
-import android.graphics.Bitmap
-import android.net.Uri
-import android.provider.MediaStore
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.moviecatalog.common.Constants.BINDING_IS_NOT_INITIALIZED
-import com.example.moviecatalog.common.Constants.PICK_IMAGE_REQUEST
 import com.example.moviecatalog.data.model.main.UserShortModel
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {

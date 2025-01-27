@@ -53,7 +53,7 @@ class MoviesViewModel : ViewModel() {
             if (error == null) {
                 _movies.postValue(
                     if (isExcludeFirstFive)
-                        movies?.slice(5..5) ?: emptyList()
+                        movies?.drop(5) ?: emptyList()
                     else
                         movies ?: emptyList()
                 )

@@ -18,7 +18,7 @@ import com.example.moviecatalog.presentation.view.FeedActivity
 import com.example.moviecatalog.presentation.view.utils.AlertHelper
 import com.example.moviecatalog.presentation.viewModel.SignInViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.SignInViewModelFactory
-import com.example.moviecatalog.utils.EditTextHelper
+import com.example.moviecatalog.presentation.utils.EditTextHelper
 
 class SignInFragment : Fragment() {
 
@@ -56,7 +56,8 @@ class SignInFragment : Fragment() {
 
     private fun setupEditTextListeners() {
         EditTextHelper.hideIcon(binding.editTextLogin)
-        binding.editTextLogin.addTextChangedListener(EditTextHelper.createTextWatcher(
+        binding.editTextLogin.addTextChangedListener(
+            EditTextHelper.createTextWatcher(
             binding.editTextLogin,
             R.drawable.ic_clear
         ) { input ->
@@ -73,7 +74,8 @@ class SignInFragment : Fragment() {
         else
             R.drawable.ic_hide_password
 
-        binding.editTextPassword.addTextChangedListener(EditTextHelper.createTextWatcher(
+        binding.editTextPassword.addTextChangedListener(
+            EditTextHelper.createTextWatcher(
             binding.editTextPassword,
             passwordIcon
         ) { input ->

@@ -16,13 +16,13 @@ import com.example.moviecatalog.R
 import com.example.moviecatalog.common.Constants.BINDING_IS_NOT_INITIALIZED
 import com.example.moviecatalog.data.model.main.UserRegisterModel
 import com.example.moviecatalog.databinding.FragmentSignUpBinding
-import com.example.moviecatalog.domain.utils.DateHelper
-import com.example.moviecatalog.domain.utils.GenderToggleHandler
+import com.example.moviecatalog.presentation.utils.DateHelper
+import com.example.moviecatalog.presentation.utils.GenderToggleHandler
 import com.example.moviecatalog.presentation.view.FeedActivity
 import com.example.moviecatalog.presentation.view.utils.AlertHelper
 import com.example.moviecatalog.presentation.viewModel.SignUpViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.SignUpViewModelFactory
-import com.example.moviecatalog.utils.EditTextHelper
+import com.example.moviecatalog.presentation.utils.EditTextHelper
 
 @Suppress("DEPRECATION")
 class SignUpFragment : Fragment() {

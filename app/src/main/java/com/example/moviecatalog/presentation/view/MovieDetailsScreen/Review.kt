@@ -37,7 +37,7 @@ import coil.compose.rememberImagePainter
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.main.ReviewModel
 import com.example.moviecatalog.data.model.main.UserShortModel
-import com.example.moviecatalog.domain.utils.DateHelper
+import com.example.moviecatalog.presentation.utils.DateHelper
 import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)

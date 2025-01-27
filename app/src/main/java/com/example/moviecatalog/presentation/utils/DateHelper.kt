@@ -1,4 +1,4 @@
-package com.example.moviecatalog.domain.utils
+package com.example.moviecatalog.presentation.utils
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -7,6 +7,7 @@ import android.widget.DatePicker
 import android.widget.EditText
 import androidx.annotation.RequiresApi
 import com.example.moviecatalog.R
+import com.example.moviecatalog.domain.utils.ValidationUtils
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset

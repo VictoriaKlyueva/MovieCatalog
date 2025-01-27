@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.moviecatalog.data.model.main.ProfileModel
 import com.example.moviecatalog.databinding.FragmentPersonalInfoBinding
-import com.example.moviecatalog.domain.utils.DateHelper
+import com.example.moviecatalog.presentation.utils.DateHelper
 import com.example.moviecatalog.presentation.viewModel.ProfileViewModel
 import com.example.moviecatalog.presentation.viewModel.factory.ProfileViewModelFactory
 

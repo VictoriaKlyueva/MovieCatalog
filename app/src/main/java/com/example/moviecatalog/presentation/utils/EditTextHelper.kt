@@ -1,4 +1,4 @@
-package com.example.moviecatalog.utils
+package com.example.moviecatalog.presentation.utils
 
 import android.annotation.SuppressLint
 import android.text.Editable
