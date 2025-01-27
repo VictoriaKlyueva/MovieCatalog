@@ -30,6 +30,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.moviecatalog.common.Constants.BINDING_IS_NOT_INITIALIZED
 import com.example.moviecatalog.common.Constants.PICK_IMAGE_REQUEST
+import com.example.moviecatalog.data.model.main.UserShortModel
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -69,7 +70,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             dialog.setOnShowListener {
                 dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_corners_mini)
 
-                // Установка ширины и высоты диалога
                 val layoutParams = dialog.window?.attributes
                 layoutParams?.width = (resources.displayMetrics.widthPixels * 0.9).toInt()
                 layoutParams?.height = WindowManager.LayoutParams.WRAP_CONTENT
@@ -138,6 +138,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             requireActivity(),
             ProfileViewModelFactory(requireContext())
         )[ProfileViewModel::class.java]
+
+        viewModel.fetchFriends()
     }
 
     private fun setupButtons() {
@@ -159,11 +161,40 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
+    private fun loadFriendAvatars(friends: List<UserShortModel>) {
+        if (friends.isNotEmpty()) {
+            loadAvatar(binding.friendAvatar1, friends[0].avatar)
+        }
+        if (friends.size > 1) {
+            loadAvatar(binding.friendAvatar2, friends[1].avatar)
+        }
+        if (friends.size > 2) {
+            loadAvatar(binding.friendAvatar3, friends[2].avatar)
+        }
+    }
+
+    private fun loadAvatar(imageView: android.widget.ImageView, avatarUrl: String?) {
+        if (avatarUrl != null) {
+            println("должна поставиться аватарка")
+            Glide.with(binding.root.context)
+                .load(avatarUrl)
+                .transform(CircleCrop())
+                .into(imageView)
+        } else {
+            println("не должна поставиться аватарка")
+            imageView.setImageResource(R.drawable.avatar_default)
+        }
+    }
+
     private fun observeProfileData() {
         viewModel.profile.observe(viewLifecycleOwner) { profile ->
             profile?.let {
                 fillFields(it)
             }
+        }
+
+        viewModel.friends.observe(viewLifecycleOwner) { friends ->
+            loadFriendAvatars(friends)
         }
     }
 
