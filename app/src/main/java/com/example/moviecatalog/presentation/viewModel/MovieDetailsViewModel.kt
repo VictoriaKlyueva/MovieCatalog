@@ -101,6 +101,13 @@ class MovieDetailsViewModel(
         }
     }
 
+    fun getFriendsWhoLikedMovie(reviews: List<ReviewModel>): List<UserShortModel> {
+        val friendUserIds = _friends.value?.map { it.userId } ?: emptyList()
+        return reviews.filter { review ->
+            review.author?.userId?.let { it in friendUserIds } == true && review.rating > 6
+        }.mapNotNull { review -> review.author }
+    }
+
     fun addGenreToFavorites(genre: GenreModel) {
         viewModelScope.launch {
             addFavoriteGenresUseCase.execute(genre)
