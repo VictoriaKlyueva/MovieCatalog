@@ -3,6 +3,7 @@
 package com.example.moviecatalog.presentation.view.MovieDetailsScreen
 
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -37,6 +38,7 @@ import com.example.moviecatalog.R
 import androidx.compose.runtime.*
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -44,18 +46,22 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.window.Dialog
 import coil.compose.rememberImagePainter
 import com.example.moviecatalog.common.Constants
+import com.example.moviecatalog.common.Constants.REVIEW_TEXT_CANNOT_BE_EMPTY
 import com.example.moviecatalog.data.model.main.ReviewModel
 import com.example.moviecatalog.data.model.main.ReviewModifyModel
 import com.example.moviecatalog.data.model.main.UserShortModel
 import com.example.moviecatalog.domain.utils.DateHelper
 import com.example.moviecatalog.presentation.view.Components.GradientSwitch
 import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
+import kotlin.coroutines.coroutineContext
 import kotlin.math.min
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) {
+    val context = LocalContext.current
+
     var currentReviewIndex by remember { mutableIntStateOf(0) }
 
     var hasReview by remember { mutableStateOf(false) }
@@ -465,21 +471,29 @@ fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) 
                             shape = RoundedCornerShape(8.dp),
                             contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
                             onClick = {
-                                val review = ReviewModifyModel(
-                                    rating = sliderValue.toInt(),
-                                    reviewText = textFieldValue.text,
-                                    isAnonymous = switchState
-                                )
-
-                                if (hasReview) {
-                                    viewModel.editReview(review)
-                                }
+                                if (textFieldValue.text.isEmpty())
+                                    Toast.makeText(
+                                        context,
+                                        REVIEW_TEXT_CANNOT_BE_EMPTY,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 else {
-                                    viewModel.addReview(review)
-                                    hasReview = true
-                                }
 
-                                showDialog = false
+                                    val review = ReviewModifyModel(
+                                        rating = sliderValue.toInt(),
+                                        reviewText = textFieldValue.text,
+                                        isAnonymous = switchState
+                                    )
+
+                                    if (hasReview) {
+                                        viewModel.editReview(review)
+                                    } else {
+                                        viewModel.addReview(review)
+                                        hasReview = true
+                                    }
+
+                                    showDialog = false
+                                }
                             }
                         ) {
                             Text(

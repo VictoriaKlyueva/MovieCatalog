@@ -22,7 +22,7 @@ object Constants {
 
     const val PICK_IMAGE_REQUEST = 1
     const val MOVIE_ID = "MOVIE_ID"
-
+    const val REVIEW_TEXT_CANNOT_BE_EMPTY = "Текст отзыва не может быть пустым"
     const val MOVIES_NOT_FOUND = "Фильмы не найдены"
     const val MOVIE_RECEIVING_ERROR = "Ошибка получения фильма"
     const val SUCCESSFUL_LOGOUT = "Успешный выход из аккаунта"
