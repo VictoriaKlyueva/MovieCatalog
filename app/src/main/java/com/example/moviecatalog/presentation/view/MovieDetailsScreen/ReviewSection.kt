@@ -51,7 +51,6 @@ import com.example.moviecatalog.presentation.view.Components.GradientSwitch
 import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
 import kotlin.math.min
 
-@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ReviewSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>) {

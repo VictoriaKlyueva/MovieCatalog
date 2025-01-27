@@ -147,7 +147,6 @@ fun CustomSlider(
             }
         )
 
-        // Indicator
         val thumbPosition = with(LocalDensity.current) { (sliderValue / 10f * 265).dp }
 
         Box(
