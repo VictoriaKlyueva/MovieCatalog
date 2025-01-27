@@ -36,7 +36,9 @@ fun FriendsSection(viewModel: MovieDetailsViewModel, reviews: List<ReviewModel>)
         viewModel.countFriendsWhoLikedMovie(reviews)
     }
 
-    val friends = viewModel.friends.value ?: emptyList()
+    val friends = remember(reviews, viewModel.friends.value) {
+        viewModel.getFriendsWhoLikedMovie(reviews)
+    }
 
     if (friendsCount > 0) {
         Row(
