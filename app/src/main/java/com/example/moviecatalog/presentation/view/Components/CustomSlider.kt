@@ -114,13 +114,13 @@ fun CustomSlider(
 
                     // Adding points
                     for (i in 0..9) {
-                        val positionFraction = i / 8.5f
+                        val positionFraction = with(LocalDensity.current) { i / 8.5f }
                         Box(
                             modifier = Modifier
                                 .size(3.dp)
                                 .offset(x = with(LocalDensity.current) {
-                                    (positionFraction * 235).dp
-                                } - 125.dp)
+                                    (positionFraction * 235 - 125).dp
+                                } )
                                 .align(Alignment.Center)
                                 .background(
                                     brush =
@@ -153,9 +153,9 @@ fun CustomSlider(
         Box(
             modifier = Modifier
                 .wrapContentSize()
-                .offset(y = (-50).dp)
+                .offset(y = with(LocalDensity.current) { (-50).dp } )
                 .align(Alignment.Center)
-                .offset(x = thumbPosition - 132.dp)
+                .offset(x = with(LocalDensity.current) { thumbPosition - 132.dp } )
                 .padding(horizontal = 36.dp, vertical = 4.dp)
                 .background(
                     colorResource(id = R.color.dark_faded),
