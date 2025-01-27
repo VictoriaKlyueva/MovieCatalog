@@ -92,29 +92,35 @@ fun RatingSection(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            MovieServiceRating(
-                painterResource(id = R.drawable.ic_kinopoisk),
-                ratingKinopoisk?.toString() ?: EMPTY_STRING,
-                modifier = Modifier
-                    .width(IntrinsicSize.Min)
-                    .background(
-                        color = colorResource(id = R.color.dark),
-                        shape = RoundedCornerShape(8.dp)
-                    )
-            )
+            if(ratingKinopoisk != null) {
+                MovieServiceRating(
+                    painterResource(id = R.drawable.ic_kinopoisk),
+                    ratingKinopoisk.toString(),
+                    modifier = Modifier
+                        .width(IntrinsicSize.Min)
+                        .background(
+                            color = colorResource(id = R.color.dark),
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                )
+            }
 
-            Spacer(modifier = Modifier.width(8.dp))
+            if(ratingKinopoisk != null && ratingImdb != null) {
+                Spacer(modifier = Modifier.width(8.dp))
+            }
 
-            MovieServiceRating(
-                painterResource(id = R.drawable.ic_imdb),
-                ratingImdb?.toString() ?: EMPTY_STRING,
-                modifier = Modifier
-                    .width(IntrinsicSize.Min)
-                    .background(
-                        color = colorResource(id = R.color.dark),
-                        shape = RoundedCornerShape(8.dp)
-                    )
-            )
+            if(ratingImdb != null) {
+                MovieServiceRating(
+                    painterResource(id = R.drawable.ic_imdb),
+                    ratingImdb.toString(),
+                    modifier = Modifier
+                        .width(IntrinsicSize.Min)
+                        .background(
+                            color = colorResource(id = R.color.dark),
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                )
+            }
         }
     }
 }

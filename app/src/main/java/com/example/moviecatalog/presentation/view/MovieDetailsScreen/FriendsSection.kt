@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.model.main.ReviewModel
-import com.example.moviecatalog.presentation.viewModel.FriendsViewModel
 import com.example.moviecatalog.presentation.viewModel.MovieDetailsViewModel
 
 @Composable
